@@ -47,13 +47,12 @@ function createItem(parent, {title, description}) {
   descriptionP.className = "topic-item-description";
   descriptionP.textContent = description;
   
-  const moreBtn = document.createElement("button");
-  moreBtn.className = "topic-item-more-btn";
-  moreBtn.textContent = ">";
-  moreBtn.addEventListener("click", async () => {
+  itemLi.addEventListener("click", async () => {
     for (const c of itemLi.parentElement.children) {
       c.classList.remove("selected");
+      c.classList.add("not-selected");
     }
+    itemLi.classList.remove("not-selected")
     itemLi.classList.add("selected")
     removeSiblings(parent);
 
@@ -73,15 +72,14 @@ function createItem(parent, {title, description}) {
   
   itemLi.append(titleP);
   itemLi.append(descriptionP);
-  itemLi.append(moreBtn);
   
   return itemLi;
 }
 
 function createMoreItem() {
-  const moreItem = document.createElement("li");
+  const moreItem = document.createElement("div");
   const moreButton = document.createElement("button");
-  moreButton.textContent = "More...";
+  moreButton.textContent = "more ideas...";
   moreItem.className = "topic-more";
   moreItem.append(moreButton);
   return moreItem;
@@ -93,10 +91,9 @@ function addTopics(section, result) {
   for (const item of result) {
     ul.append(createItem(section, item));
   }
-  ul.append(createMoreItem());
-
   section.removeChild(section.children[0]);
   section.append(ul);  
+  section.append(createMoreItem());
 }
 
 async function fakeSearch(topic, previous=[]) {
