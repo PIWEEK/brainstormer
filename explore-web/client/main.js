@@ -6,6 +6,8 @@ const main = document.getElementsByTagName("main")[0];
 
 const search = apiSearch;
 const searchMore = apiSearchMore;
+// const search = fakeSearch;
+// const searchMore = fakeSearchMore;
 
 let topic = "";
 
@@ -126,7 +128,7 @@ function createItem(parent, {title, description}) {
 function createMoreItem(section) {
   const moreItem = document.createElement("div");
   const moreButton = document.createElement("button");
-  moreButton.textContent = "more ideas...";
+  moreButton.textContent = "+ More ideas";
   moreItem.className = "topic-more";
   moreItem.append(moreButton);
 
