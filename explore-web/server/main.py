@@ -107,7 +107,7 @@ def more_prompt(topic, previous, current, user_inputs):
 
 def parse_result(completion):
     lines = completion.choices[0].text.split("\n")
-    result = [{"title": a.strip(), "description": b.strip()} for a, b in [line.split("|") for line in lines]]
+    result = [{"title": a.strip(), "description": b.strip()} for a, b in [line.split("|") for line in lines if line.strip()]]
     return result
 
 # Endpoint for generating text with OpenAI's GPT-3
