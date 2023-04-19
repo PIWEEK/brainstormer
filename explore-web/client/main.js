@@ -5,6 +5,7 @@ searchForm.addEventListener("submit", doSearch);
 const main = document.getElementsByTagName("main")[0];
 
 const search = apiSearch;
+const searchMore = apiSearchMore;
 
 let topic = "";
 
@@ -47,7 +48,7 @@ function createIconSVG() {
   return svg;
 }
 
-function createMoreLikeThisForm() {
+function createMoreLikeThisForm(parent) {
   const form = document.createElement("form");
   form.className = "topic-select";
   
@@ -64,12 +65,14 @@ function createMoreLikeThisForm() {
     const selectedItems = document.querySelectorAll(".topic-item.selected");
     let previous = [];
     for (const item of selectedItems) {
+      const input = item.children[2].children[0].value;
       previous.push({
         "title": item.children[0].textContent,
         "description": item.children[1].textContent,
+        "input": (input !== "") ? input : null
       });
     }
-    
+    removeSiblings(parent);
     const section = createSection();
     const result = await search(topic, previous);
     addTopics(section, result);
@@ -110,11 +113,8 @@ function createItem(parent, {title, description}) {
       itemLi.classList.add("selected")
       removeSiblings(parent);
 
-      itemLi.append(createMoreLikeThisForm());
-
-      
+      itemLi.append(createMoreLikeThisForm(parent));
     }
-    
   });
   
   itemLi.append(titleP);
@@ -123,29 +123,73 @@ function createItem(parent, {title, description}) {
   return itemLi;
 }
 
-function createMoreItem() {
+function createMoreItem(section) {
   const moreItem = document.createElement("div");
   const moreButton = document.createElement("button");
   moreButton.textContent = "more ideas...";
   moreItem.className = "topic-more";
   moreItem.append(moreButton);
+
+  moreButton.addEventListener("click", async (e) => {
+    removeSiblings(section);
+
+    for (const c of section.children[0].children) {
+      c.classList.remove("selected");
+      c.classList.remove("not-selected");
+
+      const selectChild = c.querySelector(".topic-select");
+      if (selectChild) {
+        c.removeChild(selectChild);
+      }
+    }
+
+    const selectedItems = document.querySelectorAll(".topic-item.selected");
+    let previous = [];
+    for (const item of selectedItems) {
+      const input = item.children[2].children[0].value;
+      previous.push({
+        "title": item.children[0].textContent,
+        "description": item.children[1].textContent,
+        "input": (input !== "") ? input : null
+      });
+    }
+
+    const currentItems = document.querySelectorAll(".topic-item.selected");
+    let current = [];
+    for (const item of section.children[0].children) {
+      current.push({
+        "title": item.children[0].textContent,
+        "description": item.children[1].textContent
+      });
+    }
+
+    const result = await searchMore(topic, current, previous);
+    addTopics(section, result);
+  });
   return moreItem;
 }
 
 function addTopics(section, result) {
-  const ul = document.createElement("ul");
+  let ul;
 
-  for (const item of result) {
-    ul.append(createItem(section, item));
+  if (section.children[0] && section.children[0].tagName === "UL") {
+    ul = section.children[0];
+  } else {
+    section.removeChild(section.children[0]);
+    ul = document.createElement("ul");
+    section.appendChild(ul);  
+    section.appendChild(createMoreItem(section));
   }
-  section.removeChild(section.children[0]);
-  section.append(ul);  
-  section.append(createMoreItem());
+  
+  for (const item of result) {
+    ul.appendChild(createItem(section, item));
+  }
+  
 }
 
 async function fakeSearch(topic, previous=[]) {
   console.log("FAKE", topic, previous);
-  await sleep(1000);
+  //await sleep(1000);
 
   return [
     {
@@ -172,6 +216,35 @@ async function fakeSearch(topic, previous=[]) {
   ];
 }
 
+async function fakeSearchMore(topic, current, previous=[]) {
+  console.log("FAKE", topic, current, previous);
+  await sleep(1000);
+
+  return [
+    {
+      "title": "More 1",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
+    },
+    {
+      "title": "More 2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
+    },
+    {
+      "title": "More 3",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
+    },
+    {
+      "title": "More 4",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
+    },
+    {
+      "title": "More 5",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
+    },
+    
+  ];
+}
+
 async function apiSearch(topic, previous=[]) {
   console.log("SEARCH", topic, previous)
   const response = await fetch("http://localhost:5000/next", {
@@ -187,9 +260,27 @@ async function apiSearch(topic, previous=[]) {
   });
 
   const responseJson = await response.json();
-  console.log(responseJson);
   const result = responseJson["result"]
-  console.log(result);
+  return result;
+}
+
+async function apiSearchMore(topic, current, previous) {
+  console.log("MORE", topic, current, previous)
+  const response = await fetch("http://localhost:5000/more", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      topic: topic,
+      current: current,
+      previous: previous,
+    })
+  });
+
+  const responseJson = await response.json();
+  const result = responseJson["result"]
   return result;
 }
 
@@ -217,7 +308,6 @@ async function doSearch(event) {
 
   const section = createSection();
   const result = await search(topic);
-  console.log(result);
   addTopics(section, result);
 }
 
