@@ -129,6 +129,7 @@ main {
 .topics {
   min-width: 335px;
   background: white;
+  padding-bottom: 1rem;
 }
 
 .topic-item {
@@ -165,6 +166,7 @@ svg {
 .topic-more {
   width: 100%;
   text-align: center;
+  padding: 0 1rem;
 }
 
 .topic-more > button {

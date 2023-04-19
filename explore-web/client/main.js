@@ -4,6 +4,8 @@ searchForm.addEventListener("submit", doSearch);
 
 const main = document.getElementsByTagName("main")[0];
 
+const search = apiSearch;
+
 let topic = "";
 
 function sleep(time) {
@@ -11,7 +13,7 @@ function sleep(time) {
 }
 
 function cleanContent() {
-  const children = main.children;
+  const children = [...main.children];
   for (const child of children) {
     main.removeChild(child);
   }
@@ -35,6 +37,51 @@ function removeSiblings(node) {
   }
 }
 
+function createIconSVG() {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", "M21.061,11.077,3.741,4.157a.994.994,0,0,0-1.17.32,1,1,0,0,0-.01,1.22l4.49,6a.525.525,0,0,1-.01.62L2.511,18.3a1.02,1.02,0,0,0,0,1.22,1,1,0,0,0,.8.4,1.021,1.021,0,0,0,.38-.07l17.36-6.9a1.006,1.006,0,0,0,.01-1.87ZM3.371,5.087l16.06,6.42H8.061a1.329,1.329,0,0,0-.21-.41Zm-.06,13.82,4.53-5.98a1.212,1.212,0,0,0,.22-.42h11.38Z");
+  svg.appendChild(path);
+  return svg;
+}
+
+function createMoreLikeThisForm() {
+  const form = document.createElement("form");
+  form.className = "topic-select";
+  
+  const input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("placeholder", "More like this");
+
+  const button = document.createElement("button");
+  button.className = "submit-btn";
+  button.setAttribute("type", "submit");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const selectedItems = document.querySelectorAll(".topic-item.selected");
+    let previous = [];
+    for (const item of selectedItems) {
+      previous.push({
+        "title": item.children[0].textContent,
+        "description": item.children[1].textContent,
+      });
+    }
+    
+    const section = createSection();
+    const result = await search(topic, previous);
+    addTopics(section, result);
+  });
+
+  const svg = createIconSVG();
+  button.append(svg);
+  form.append(input);
+  form.append(button);
+  return form;
+}
+
 function createItem(parent, {title, description}) {
   const itemLi = document.createElement("li");
   itemLi.className = "topic-item";
@@ -48,26 +95,26 @@ function createItem(parent, {title, description}) {
   descriptionP.textContent = description;
   
   itemLi.addEventListener("click", async () => {
-    for (const c of itemLi.parentElement.children) {
-      c.classList.remove("selected");
-      c.classList.add("not-selected");
-    }
-    itemLi.classList.remove("not-selected")
-    itemLi.classList.add("selected")
-    removeSiblings(parent);
+    
+    if (!itemLi.classList.contains("selected")) {
+      for (const c of itemLi.parentElement.children) {
+        c.classList.remove("selected");
+        c.classList.add("not-selected");
 
-    const selectedItems = document.querySelectorAll(".topic-item.selected");
-    let previous = [];
-    for (const item of selectedItems) {
-      previous.push({
-        "title": item.children[0].textContent,
-        "description": item.children[1].textContent,
-      });
+        const selectChild = c.querySelector(".topic-select");
+        if (selectChild) {
+          c.removeChild(selectChild);
+        }
+      }
+      itemLi.classList.remove("not-selected")
+      itemLi.classList.add("selected")
+      removeSiblings(parent);
+
+      itemLi.append(createMoreLikeThisForm());
+
+      
     }
     
-    const section = createSection();
-    const result = await search(topic, previous);
-    addTopics(section, result);
   });
   
   itemLi.append(titleP);
@@ -125,7 +172,7 @@ async function fakeSearch(topic, previous=[]) {
   ];
 }
 
-async function search(topic, previous=[]) {
+async function apiSearch(topic, previous=[]) {
   console.log("SEARCH", topic, previous)
   const response = await fetch("http://localhost:5000/next", {
     method: "POST",
