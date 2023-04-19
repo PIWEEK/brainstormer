@@ -80,7 +80,8 @@ li {
 
 ul {
   height: calc(100% - 45px);
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 1rem;
 }
 
@@ -149,7 +150,6 @@ body.exploration {
   position: relative;
   border: 2px solid var(--anti-flash-white);
   width: 300px;
-  margin: 1px;
   margin-bottom: calc(1rem + 1px);
   cursor: pointer;
 }
@@ -210,8 +210,6 @@ svg {
 }
 
 .topic-item:hover {
-  margin: 0;
-  margin-bottom: 1rem;
   border: 2px solid var(--robin-egg-blue);
 }
 
