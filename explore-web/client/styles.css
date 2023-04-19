@@ -92,6 +92,10 @@ header {
   width: 800px;
 }
 
+p {
+  line-height: 1.5;
+}
+
 header form {
   display: flex;
   gap: 0.5rem;
@@ -252,4 +256,59 @@ svg {
   position: absolute;
   right: 0.25rem;
   top: 0.25rem;
+}
+
+/* STARTING POINT */
+.start {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+}
+
+.start-img {
+background-image: url('images/start-img.png');
+  background-size: cover;
+  background-position: center;
+  max-width: 40%;
+  width: 100%;
+}
+
+.start-form {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: 30px;
+}
+
+.start-form-inside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  margin: auto 0;
+}
+
+.main-logo {
+  align-items: center;
+  display: flex;
+}
+
+.main-logo span {
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.main-logo img {
+  width: 64px;
+  margin-right: 10px;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
