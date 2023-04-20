@@ -1,27 +1,33 @@
+import api from "./api.js";
+
 // Global State
 
 let topic = "";
 let firstSearch = true;
 
+function init() {
+  // Form handlers
+  const searchForms = document.querySelectorAll(".searchForm");
+  for (const searchForm of searchForms) {
+    searchForm.addEventListener("submit", async () => {
+      event.preventDefault();
+      await doSearchTopic();
+    });
+  }
 
-// Form handlers
-const searchForms = document.querySelectorAll(".searchForm");
-for (const searchForm of searchForms) {
-  searchForm.addEventListener("submit", doSearch);
+  const logoLink = document.querySelector(".main-logo-link");
+  logoLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    location.reload();
+  })
 }
-
-const logoLink = document.querySelector(".main-logo-link");
-logoLink.addEventListener("click", (e) => {
-  e.preventDefault();
-  location.reload();
-})
 
 const main = document.getElementsByTagName("main")[0];
 
-const search = apiSearch;
-const searchMore = apiSearchMore;
-//const search = fakeSearch;
-//const searchMore = fakeSearchMore;
+const search = api.search;
+const searchMore = api.searchMore;
+//const search = api.fakeSearch;
+//const searchMore = api.fakeSearchMore;
 
 
 function sleep(time) {
@@ -63,6 +69,98 @@ function createIconSVG() {
   return svg;
 }
 
+async function doSearchTopic() {
+  const input = event.target.querySelector("input");
+  topic = input.value;
+
+  cleanContent();
+
+  if (firstSearch) {
+    document.body.classList.add("exploration");
+    document.querySelector("header").style["display"] = "flex";
+    const searchForms = document.querySelectorAll(".searchForm");
+    for (const searchForm of searchForms) {
+      searchForm.children[0].value = topic;
+    }
+    firstSearch = false;
+  }
+  
+  const section = createSection();
+  const result = await search(topic);
+  addTopics(section, result);
+}
+
+async function doExploreItem(section) {
+  const selectedItems = document.querySelectorAll(".topic-item.selected");
+  let previous = [];
+  for (const item of selectedItems) {
+    const input = item.children[2].children[0].value;
+    previous.push({
+      "title": item.children[0].textContent,
+      "description": item.children[1].textContent,
+      "input": (input !== "") ? input : null
+    });
+  }
+  removeSiblings(section);
+  const newSection = createSection();
+  const result = await search(topic, previous);
+  addTopics(newSection, result);
+}
+
+async function doMoreItem(section) {
+  removeSiblings(section);
+
+  for (const c of section.children[0].children) {
+    c.classList.remove("selected");
+    c.classList.remove("not-selected");
+
+    const selectChild = c.querySelector(".topic-select");
+    if (selectChild) {
+      c.removeChild(selectChild);
+    }
+  }
+
+  const selectedItems = document.querySelectorAll(".topic-item.selected");
+  let previous = [];
+  for (const item of selectedItems) {
+    const input = item.children[2].children[0].value;
+    previous.push({
+      "title": item.children[0].textContent,
+      "description": item.children[1].textContent,
+      "input": (input !== "") ? input : null
+    });
+  }
+
+  const currentItems = document.querySelectorAll(".topic-item.selected");
+  let current = [];
+  for (const item of section.children[0].children) {
+    current.push({
+      "title": item.children[0].textContent,
+      "description": item.children[1].textContent
+    });
+  }
+
+  const result = await searchMore(topic, current, previous);
+  addTopics(section, result);
+  section.querySelector(".topic-item:last-child").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+}
+
+function selectItem(section, itemLi) {
+  for (const c of itemLi.parentElement.children) {
+    c.classList.remove("selected");
+    c.classList.add("not-selected");
+
+    const selectChild = c.querySelector(".topic-select");
+    if (selectChild) {
+      c.removeChild(selectChild);
+    }
+  }
+  itemLi.classList.remove("not-selected")
+  itemLi.classList.add("selected")
+  removeSiblings(section);
+  itemLi.append(createMoreLikeThisForm(section));
+}
+
 function createMoreLikeThisForm(parent) {
   const form = document.createElement("form");
   form.className = "topic-select";
@@ -77,20 +175,7 @@ function createMoreLikeThisForm(parent) {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const selectedItems = document.querySelectorAll(".topic-item.selected");
-    let previous = [];
-    for (const item of selectedItems) {
-      const input = item.children[2].children[0].value;
-      previous.push({
-        "title": item.children[0].textContent,
-        "description": item.children[1].textContent,
-        "input": (input !== "") ? input : null
-      });
-    }
-    removeSiblings(parent);
-    const section = createSection();
-    const result = await search(topic, previous);
-    addTopics(section, result);
+    await doExploreItem(parent);
   });
 
   const svg = createIconSVG();
@@ -112,23 +197,9 @@ function createItem(parent, {title, description}) {
   descriptionP.className = "topic-item-description";
   descriptionP.textContent = description;
   
-  itemLi.addEventListener("click", async () => {
-    
+  itemLi.addEventListener("click", () => {
     if (!itemLi.classList.contains("selected")) {
-      for (const c of itemLi.parentElement.children) {
-        c.classList.remove("selected");
-        c.classList.add("not-selected");
-
-        const selectChild = c.querySelector(".topic-select");
-        if (selectChild) {
-          c.removeChild(selectChild);
-        }
-      }
-      itemLi.classList.remove("not-selected")
-      itemLi.classList.add("selected")
-      removeSiblings(parent);
-
-      itemLi.append(createMoreLikeThisForm(parent));
+      selectItem(parent, itemLi);
     }
   });
   
@@ -146,41 +217,7 @@ function createMoreItem(section) {
   moreItem.append(moreButton);
 
   moreButton.addEventListener("click", async (e) => {
-    removeSiblings(section);
-
-    for (const c of section.children[0].children) {
-      c.classList.remove("selected");
-      c.classList.remove("not-selected");
-
-      const selectChild = c.querySelector(".topic-select");
-      if (selectChild) {
-        c.removeChild(selectChild);
-      }
-    }
-
-    const selectedItems = document.querySelectorAll(".topic-item.selected");
-    let previous = [];
-    for (const item of selectedItems) {
-      const input = item.children[2].children[0].value;
-      previous.push({
-        "title": item.children[0].textContent,
-        "description": item.children[1].textContent,
-        "input": (input !== "") ? input : null
-      });
-    }
-
-    const currentItems = document.querySelectorAll(".topic-item.selected");
-    let current = [];
-    for (const item of section.children[0].children) {
-      current.push({
-        "title": item.children[0].textContent,
-        "description": item.children[1].textContent
-      });
-    }
-
-    const result = await searchMore(topic, current, previous);
-    addTopics(section, result);
-    section.querySelector(".topic-item:last-child").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+    await doMoreItem(section);
   });
   return moreItem;
 }
@@ -200,104 +237,6 @@ function addTopics(section, result) {
   for (const item of result) {
     ul.appendChild(createItem(section, item));
   }
-  
-}
-
-async function fakeSearch(topic, previous=[]) {
-  console.log("FAKE", topic, previous);
-  //await sleep(1000);
-
-  return [
-    {
-      "title": "Topic 1",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "Topic 2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "Topic 3",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "Topic 4",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "Topic 5",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    
-  ];
-}
-
-async function fakeSearchMore(topic, current, previous=[]) {
-  console.log("FAKE", topic, current, previous);
-  await sleep(1000);
-
-  return [
-    {
-      "title": "More 1",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "More 2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "More 3",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "More 4",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    {
-      "title": "More 5",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at metus aliquam, feugiat leo id, ullamcorper urna. Etiam auctor justo augue, nec feugiat erat sagittis lacinia.",
-    },
-    
-  ];
-}
-
-async function apiSearch(topic, previous=[]) {
-  console.log("SEARCH", topic, previous)
-  const response = await fetch("http://localhost:5000/next", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      topic: topic,
-      previous: previous,
-    })
-  });
-
-  const responseJson = await response.json();
-  const result = responseJson["result"]
-  return result;
-}
-
-async function apiSearchMore(topic, current, previous) {
-  console.log("MORE", topic, current, previous)
-  const response = await fetch("http://localhost:5000/more", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      topic: topic,
-      current: current,
-      previous: previous,
-    })
-  });
-
-  const responseJson = await response.json();
-  const result = responseJson["result"]
-  return result;
 }
 
 function createSection() {
@@ -307,36 +246,10 @@ function createSection() {
 
   const loader = document.createElement("div")
   loader.className = "loader";
-  loader.textContent = "loading...";
   section.append(loader);
 
   section.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   return section;
 }
 
-async function doSearch(event) {
-  event.preventDefault();
-
-  const input = event.target.querySelector("input");
-  topic = input.value;
-
-  cleanContent();
-
-  if (firstSearch) {
-    document.body.classList.add("exploration");
-
-    document.querySelector("header").style["display"] = "flex";
-
-    for (const searchForm of searchForms) {
-      searchForm.children[0].value = topic;
-    }
-
-    firstSearch = false;
-  }
-  
-  const section = createSection();
-  const result = await search(topic);
-  addTopics(section, result);
-}
-
-
+init();
