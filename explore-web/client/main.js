@@ -94,10 +94,11 @@ async function doExploreItem(section) {
   const selectedItems = document.querySelectorAll(".topic-item.selected");
   let previous = [];
   for (const item of selectedItems) {
-    const input = item.children[2].children[0].value;
+    const input = item.children[3].children[0].value;
     previous.push({
       "title": item.children[0].textContent,
       "description": item.children[1].textContent,
+      "keywords": item.children[2].textContent,
       "input": (input !== "") ? input : null
     });
   }
@@ -127,6 +128,7 @@ async function doMoreItem(section) {
     previous.push({
       "title": item.children[0].textContent,
       "description": item.children[1].textContent,
+      "keywords": item.children[2].textContent,
       "input": (input !== "") ? input : null
     });
   }
@@ -136,7 +138,8 @@ async function doMoreItem(section) {
   for (const item of section.children[0].children) {
     current.push({
       "title": item.children[0].textContent,
-      "description": item.children[1].textContent
+      "description": item.children[1].textContent,
+      "keywords": item.children[2].textContent
     });
   }
 
@@ -185,7 +188,7 @@ function createMoreLikeThisForm(parent) {
   return form;
 }
 
-function createItem(parent, {title, description}) {
+function createItem(parent, {title, description, keywords}) {
   const itemLi = document.createElement("li");
   itemLi.className = "topic-item";
 
@@ -197,6 +200,10 @@ function createItem(parent, {title, description}) {
   descriptionP.className = "topic-item-description";
   descriptionP.textContent = description;
   
+  const keywordsP = document.createElement("p");
+  keywordsP.className = "topic-item-keywords";
+  keywordsP.textContent = keywords;
+  
   itemLi.addEventListener("click", () => {
     if (!itemLi.classList.contains("selected")) {
       selectItem(parent, itemLi);
@@ -205,6 +212,7 @@ function createItem(parent, {title, description}) {
   
   itemLi.append(titleP);
   itemLi.append(descriptionP);
+  itemLi.append(keywordsP);
   
   return itemLi;
 }

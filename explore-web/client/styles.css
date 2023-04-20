@@ -177,6 +177,14 @@ body.exploration {
   margin: 0.5rem 0;
 }
 
+.topic-item-keywords {
+  font-size: 14px;
+  line-height: 1.2;
+  margin: 0.5rem 0;
+  font-weight: 700;
+  color: var(--robin-egg-blue);
+}
+
 svg {
   width: 100%;
   height: 100%;

@@ -20,11 +20,11 @@ This document keeps track of possible ideas for a brainstorming session.
 
 The ideas list is a well formed CSV document. Where the columns will be separated by the character `|` like:
 
-title | description
-First title | First description
-Second title | Second description
+title | description | keywords
+First title | First description | First keywords
+Second title | Second description | Second keywords
 
-The document will have a list of ideas and every idea will have the columns "title" with a name for the idea and "description" with the idea description.
+The document will have a list of ideas and every idea will have the columns "title" with a name for the idea and "description" with the idea description and "keywords" with a list of three key concepts of the idea.   The "keywords" will be separated by " · ", like in this example: "Music · Concert · Hits".
 
 ## Ideas for: {topic}
 
@@ -35,11 +35,11 @@ The document will have a list of ideas and every idea will have the columns "tit
 
 {question_text}
 
-title | description
+title | description | keywords
 """
 
 previous_text_template = """
-title | description
+title | description | keywords
 {}
 """
 
@@ -52,27 +52,27 @@ more_items_template = """
 
 This are the next 5 ideas. But way crazier:
 
-title | description
+title | description | keywords
 """
 
 def parse_current(data):
     current = []
     if data.get('current', None):
-        current = ["{}|{}".format(i["title"], i["description"]) for i in data['current']]
+        current = ["{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['current']]
 
     return current
 
 def parse_previous(data):
     previous = []
     if data.get('previous', None):
-        previous = ["{}|{}".format(i["title"], i["description"]) for i in data['previous']]
+        previous = ["{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['previous']]
 
     return previous
     
 def parse_user_inputs(data):
     user_inputs = []
     if data.get("previous", None):
-        user_inputs = ["\"{}\" {}".format(i["title"], i["input"]) for i in data['previous'] if i.get("input", None)]
+        user_inputs = ["\"{}\" {}".format(i["title"], i["input"], i["keywords"]) for i in data['previous'] if i.get("input", None)]
     return user_inputs
     
 def next_prompt(topic, previous, user_inputs):
@@ -107,7 +107,7 @@ def more_prompt(topic, previous, current, user_inputs):
 
 def parse_result(completion):
     lines = completion.choices[0].text.split("\n")
-    result = [{"title": a.strip(), "description": b.strip()} for a, b in [line.split("|") for line in lines if line.strip()]]
+    result = [{"title": a.strip(), "description": b.strip(), "keywords": c.strip()} for a, b, c in [line.split("|") for line in lines if line.strip()]]
     return result
 
 # Endpoint for generating text with OpenAI's GPT-3
