@@ -260,6 +260,22 @@ function createLoader(parent) {
   const loader = document.createElement("div")
   loader.className = "loader";
   parent.append(loader);
+
+  const timeDiv = document.createElement("div");
+  timeDiv.className = "time";
+  timeDiv.textContent = "0s";
+  loader.appendChild(timeDiv)
+
+  console.log(loader);
+  window.lastloader = loader;
+
+  let interval;
+  const start = performance.now();
+  interval = setInterval(() => {
+    const end = performance.now();
+    timeDiv.textContent = `${new Number((end - start)/1000).toFixed(1)}s`
+  }, 100);
+  
   return loader;
 }
 

@@ -63,7 +63,7 @@ async function summary(topic, current) {
 
 async function fakeSearch(topic, previous=[]) {
   console.log("FAKE", topic, previous);
-  await sleep(1000);
+  await sleep(2000);
 
   return [
     {
@@ -92,7 +92,7 @@ async function fakeSearch(topic, previous=[]) {
 
 async function fakeSearchMore(topic, current, previous=[]) {
   console.log("FAKE", topic, current, previous);
-  await sleep(1000);
+  await sleep(2000);
 
   return [
     {

@@ -280,6 +280,19 @@ svg {
   border-radius: 50%;
   margin: 20% auto;
   color: transparent;
+  position: relative;
+}
+
+.loader .time {
+  position: absolute;
+  z-index: 100;
+  color: white;
+  font-size: 8px;
+  text-align: center;
+  width: 81px;
+  top: 68px;
+  left: 0;
+  font-family: monospace;
 }
 
 .submit-btn {
