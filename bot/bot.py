@@ -87,15 +87,17 @@ class UserData:
 
   def accept_current_option(self, id, extra_text=""):
     user = self.get_user(id)
-    option = user['options'].pop(0)
-    user['good'].append(option)
-    if extra_text:
-      user['extra'].append(extra_text)
+    if (user['options']):
+      option = user['options'].pop(0)
+      user['good'].append(option)
+      if extra_text:
+        user['extra'].append(extra_text)
 
   def deny_current_option(self, id):
     user = self.get_user(id)
-    option = user['options'].pop(0)
-    user['bad'].append(option)
+    if (user['options']):
+      option = user['options'].pop(0)
+      user['bad'].append(option)
 
   def has_options(self, id):
     user = self.get_user(id)
@@ -156,7 +158,7 @@ def suggest_next_option(user_id, prompt=False):
     user_data.prompt(user_id)
   
   option = user_data.current_option(user_id)
-  bot.send_message(user_id, option + " /yes /no")
+  bot.send_message(user_id, option + " (/yes /no)")
 
 @bot.message_handler(commands=['restart'])
 def restart(message):  

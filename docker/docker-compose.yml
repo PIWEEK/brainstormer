@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  nginx:
+    depends_on:
+      - python
+    
+    image: nginx:latest
+    volumes:
+      - ../explore-web/client:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8001:80"
+    restart: unless-stopped
+
+  python:
+    image: python:3
+    volumes:
+      - ../explore-web/:/explore-web
+      - ./docker-entrypoint.sh:/docker-entrypoint.sh
+    ports:
+      - "5000:5000"
+    environment:
+      - BRAINSTORMER_OPENAI_KEY=${BRAINSTORMER_OPENAI_KEY}
+    entrypoint: /docker-entrypoint.sh
+     
