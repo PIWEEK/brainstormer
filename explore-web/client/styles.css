@@ -96,7 +96,8 @@ p {
   line-height: 1.5;
 }
 
-header form {
+header form,
+.searchForm {
   display: flex;
   gap: 0.5rem;
   align-items: baseline;
@@ -106,7 +107,8 @@ header form {
   margin: 0 auto;
 }
 
-header input {
+header input,
+.search-input {
   flex-grow: 1;
   font-size: 20px;
   font-weight: 700;
@@ -116,11 +118,17 @@ header input {
   height: 55px;
 }
 
-header .submit-btn {
+.start-form-inside .search-input {
+  background-color: var(--alice-blue);
+  margin-top: 3rem;
+}
+
+header .submit-btn,
+.searchForm .submit-btn {
   align-self: normal;
   position: absolute;
   right: 8px;
-  top: 8px;
+  bottom: 8px;
 }
 
 main {
@@ -321,8 +329,9 @@ background-image: url('images/start-img.png');
 }
 
 h2 {
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: light;
+  font-size: 40px;
+  line-height: 1.4;
   margin-bottom: 20px;
 }
 
