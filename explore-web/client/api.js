@@ -1,3 +1,7 @@
+function sleep(time) {
+  return new Promise(res => setTimeout(res, time));
+}
+
 async function search(topic, previous=[]) {
   console.log("SEARCH", topic, previous);
   const response = await fetch("http://localhost:5000/api/next", {
@@ -59,7 +63,7 @@ async function summary(topic, current) {
 
 async function fakeSearch(topic, previous=[]) {
   console.log("FAKE", topic, previous);
-  //await sleep(500);
+  await sleep(1000);
 
   return [
     {
@@ -88,7 +92,7 @@ async function fakeSearch(topic, previous=[]) {
 
 async function fakeSearchMore(topic, current, previous=[]) {
   console.log("FAKE", topic, current, previous);
-  //await sleep(500);
+  await sleep(1000);
 
   return [
     {
@@ -115,6 +119,7 @@ async function fakeSearchMore(topic, current, previous=[]) {
 }
 
 async function fakeSummary(topic, current) {
+  await sleep(2000);
   return `
 ## Pros and cons for every idea
 

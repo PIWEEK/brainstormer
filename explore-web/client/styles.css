@@ -198,6 +198,14 @@ svg {
   width: 100%;
   text-align: center;
   padding: 0 1rem;
+  position: relative;
+}
+
+.topic-more .loader {
+  position: absolute;
+  top: -30px;
+  margin: 0;
+  left: 117px;
 }
 
 .topic-more > button,
@@ -224,6 +232,12 @@ svg {
 .topic-more:hover > button,
 .primary-button:hover {
   background: var(--caribbean-current);
+}
+
+.topic-more > button[disabled],
+.primary-button[disabled] {
+  background: var(--anti-flash-white);
+  cursor: initial;
 }
 
 .secondary-button {
@@ -380,6 +394,7 @@ h2 {
 .summary {
   display: flex;
   flex-direction: column;
+  width: 700px;
   max-width: 700px;
 }
 

@@ -34,13 +34,9 @@ const search = api.search;
 const searchMore = api.searchMore;
 const fetchSummary = api.summary;
 
-//const search = api.fakeSearch;
-//const searchMore = api.fakeSearchMore;
-//const fetchSummary = api.fakeSummary;
-
-function sleep(time) {
-  return new Promise(res => setTimeout(res, time));
-}
+// const search = api.fakeSearch;
+// const searchMore = api.fakeSearchMore;
+// const fetchSummary = api.fakeSummary;
 
 function cleanContent() {
   const children = [...main.children];
@@ -232,7 +228,13 @@ function createMoreItem(section) {
   moreItem.append(moreButton);
 
   moreButton.addEventListener("click", async (e) => {
-    await doMoreItem(section);
+    if (!moreButton.disabled) {
+      moreButton.disabled = true;
+      const loader = createLoader(moreItem);
+      await doMoreItem(section);
+      loader.remove();
+      moreButton.disabled = false;
+    }
   });
   return moreItem;
 }
@@ -254,17 +256,48 @@ function addTopics(section, result) {
   }
 }
 
+function createLoader(parent) {
+  const loader = document.createElement("div")
+  loader.className = "loader";
+  parent.append(loader);
+  return loader;
+}
+
 function createSection() {
   const section = document.createElement("section");
   section.className = "topics";
   main.append(section);
 
-  const loader = document.createElement("div")
-  loader.className = "loader";
-  section.append(loader);
-
+  createLoader(section);
+  
   section.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   return section;
+}
+
+function showSummaryHeader() {
+  const header = document.querySelector("header");
+  header.querySelector(".searchForm").style["display"] = "none";
+  header.querySelector("#doneBtn").style["display"] = "none";
+  const titleH2 = document.createElement("h2");
+  titleH2.textContent = topic;
+  header.appendChild(titleH2);
+}
+
+function showSummaryLoader() {
+  const s1 = document.createElement("section");
+  s1.className = 'topics';
+  main.appendChild(s1);
+  const s2 = document.createElement("section");
+  s2.classList.add("topics");
+  s2.classList.add("summary");
+  createLoader(s2);
+  main.appendChild(s2);
+  return {s1, s2};
+}
+
+function removeSummaryLoader({s1, s2}) {
+  s1.remove();
+  s2.remove();
 }
 
 async function doShowSummary() {
@@ -277,29 +310,16 @@ async function doShowSummary() {
     });
   }
 
-  console.log(current);
   cleanContent();
-  
+
+  showSummaryHeader();
+  const l = showSummaryLoader();
   const summary = await fetchSummary(topic, current);
+  removeSummaryLoader(l);
 
   createIdeationFlow(current);
   createSummary(summary);
-
-  const header = document.querySelector("header");
-  
-  // Delete search form
-  header.querySelector(".searchForm").style["display"] = "none";
-
-  // Delete I'm done
-  header.querySelector("#doneBtn").style["display"] = "none";
-
-  // Add h2 with title
-  const titleH2 = document.createElement("h2");
-  titleH2.textContent = topic;
-
-  header.appendChild(titleH2);
 }
-
 
 function createIdeationFlow(current) {
   const section = document.createElement("section");
