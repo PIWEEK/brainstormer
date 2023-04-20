@@ -132,7 +132,7 @@ async function doMoreItem(section) {
   const selectedItems = document.querySelectorAll(".topic-item.selected");
   let previous = [];
   for (const item of selectedItems) {
-    const input = item.children[2].children[0].value;
+    const input = item.querySelector("form").children[0].value;
     previous.push({
       "title": item.children[0].textContent,
       "description": item.children[1].textContent,
@@ -141,7 +141,6 @@ async function doMoreItem(section) {
     });
   }
 
-  const currentItems = document.querySelectorAll(".topic-item.selected");
   let current = [];
   for (const item of section.children[0].children) {
     current.push({
@@ -325,8 +324,8 @@ function createSummary(text) {
   section.classList.add("topics");
   section.classList.add("summary");
 
-  const titleH3 = document.createElement("h3");
-  titleH3.textContent = "Summary";
+  //const titleH3 = document.createElement("h3");
+  //titleH3.textContent = "Summary";
 
   const summaryP = document.createElement("p");
   summaryP.innerHTML = marked.parse(text);
@@ -344,7 +343,7 @@ function createSummary(text) {
   startBtn.textContent = "Start over";
   startBtn.addEventListener("click", () => location.reload());
 
-  section.appendChild(titleH3);
+  //section.appendChild(titleH3);
   section.appendChild(summaryP);
   section.appendChild(actionsDiv);
   actionsDiv.appendChild(copyBtn);

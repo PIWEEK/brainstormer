@@ -74,7 +74,7 @@ Pros:
 def parse_current(data):
     current = []
     if data.get('current', None):
-        current = ["{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['current']]
+        current = ["{}|{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['current']]
     return current
 
 def parse_current_summary(data):
@@ -92,14 +92,14 @@ def parse_first_option(data):
 def parse_previous(data):
     previous = []
     if data.get('previous', None):
-        previous = ["{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['previous']]
+        previous = ["{}|{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['previous']]
 
     return previous
     
 def parse_user_inputs(data):
     user_inputs = []
     if data.get("previous", None):
-        user_inputs = ["\"{}\" {}".format(i["title"], i["input"], i["keywords"]) for i in data['previous'] if i.get("input", None)]
+        user_inputs = ["\"{}\" {}".format(i["title"], i["input"]) for i in data['previous'] if i.get("input", None)]
     return user_inputs
     
 def next_prompt(topic, previous, user_inputs):
