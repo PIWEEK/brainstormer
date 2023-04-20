@@ -9,7 +9,6 @@ function sleep(time) {
 }
 
 async function search(topic, previous=[]) {
-  console.log("SEARCH", topic, previous);
   const response = await fetch(`${HOST}/api/next`, {
     method: "POST",
     mode: "cors",
@@ -28,7 +27,6 @@ async function search(topic, previous=[]) {
 }
 
 async function searchMore(topic, current, previous) {
-  console.log("MORE", topic, current, previous);
   const response = await fetch(`${HOST}/api/more`, {
     method: "POST",
     mode: "cors",
@@ -48,7 +46,6 @@ async function searchMore(topic, current, previous) {
 }
 
 async function summary(topic, current) {
-  console.log("SUMMARY", topic, current);
   const response = await fetch(`${HOST}/api/summary`, {
     method: "POST",
     mode: "cors",
@@ -68,7 +65,6 @@ async function summary(topic, current) {
 
 
 async function fakeSearch(topic, previous=[]) {
-  console.log("FAKE", topic, previous);
   await sleep(100);
 
   return [
@@ -97,7 +93,6 @@ async function fakeSearch(topic, previous=[]) {
 }
 
 async function fakeSearchMore(topic, current, previous=[]) {
-  console.log("FAKE", topic, current, previous);
   await sleep(100);
 
   return [

@@ -5,11 +5,13 @@ import api from "./api.js";
 let topic = "";
 let firstSearch = true;
 
+let pendingRequest = false;
+
 function init() {
   // Form handlers
   const searchForms = document.querySelectorAll(".searchForm");
   for (const searchForm of searchForms) {
-    searchForm.addEventListener("submit", async () => {
+    searchForm.addEventListener("submit", async (e) => {
       event.preventDefault();
       await doSearchTopic(e.target);
     });
@@ -96,34 +98,39 @@ async function doSearchTopic(form) {
   const input = form.querySelector(".searchInput");
   topic = input.value;
 
-  if (topic.trim() !== "") {
-    cleanContent();
+  if (pendingRequest || topic.trim() === "") return;
 
-    if (firstSearch) {
-      document.body.classList.add("exploration");
-      document.querySelector("header").style["display"] = "flex";
-      const searchForms = document.querySelectorAll(".searchForm");
-      for (const searchForm of searchForms) {
-        const input = searchForm.querySelector(".searchInput");
-        input.value = topic;
-        resizeTextArea(input);
-      }
-      firstSearch = false;
-    }
+  cleanContent();
 
-    const section = createSection();
-    let result = [];
-    try {
-      result = await search(topic);
-    } catch(error) {
-      console.error(error);
-      result = [{"title": "Error", "description": error.message}]
+  if (firstSearch) {
+    document.body.classList.add("exploration");
+    document.querySelector("header").style["display"] = "flex";
+    const searchForms = document.querySelectorAll(".searchForm");
+    for (const searchForm of searchForms) {
+      const input = searchForm.querySelector(".searchInput");
+      input.value = topic;
+      resizeTextArea(input);
     }
-    addTopics(section, result);
+    firstSearch = false;
   }
+
+  const section = createSection();
+  let result = [];
+  try {
+    pendingRequest = true;
+    result = await search(topic);
+  } catch(error) {
+    console.error(error);
+    result = [{"title": "Error", "description": error.message}]
+  } finally {
+    pendingRequest = false;
+  }
+  addTopics(section, result);
 }
 
 async function doExploreItem(section) {
+  if (pendingRequest) return;
+
   const selectedItems = document.querySelectorAll(".topic-item.selected");
   let previous = [];
   for (const item of selectedItems) {
@@ -137,24 +144,26 @@ async function doExploreItem(section) {
   }
   removeSiblings(section);
   const newSection = createSection();
-  const result = await search(topic, previous);
+
+  let result = [];
+  try {
+    pendingRequest = true;
+    result = await search(topic, previous);
+  } catch(error) {
+    console.error(error);
+    result = [{"title": "Error", "description": error.message}]
+  } finally {
+    pendingRequest = false;
+  }
+
   addTopics(newSection, result);
 }
 
 async function doMoreItem(section) {
-  //removeSiblings(section);
-
-  for (const c of section.children[0].children) {
-    c.classList.remove("selected");
-    c.classList.remove("not-selected");
-
-    const selectChild = c.querySelector(".topic-select");
-    if (selectChild) {
-      c.removeChild(selectChild);
-    }
-  }
+  if (pendingRequest) return;
 
   const selectedItems = document.querySelectorAll(".topic-item.selected");
+
   let previous = [];
   for (const item of selectedItems) {
     const input = item.querySelector("form").children[0].value;
@@ -177,16 +186,21 @@ async function doMoreItem(section) {
 
   let result;
   try{
+    pendingRequest = true;
     result = await searchMore(topic, current, previous);
   } catch(error) {
     console.error(error);
     result = [{"title": "Error", "description": error.message}]
+  } finally {
+    pendingRequest = false;
   }
   addTopics(section, result);
   section.querySelector(".topic-item:last-child").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
 }
 
 function selectItem(section, itemLi) {
+  if (pendingRequest) return;
+
   for (const c of itemLi.parentElement.children) {
     c.classList.remove("selected");
     c.classList.add("not-selected");
@@ -301,14 +315,17 @@ function createLoader(parent) {
   timeDiv.textContent = "0s";
   loader.appendChild(timeDiv)
 
-  console.log(loader);
   window.lastloader = loader;
 
   let interval;
   const start = performance.now();
   interval = setInterval(() => {
-    const end = performance.now();
-    timeDiv.textContent = `${new Number((end - start)/1000).toFixed(1)}s`
+    if (loader.isConnected) {
+      const end = performance.now();
+      timeDiv.textContent = `${new Number((end - start)/1000).toFixed(1)}s`
+    } else {
+      clearInterval(interval);
+    }
   }, 100);
 
   return loader;
@@ -352,6 +369,8 @@ function removeSummaryLoader({s1, s2}) {
 }
 
 async function doShowSummary() {
+  if (pendingRequest) return;
+
   const currentItems = document.querySelectorAll(".topic-item.selected");
   let current = [];
   for (const item of currentItems) {
@@ -368,10 +387,13 @@ async function doShowSummary() {
   let summary;
 
   try {
+    pendingRequest = true;
     summary = await fetchSummary(topic, current);
   } catch(error) {
     console.error(error);
     summary = `## Error\n ${error.message}`;
+  } finally {
+    pendingRequest = false;
   }
 
   removeSummaryLoader(l);
@@ -430,8 +452,5 @@ function createSummary(text) {
 
   main.appendChild(section);
 }
-
-
-
 
 init();
