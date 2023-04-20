@@ -19,16 +19,24 @@ function init() {
   logoLink.addEventListener("click", (e) => {
     e.preventDefault();
     location.reload();
-  })
+  });
+
+  const doneBtn = document.getElementById("doneBtn");
+  doneBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await doShowSummary();
+  });
 }
 
 const main = document.getElementsByTagName("main")[0];
 
 const search = api.search;
 const searchMore = api.searchMore;
+const fetchSummary = api.summary;
+
 //const search = api.fakeSearch;
 //const searchMore = api.fakeSearchMore;
-
+//const fetchSummary = api.fakeSummary;
 
 function sleep(time) {
   return new Promise(res => setTimeout(res, time));
@@ -259,5 +267,93 @@ function createSection() {
   section.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   return section;
 }
+
+async function doShowSummary() {
+  const currentItems = document.querySelectorAll(".topic-item.selected");
+  let current = [];
+  for (const item of currentItems) {
+    current.push({
+      "title": item.children[0].textContent,
+      "description": item.children[1].textContent
+    });
+  }
+
+  console.log(current);
+  cleanContent();
+  
+  const summary = await fetchSummary(topic, current);
+
+  createIdeationFlow(current);
+  createSummary(summary);
+
+  const header = document.querySelector("header");
+  
+  // Delete search form
+  header.querySelector(".searchForm").style["display"] = "none";
+
+  // Delete I'm done
+  header.querySelector("#doneBtn").style["display"] = "none";
+
+  // Add h2 with title
+  const titleH2 = document.createElement("h2");
+  titleH2.textContent = topic;
+
+  header.appendChild(titleH2);
+}
+
+
+function createIdeationFlow(current) {
+  const section = document.createElement("section");
+  section.className = 'topics';
+
+  const titleH3 = document.createElement("h3");
+  titleH3.textContent = "Your ideation flow";
+  
+  const ul = document.createElement("ul");
+  for (const item of current) {
+    ul.appendChild(createItem(section, item));
+  }
+
+  section.appendChild(titleH3);
+  section.appendChild(ul);
+
+  main.appendChild(section);
+}
+
+function createSummary(text) {
+  const section = document.createElement("section");
+  section.classList.add("topics");
+  section.classList.add("summary");
+
+  const titleH3 = document.createElement("h3");
+  titleH3.textContent = "Summary";
+
+  const summaryP = document.createElement("p");
+  summaryP.innerHTML = marked.parse(text);
+
+  const actionsDiv = document.createElement("div");
+  actionsDiv.className = 'actions';
+  
+  const copyBtn = document.createElement("button");
+  copyBtn.className = 'secondary-button';
+  copyBtn.textContent = "Copy text";
+  copyBtn.addEventListener("click", () => navigator.clipboard.writeText(text));
+  
+  const startBtn = document.createElement("button");
+  startBtn.className = 'primary-button';
+  startBtn.textContent = "Start over";
+  startBtn.addEventListener("click", () => location.reload());
+
+  section.appendChild(titleH3);
+  section.appendChild(summaryP);
+  section.appendChild(actionsDiv);
+  actionsDiv.appendChild(copyBtn);
+  actionsDiv.appendChild(startBtn);
+
+  main.appendChild(section);
+}
+
+
+
 
 init();

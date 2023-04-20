@@ -2,10 +2,12 @@
 <html>
   <head>
 	  <title>Brainstormer</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
   </head>
   <body>
     <header style="display: none;">
@@ -22,6 +24,7 @@
           </svg>
         </button>
       </form>
+      <button id="doneBtn" class="primary-button">I'm done!</button>
     </header>
 
     <main>
@@ -94,6 +97,40 @@
         </li>
       </section>
       <!-- -->
+      <section class="topics summary" style="display: none;">
+        <h3>Summary</h3>
+          <p class="summary-content">
+            ## Pros and cons for every idea
+
+            Catsy.
+            Pros: Easy to remember, distinctive name; playful and adventurous connotations.
+            Cons: May be too generic for some people.
+
+            Catseye.
+            Pros: Wise and curious associations; eye reference could make it stand out.
+            Cons: Too obvious of a visual reference.
+
+            Catsy Moonbeam. 
+            Pros: Elegant and mysterious connotations; memorable name. 
+            Cons: May be too long or difficult to remember. 
+
+            Catseyed. 
+            Pros: Wise and curious associations; eye reference could make it stand out. 
+            Cons: Name could be hard to pronounce or spell. 
+
+            Catsyful. 
+            Pros: Playful and curious connotations; easy to remember. 
+            Cons: May not be distinct enough for some tastes.
+
+            ## Summary
+
+            Overall, Catsy and Catsy Moonbeam seem to be the best options. Both have memorable names that evoke a sense of playfulness and adventure. Catsy is shorter and easier to remember, while Catsy Moonbeam has an elegant and mysterious quality. Catseye and Catseyed both focus too much on the eye reference, which may not be distinct enough for some people, while Catsyful does not have a strong enough connotation to stand out from other cat names.
+          </p>
+          <div class="actions">
+            <button class="secondary-button">Copy text</button>
+            <button class="primary-button">Start over</button>
+          </div>
+      </section>
     </main>
   </body>
   <script type="module" src="main.js"></script>

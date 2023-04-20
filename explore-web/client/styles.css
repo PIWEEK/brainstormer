@@ -408,3 +408,21 @@ main::-webkit-scrollbar-thumb {
   border: solid 2px white;
   background: var(--light-blue); 
 }
+
+.topics.summary {
+  padding: 1rem;
+}
+
+.topics.summary ul {
+  height: auto;
+  padding: 0.5rem 1rem;
+}
+
+.topics.summary p {
+  padding: 0.5rem 0;
+}
+
+.topics.summary h2 {
+  margin: 1rem 0;
+  font-size: 30px;
+}

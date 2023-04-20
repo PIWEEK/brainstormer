@@ -1,6 +1,6 @@
 async function search(topic, previous=[]) {
-  console.log("SEARCH", topic, previous)
-  const response = await fetch("http://localhost:5000/next", {
+  console.log("SEARCH", topic, previous);
+  const response = await fetch("http://localhost:5000/api/next", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -18,8 +18,8 @@ async function search(topic, previous=[]) {
 }
 
 async function searchMore(topic, current, previous) {
-  console.log("MORE", topic, current, previous)
-  const response = await fetch("http://localhost:5000/more", {
+  console.log("MORE", topic, current, previous);
+  const response = await fetch("http://localhost:5000/api/more", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -29,6 +29,25 @@ async function searchMore(topic, current, previous) {
       topic: topic,
       current: current,
       previous: previous,
+    })
+  });
+
+  const responseJson = await response.json();
+  const result = responseJson["result"]
+  return result;
+}
+
+async function summary(topic, current) {
+  console.log("SUMMARY", topic, current);
+  const response = await fetch("http://localhost:5000/api/summary", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      topic: topic,
+      current: current
     })
   });
 
@@ -95,9 +114,41 @@ async function fakeSearchMore(topic, current, previous=[]) {
   ];
 }
 
+async function fakeSummary(topic, current) {
+  return `
+## Pros and cons for every idea
+
+Catsy.
+- Pros: Easy to remember, distinctive name; playful and adventurous connotations.
+- Cons: May be too generic for some people.
+
+Catseye.
+- Pros: Wise and curious associations; eye reference could make it stand out.
+- Cons: Too obvious of a visual reference.
+
+Catsy Moonbeam. 
+- Pros: Elegant and mysterious connotations; memorable name. 
+- Cons: May be too long or difficult to remember. 
+
+Catseyed. 
+- Pros: Wise and curious associations; eye reference could make it stand out. 
+- Cons: Name could be hard to pronounce or spell. 
+
+Catsyful. 
+- Pros: Playful and curious connotations; easy to remember. 
+- Cons: May not be distinct enough for some tastes.
+
+## Summary
+
+Overall, Catsy and Catsy Moonbeam seem to be the best options. Both have memorable names that evoke a sense of playfulness and adventure. Catsy is shorter and easier to remember, while Catsy Moonbeam has an elegant and mysterious quality. Catseye and Catseyed both focus too much on the eye reference, which may not be distinct enough for some people, while Catsyful does not have a strong enough connotation to stand out from other cat names.
+`;
+}
+
 export default {
   search,
   searchMore,
+  summary,
   fakeSearch,
   fakeSearchMore,
+  fakeSummary,
 };

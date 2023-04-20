@@ -55,12 +55,39 @@ This are the next 5 ideas. But way crazier:
 title | description | keywords
 """
 
+summary_prompt = """
+# Ideas for: {topic}
+
+## Selected ideas
+
+{current_text}
+
+---
+
+## Pros and cons for every idea
+
+### {first_option}
+
+Pros:
+- """
+
 def parse_current(data):
     current = []
     if data.get('current', None):
         current = ["{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['current']]
-
     return current
+
+def parse_current_summary(data):
+    current = []
+    if data.get('current', None):
+        current = ["{}: {}".format(i["title"], i["description"]) for i in data['current']]
+    return current
+
+def parse_first_option(data):
+    first_option = ""
+    if data.get('current', None):
+        first_option = data['current'][0]['title']
+    return first_option
 
 def parse_previous(data):
     previous = []
@@ -110,8 +137,21 @@ def parse_result(completion):
     result = [{"title": a.strip(), "description": b.strip(), "keywords": c.strip()} for a, b, c in [line.split("|") for line in lines if line.strip()]]
     return result
 
+def format_summary_prompt(topic, first_option, current):
+    return summary_prompt.format(
+        topic=topic,
+        current_text="\n".join(current),
+        first_option=first_option
+    )
+    
+
+@app.route('/', methods=['GET'])
+def index():  # pragma: no cover
+    content = get_file('index.html')
+    return Response(content, mimetype="text/html")
+
 # Endpoint for generating text with OpenAI's GPT-3
-@app.route('/next', methods=['POST'])
+@app.route('/api/next', methods=['POST'])
 @cross_origin()
 def generate():
     data = request.get_json()
@@ -142,7 +182,7 @@ def generate():
     # Return the generated text as a JSON response
     return jsonify({"result": result})
 
-@app.route('/more', methods=['POST'])
+@app.route('/api/more', methods=['POST'])
 @cross_origin()
 def generate_more():
     data = request.get_json()
@@ -174,7 +214,58 @@ def generate_more():
     # Return the generated text as a JSON response
     return jsonify({"result": result})
 
+@app.route('/api/summary', methods=['POST'])
+@cross_origin()
+def generate_summary():
+    data = request.get_json()
+    topic = data['topic']
+
+    current = parse_current_summary(data)
+    first_option = parse_first_option(data)
+    prompt = format_summary_prompt(topic, first_option, current)
+
+    completion = openai.Completion.create(
+        model="text-davinci-003",
+        presence_penalty=2,
+        temperature=0.5,
+        top_p=1,
+        best_of=1,
+        frequency_penalty=0,
+        max_tokens=512,
+        prompt=prompt)
+
+    print("SUMMARY PROMPT 1")
+    print("=======================================")
+    print(prompt)
+    print("=======================================")
+    print(completion.choices[0].text)
+    print("=======================================")
+
+    prompt = prompt + completion.choices[0].text + "\n## Summary\n"
+
+    completion = openai.Completion.create(
+        model="text-davinci-003",
+        presence_penalty=1,
+        temperature=0.1,
+        top_p=1,
+        best_of=1,
+        frequency_penalty=0.2,
+        max_tokens=512,
+        prompt=prompt)
+
+    print("SUMMARY PROMPT 2")
+    print("=======================================")
+    print(prompt)
+    print("=======================================")
+    print(completion.choices[0].text)
+    print("=======================================")
+
+    result = prompt + completion.choices[0].text
+    result = result.split("---")[1].strip()
+
+    # Return the generated text as a JSON response
+    return jsonify({"result": result})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-
