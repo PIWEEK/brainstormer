@@ -131,6 +131,10 @@ header .submit-btn,
   bottom: 8px;
 }
 
+header h2 {
+  margin: 0 auto;
+}
+
 main {
   display: flex;
   width: 100%;
@@ -188,7 +192,8 @@ svg {
   padding: 0 1rem;
 }
 
-.topic-more > button {
+.topic-more > button,
+.primary-button {
   width: 100%;
   display: block;
   height: 45px;
@@ -203,8 +208,29 @@ svg {
   cursor: pointer;
 }
 
-.topic-more:hover > button {
+.primary-button,
+.secondary-button {
+  max-width: 170px;
+}
+
+.topic-more:hover > button,
+.primary-button:hover {
   background: var(--caribbean-current);
+}
+
+.secondary-button {
+  width: 100%;
+  display: block;
+  height: 45px;
+  border: 2px solid var(--robin-egg-blue);
+  color: var(--robin-egg-blue);
+  font-family: Lato;
+  font-weight: 700;
+  font-size: 16px;
+  background: white;
+  border-radius: 4px;
+  padding: 0 1rem;
+  cursor: pointer;
 }
 
 .topic-item.selected {
@@ -279,6 +305,13 @@ svg {
   top: 0.25rem;
 }
 
+.topics h3 {
+  font-size: 20px;
+  color: var(--robin-egg-blue);
+  margin: 20px;
+  text-align: center;
+}
+
 /* STARTING POINT */
 .start {
   box-sizing: border-box;
@@ -333,6 +366,25 @@ h2 {
   font-size: 40px;
   line-height: 1.4;
   margin-bottom: 20px;
+}
+
+/*Summary*/
+.summary {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+}
+
+.summary p {
+  padding: 20px;
+}
+
+.summary .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 20px;
+  margin-top: auto;
 }
 
 /*Scrollbar Chrome*/
