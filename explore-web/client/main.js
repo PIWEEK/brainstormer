@@ -11,7 +11,21 @@ function init() {
   for (const searchForm of searchForms) {
     searchForm.addEventListener("submit", async () => {
       event.preventDefault();
-      await doSearchTopic();
+      await doSearchTopic(e.target);
+    });
+  }
+
+  const areas = document.querySelectorAll("textarea");
+  for (const area of areas) {
+    resizeTextArea(area);
+    area.addEventListener("keydown", async (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        await doSearchTopic(e.target.parentElement);
+      }
+    });
+    area.addEventListener("input", (e) => {
+      resizeTextArea(e.target);
     });
   }
 
@@ -26,6 +40,11 @@ function init() {
     e.preventDefault();
     await doShowSummary();
   });
+}
+
+function resizeTextArea(area) {
+  area.style["height"] = "0px";
+  area.style["height"] = `${area.scrollHeight}px`;
 }
 
 const main = document.getElementsByTagName("main")[0];
@@ -73,31 +92,35 @@ function createIconSVG() {
   return svg;
 }
 
-async function doSearchTopic() {
-  const input = event.target.querySelector("input");
+async function doSearchTopic(form) {
+  const input = form.querySelector(".searchInput");
   topic = input.value;
 
-  cleanContent();
+  if (topic.trim() !== "") {
+    cleanContent();
 
-  if (firstSearch) {
-    document.body.classList.add("exploration");
-    document.querySelector("header").style["display"] = "flex";
-    const searchForms = document.querySelectorAll(".searchForm");
-    for (const searchForm of searchForms) {
-      searchForm.children[0].value = topic;
+    if (firstSearch) {
+      document.body.classList.add("exploration");
+      document.querySelector("header").style["display"] = "flex";
+      const searchForms = document.querySelectorAll(".searchForm");
+      for (const searchForm of searchForms) {
+        const input = searchForm.querySelector(".searchInput");
+        input.value = topic;
+        resizeTextArea(input);
+      }
+      firstSearch = false;
     }
-    firstSearch = false;
-  }
 
-  const section = createSection();
-  let result = [];
-  try {
-    result = await search(topic);
-  } catch(error) {
-    console.error(error);
-    result = [{"title": "Error", "description": error.message}]
+    const section = createSection();
+    let result = [];
+    try {
+      result = await search(topic);
+    } catch(error) {
+      console.error(error);
+      result = [{"title": "Error", "description": error.message}]
+    }
+    addTopics(section, result);
   }
-  addTopics(section, result);
 }
 
 async function doExploreItem(section) {
@@ -119,7 +142,7 @@ async function doExploreItem(section) {
 }
 
 async function doMoreItem(section) {
-  removeSiblings(section);
+  //removeSiblings(section);
 
   for (const c of section.children[0].children) {
     c.classList.remove("selected");

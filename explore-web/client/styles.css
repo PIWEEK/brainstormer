@@ -108,8 +108,9 @@ header form,
 }
 
 header input,
-.search-input {
+.searchInput {
   flex-grow: 1;
+  font-family: Lato;
   font-size: 20px;
   font-weight: 700;
   padding: 0.5rem 1rem;
@@ -118,7 +119,13 @@ header input,
   height: 55px;
 }
 
-.start-form-inside .search-input {
+textarea.searchInput {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  resize: none;
+}
+
+.start-form-inside .searchInput {
   background-color: var(--alice-blue);
   margin-top: 3rem;
 }
@@ -439,6 +446,7 @@ main::-webkit-scrollbar-thumb {
 
 .topics.summary {
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .topics.summary ul {
