@@ -1,10 +1,16 @@
+let HOST = ""
+
+if (window.location.hostname === "localhost") {
+  HOST = "http://localhost:5000";
+}
+
 function sleep(time) {
   return new Promise(res => setTimeout(res, time));
 }
 
 async function search(topic, previous=[]) {
   console.log("SEARCH", topic, previous);
-  const response = await fetch("http://localhost:5000/api/next", {
+  const response = await fetch(`${HOST}/api/next`, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -23,7 +29,7 @@ async function search(topic, previous=[]) {
 
 async function searchMore(topic, current, previous) {
   console.log("MORE", topic, current, previous);
-  const response = await fetch("http://localhost:5000/api/more", {
+  const response = await fetch(`${HOST}/api/more`, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -43,7 +49,7 @@ async function searchMore(topic, current, previous) {
 
 async function summary(topic, current) {
   console.log("SUMMARY", topic, current);
-  const response = await fetch("http://localhost:5000/api/summary", {
+  const response = await fetch(`${HOST}/api/summary`, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -63,7 +69,7 @@ async function summary(topic, current) {
 
 async function fakeSearch(topic, previous=[]) {
   console.log("FAKE", topic, previous);
-  await sleep(2000);
+  await sleep(100);
 
   return [
     {
@@ -92,7 +98,7 @@ async function fakeSearch(topic, previous=[]) {
 
 async function fakeSearchMore(topic, current, previous=[]) {
   console.log("FAKE", topic, current, previous);
-  await sleep(2000);
+  await sleep(100);
 
   return [
     {
@@ -119,7 +125,7 @@ async function fakeSearchMore(topic, current, previous=[]) {
 }
 
 async function fakeSummary(topic, current) {
-  await sleep(2000);
+  await sleep(100);
   return `
 ## Pros and cons for every idea
 
