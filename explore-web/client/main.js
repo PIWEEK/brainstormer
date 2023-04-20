@@ -1,15 +1,28 @@
+// Global State
 
-const searchForm = document.getElementById("searchForm");
-searchForm.addEventListener("submit", doSearch);
+let topic = "";
+let firstSearch = true;
+
+
+// Form handlers
+const searchForms = document.querySelectorAll(".searchForm");
+for (const searchForm of searchForms) {
+  searchForm.addEventListener("submit", doSearch);
+}
+
+const logoLink = document.querySelector(".main-logo-link");
+logoLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  location.reload();
+})
 
 const main = document.getElementsByTagName("main")[0];
 
 const search = apiSearch;
 const searchMore = apiSearchMore;
-// const search = fakeSearch;
-// const searchMore = fakeSearchMore;
+//const search = fakeSearch;
+//const searchMore = fakeSearchMore;
 
-let topic = "";
 
 function sleep(time) {
   return new Promise(res => setTimeout(res, time));
@@ -167,6 +180,7 @@ function createMoreItem(section) {
 
     const result = await searchMore(topic, current, previous);
     addTopics(section, result);
+    section.querySelector(".topic-item:last-child").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   });
   return moreItem;
 }
@@ -302,12 +316,24 @@ function createSection() {
 
 async function doSearch(event) {
   event.preventDefault();
-  
-  const input = document.getElementById("searchInput");
-  cleanContent();
 
+  const input = event.target.querySelector("input");
   topic = input.value;
 
+  cleanContent();
+
+  if (firstSearch) {
+    document.body.classList.add("exploration");
+
+    document.querySelector("header").style["display"] = "flex";
+
+    for (const searchForm of searchForms) {
+      searchForm.children[0].value = topic;
+    }
+
+    firstSearch = false;
+  }
+  
   const section = createSection();
   const result = await search(topic);
   addTopics(section, result);
