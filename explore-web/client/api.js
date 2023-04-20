@@ -118,23 +118,23 @@ async function fakeSummary(topic, current) {
   return `
 ## Pros and cons for every idea
 
-Catsy.
+### Catsy
 - Pros: Easy to remember, distinctive name; playful and adventurous connotations.
 - Cons: May be too generic for some people.
 
-Catseye.
+### Catseye
 - Pros: Wise and curious associations; eye reference could make it stand out.
 - Cons: Too obvious of a visual reference.
 
-Catsy Moonbeam. 
+### Catsy Moonbeam
 - Pros: Elegant and mysterious connotations; memorable name. 
 - Cons: May be too long or difficult to remember. 
 
-Catseyed. 
+### Catseyed
 - Pros: Wise and curious associations; eye reference could make it stand out. 
 - Cons: Name could be hard to pronounce or spell. 
 
-Catsyful. 
+### Catsyful
 - Pros: Playful and curious connotations; easy to remember. 
 - Cons: May not be distinct enough for some tastes.
 
