@@ -88,9 +88,15 @@ async function doSearchTopic() {
     }
     firstSearch = false;
   }
-  
+
   const section = createSection();
-  const result = await search(topic);
+  let result = [];
+  try {
+    result = await search(topic);
+  } catch(error) {
+    console.error(error);
+    result = [{"title": "Error", "description": error.message}]
+  }
   addTopics(section, result);
 }
 
@@ -146,7 +152,13 @@ async function doMoreItem(section) {
     });
   }
 
-  const result = await searchMore(topic, current, previous);
+  let result;
+  try{
+    result = await searchMore(topic, current, previous);
+  } catch(error) {
+    console.error(error);
+    result = [{"title": "Error", "description": error.message}]
+  }
   addTopics(section, result);
   section.querySelector(".topic-item:last-child").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
 }
@@ -170,7 +182,7 @@ function selectItem(section, itemLi) {
 function createMoreLikeThisForm(parent) {
   const form = document.createElement("form");
   form.className = "topic-select";
-  
+
   const input = document.createElement("input");
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "More like this");
@@ -198,25 +210,25 @@ function createItem(parent, {title, description, keywords}) {
   const titleP = document.createElement("p");
   titleP.className = "topic-item-title";
   titleP.textContent = title;
-  
+
   const descriptionP = document.createElement("p");
   descriptionP.className = "topic-item-description";
   descriptionP.textContent = description;
-  
+
   const keywordsP = document.createElement("p");
   keywordsP.className = "topic-item-keywords";
   keywordsP.textContent = keywords;
-  
+
   itemLi.addEventListener("click", () => {
     if (!itemLi.classList.contains("selected")) {
       selectItem(parent, itemLi);
     }
   });
-  
+
   itemLi.append(titleP);
   itemLi.append(descriptionP);
   itemLi.append(keywordsP);
-  
+
   return itemLi;
 }
 
@@ -247,10 +259,10 @@ function addTopics(section, result) {
   } else {
     section.removeChild(section.children[0]);
     ul = document.createElement("ul");
-    section.appendChild(ul);  
+    section.appendChild(ul);
     section.appendChild(createMoreItem(section));
   }
-  
+
   for (const item of result) {
     ul.appendChild(createItem(section, item));
   }
@@ -275,7 +287,7 @@ function createLoader(parent) {
     const end = performance.now();
     timeDiv.textContent = `${new Number((end - start)/1000).toFixed(1)}s`
   }, 100);
-  
+
   return loader;
 }
 
@@ -285,7 +297,7 @@ function createSection() {
   main.append(section);
 
   createLoader(section);
-  
+
   section.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   return section;
 }
@@ -330,7 +342,15 @@ async function doShowSummary() {
 
   showSummaryHeader();
   const l = showSummaryLoader();
-  const summary = await fetchSummary(topic, current);
+  let summary;
+
+  try {
+    summary = await fetchSummary(topic, current);
+  } catch(error) {
+    console.error(error);
+    summary = `## Error\n ${error.message}`;
+  }
+
   removeSummaryLoader(l);
 
   createIdeationFlow(current);
@@ -343,7 +363,7 @@ function createIdeationFlow(current) {
 
   const titleH3 = document.createElement("h3");
   titleH3.textContent = "Your ideation flow";
-  
+
   const ul = document.createElement("ul");
   for (const item of current) {
     ul.appendChild(createItem(section, item));
@@ -368,12 +388,12 @@ function createSummary(text) {
 
   const actionsDiv = document.createElement("div");
   actionsDiv.className = 'actions';
-  
+
   const copyBtn = document.createElement("button");
   copyBtn.className = 'secondary-button';
   copyBtn.textContent = "Copy text";
   copyBtn.addEventListener("click", () => navigator.clipboard.writeText(text));
-  
+
   const startBtn = document.createElement("button");
   startBtn.className = 'primary-button';
   startBtn.textContent = "Start over";
