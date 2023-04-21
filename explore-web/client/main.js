@@ -428,8 +428,9 @@ function createSummary(text) {
   //const titleH3 = document.createElement("h3");
   //titleH3.textContent = "Summary";
 
-  const summaryP = document.createElement("p");
-  summaryP.innerHTML = marked.parse(text);
+  const summaryDiv = document.createElement("div");
+  summaryDiv.innerHTML = marked.parse(text);
+  summaryDiv.className = 'summary-content';
 
   const actionsDiv = document.createElement("div");
   actionsDiv.className = 'actions';
@@ -445,7 +446,7 @@ function createSummary(text) {
   startBtn.addEventListener("click", () => location.reload());
 
   //section.appendChild(titleH3);
-  section.appendChild(summaryP);
+  section.appendChild(summaryDiv);
   section.appendChild(actionsDiv);
   actionsDiv.appendChild(copyBtn);
   actionsDiv.appendChild(startBtn);
