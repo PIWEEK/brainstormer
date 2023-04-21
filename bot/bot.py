@@ -28,14 +28,23 @@ BRAINSTORMING_SESSION_PROMPT="""
 This document keeps track of possible ideas for a brainstorming session.
 
 ## Ideas format
-The document will have a list of ideas and every idea will have a title with a name for the idea and a description.
+The ideas list is a well formed CSV document. Where the columns will be separated by the character `|` like:
+title | description
+First title | First description
+Second title | Second description
+
+The document will have a list of ideas and every idea will have the columns "title" with a name for the idea and "description" with the idea description.
 
 ## Ideas for: {topic}
+
 {user_inputs_text}
 
 ### Selected ideas
 {previous_text}
+
 {question_text}
+title | description
+
 """
 
 DEBUG_TEMPLATE="""
@@ -49,6 +58,21 @@ Current list of bad ideas:
 
 Current list of good ideas:
 {}"""
+
+PREVIOUS_TEXT_TEMPLATE = """
+title | description
+{}
+"""
+
+SUMMARY_PROMPT="""
+# Ideas for: {topic}
+## Selected ideas
+{current_text}
+---
+## Pros and cons for every idea
+### {first_option}
+Pros:
+- """
 
 class UserData:
   def __init__(self):
@@ -105,16 +129,18 @@ class UserData:
 
   def prompt(self, id):
     user = self.get_user(id)
+    previous_list = ""
 
     previous_text = ""
     if user['good']:
-      previous_text = ", ".join(user['good']) 
+      previous_list = ", ".join(["\"{}\"".format(p.split("|")[0].strip()) for p in user['good']])
+      previous_text = PREVIOUS_TEXT_TEMPLATE.format("\n".join(user['good']))
 
     user_inputs_text = ""
     if user['extra']:
       user_inputs_text = ",".join(user['extra'])
 
-    if previous_text:
+    if previous_list:
         question_text = "The next best 5 ideas that based combine ideas from {} are:".format(previous_text)
     else:
         question_text = "The next best 5 ideas are:"
@@ -137,7 +163,9 @@ class UserData:
         max_tokens=512,
         prompt=prompt)
 
-    user['options'] = completion.choices[0].text.split("\n")[1:]
+    # user['options'] = completion.choices[0].text.split("\n")[1:]
+    lines = completion.choices[0].text.split("\n")
+    user['options'] = [a.strip() + " | " + b.strip() for a, b in [line.split("|") for line in lines if line.strip()]]
     return user['options']
 
 user_data = UserData()
@@ -169,8 +197,49 @@ def restart(message):
 @bot.message_handler(commands=['topic'])
 def set_topic(message):  
   user_id = message.chat.id
-  user_data.add_topic(user_id, message.text.replace("/topic", ""))
+  user_data.add_topic(user_id, message.text.replace("/topic", "").strip())
   suggest_next_option(user_id)
+
+
+@bot.message_handler(commands=['finish'])
+def set_topic(message):  
+  user_id = message.chat.id
+  user = user_data.get_user(user_id)
+  topic = user_data.get_topic(user_id)
+  current_text = ""
+  first_option = ""
+  if user['good']:
+    current_text = user['good'][-1]
+    first_option = user['good'][-1].split("|")[0]
+
+  prompt = SUMMARY_PROMPT.format(topic=topic, first_option=first_option, current_text=current_text)
+
+  completion = openai.Completion.create(
+          model="text-davinci-003",
+          presence_penalty=2,
+          temperature=0.5,
+          top_p=1,
+          best_of=1,
+          frequency_penalty=0,
+          max_tokens=512,
+          prompt=prompt)
+
+  prompt = prompt + completion.choices[0].text + "\n## Summary\n"
+
+  completion = openai.Completion.create(
+        model="text-davinci-003",
+        presence_penalty=1,
+        temperature=0.1,
+        top_p=1,
+        best_of=1,
+        frequency_penalty=0.2,
+        max_tokens=512,
+        prompt=prompt)
+
+  result = prompt + completion.choices[0].text
+  bot.send_message(user_id, result.split("---")[1].strip())  
+  user_data.clear(user_id)
+  
 
 def process_option(option, options, message):
   user_id = message.chat.id
