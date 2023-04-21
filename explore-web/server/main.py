@@ -1,5 +1,6 @@
 import openai
 import os
+import tiktoken
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
@@ -10,6 +11,9 @@ CORS(app)
 # Set up OpenAI API credentials
 openai.organization = os.getenv('BRAINSTORMER_OPENAI_ORG')
 openai.api_key = os.getenv('BRAINSTORMER_OPENAI_KEY')
+
+encoding = tiktoken.encoding_for_model("text-davinci-003")
+
 
 prompt_template = """
 # Brainstorming session
@@ -70,6 +74,9 @@ summary_prompt = """
 
 Pros:
 - """
+
+def add_tokens(message, metadata):
+    metadata["tokenCount"] += len(encoding.encode(message))
 
 def parse_current(data):
     current = []
@@ -156,6 +163,7 @@ def index():  # pragma: no cover
 def generate():
     data = request.get_json()
     topic = data['topic']
+    metadata = data['metadata']
 
     previous = parse_previous(data)
     user_inputs = parse_user_inputs(data)
@@ -177,15 +185,20 @@ def generate():
     print(completion.choices[0].text)
     print("=======================================")
 
+    add_tokens(prompt, metadata)
+    add_tokens(completion.choices[0].text, metadata)
+
     result = parse_result(completion)
 
     # Return the generated text as a JSON response
-    return jsonify({"result": result})
+    return jsonify({"metadata": metadata,
+                    "result": result})
 
 @app.route('/api/more', methods=['POST'])
 @cross_origin()
 def generate_more():
     data = request.get_json()
+    metadata = data['metadata']
     topic = data['topic']
 
     current = parse_current(data)
@@ -209,16 +222,21 @@ def generate_more():
     print(completion.choices[0].text)
     print("=======================================")
 
+    add_tokens(prompt, metadata)
+    add_tokens(completion.choices[0].text, metadata)
+
     result = parse_result(completion)
 
     # Return the generated text as a JSON response
-    return jsonify({"result": result})
+    return jsonify({"metadata": metadata,
+                    "result": result})
 
 @app.route('/api/summary', methods=['POST'])
 @cross_origin()
 def generate_summary():
     data = request.get_json()
     topic = data['topic']
+    metadata = data['metadata']
 
     current = parse_current_summary(data)
     first_option = parse_first_option(data)
@@ -253,6 +271,9 @@ def generate_summary():
         max_tokens=512,
         prompt=prompt)
 
+    add_tokens(prompt, metadata)
+    add_tokens(completion.choices[0].text, metadata)
+
     print("SUMMARY PROMPT 2")
     print("=======================================")
     print(prompt)
@@ -260,12 +281,15 @@ def generate_summary():
     print(completion.choices[0].text)
     print("=======================================")
 
+    add_tokens(prompt, metadata)
+    add_tokens(completion.choices[0].text, metadata)
+
     result = prompt + completion.choices[0].text
     result = result.split("---")[1].strip()
 
     # Return the generated text as a JSON response
-    return jsonify({"result": result})
-
+    return jsonify({"metadata": metadata,
+                    "result": result})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

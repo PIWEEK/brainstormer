@@ -1,5 +1,7 @@
 let HOST = ""
 
+let metadata = { tokenCount: 0 };
+
 if (window.location.hostname === "localhost") {
   HOST = "http://localhost:5000";
 }
@@ -16,13 +18,16 @@ async function search(topic, previous=[]) {
       'Content-type': 'application/json'
     },
     body: JSON.stringify({
+      metadata: metadata,
       topic: topic,
       previous: previous,
     })
   });
 
   const responseJson = await response.json();
-  const result = responseJson["result"]
+  metadata = responseJson["metadata"];
+  console.log(metadata);
+  const result = responseJson["result"];
   return result;
 }
 
@@ -34,6 +39,7 @@ async function searchMore(topic, current, previous) {
       'Content-type': 'application/json'
     },
     body: JSON.stringify({
+      metadata: metadata,
       topic: topic,
       current: current,
       previous: previous,
@@ -41,6 +47,8 @@ async function searchMore(topic, current, previous) {
   });
 
   const responseJson = await response.json();
+  metadata = responseJson["metadata"];
+  console.log(metadata);
   const result = responseJson["result"]
   return result;
 }
@@ -53,12 +61,15 @@ async function summary(topic, current) {
       'Content-type': 'application/json'
     },
     body: JSON.stringify({
+      metadata: metadata,
       topic: topic,
       current: current
     })
   });
 
   const responseJson = await response.json();
+  metadata = responseJson["metadata"];
+  console.log(metadata);
   const result = responseJson["result"]
   return result;
 }
@@ -150,6 +161,10 @@ Overall, Catsy and Catsy Moonbeam seem to be the best options. Both have memorab
 `;
 }
 
+function getMetadata(prop) {
+  return metadata[prop];
+}
+
 export default {
   search,
   searchMore,
@@ -157,4 +172,5 @@ export default {
   fakeSearch,
   fakeSearchMore,
   fakeSummary,
+  getMetadata,
 };

@@ -435,6 +435,28 @@ function createSummary(text) {
   const actionsDiv = document.createElement("div");
   actionsDiv.className = 'actions';
 
+  //const priceDiv = document.createElement("div");
+  //priceDiv.className = 'summary-price';
+  //console.log(api.getMetadata("tokenCount"));
+  //priceDiv.textContent = "Price: " + new Number(api.getMetadata("tokenCount") * (0.02 / 1000)).toFixed(2) + "$" ;
+
+
+  const priceTitle = document.createElement("h2");
+  priceTitle.textContent = "Price";
+
+  const tokens = api.getMetadata("tokenCount")
+  const price = new Number(tokens * (0.02 / 1000)).toFixed(2);
+
+  const priceP1 = document.createElement("p");
+  priceP1.textContent = `Total price: ${price}$`;
+
+  const priceP2 = document.createElement("p");
+  priceP2.textContent = `Tokens: ${tokens}`;
+
+  //summaryDiv.appendChild(priceTitle);
+  summaryDiv.appendChild(priceP1);
+  summaryDiv.appendChild(priceP2);
+
   const copyBtn = document.createElement("button");
   copyBtn.className = 'secondary-button';
   copyBtn.textContent = "Copy text";
@@ -447,6 +469,7 @@ function createSummary(text) {
 
   //section.appendChild(titleH3);
   section.appendChild(summaryDiv);
+  //section.appendChild(priceDiv);
   section.appendChild(actionsDiv);
   actionsDiv.appendChild(copyBtn);
   actionsDiv.appendChild(startBtn);
