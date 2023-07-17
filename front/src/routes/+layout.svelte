@@ -12,10 +12,8 @@
  import {page} from '$app/stores'
 
  let isHome: boolean;
-
  $: isHome = $page.url.pathname === "/";
 
- console.log("INIT STATE");
  const st = store.start(initialState);
 </script>
 

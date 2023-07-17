@@ -3,9 +3,9 @@ type ID = string;
 
 export interface Idea {
   title: string;
-  tags: string[];
   description: string;
-  input?: string;
+  keywords: string;
+  input?: string | null;
 
   liked?: boolean;
   disliked?: boolean;
@@ -24,6 +24,8 @@ export interface Session {
 }
 
 export interface State {
+  currentSession?: string;
+  selected?: Set<string>;
   sessions: Record<ID, Session>;
 }
 
@@ -43,6 +45,7 @@ const FAKE_NUM_LISTS = 5;
 const FAKE_NUM_IDEAS = 20;
 
 export const fakeState: State = {
+  selected: new Set(),
   sessions: {
     "fake-id": {
       id: "fake-id",
@@ -52,7 +55,7 @@ export const fakeState: State = {
         ideas: [...Array(FAKE_NUM_IDEAS).fill(0)].map((_, i) => ({
           title: "Idea " + i,
           description: li(),
-          tags: ["t1", "t2", "t3"]
+          keywords: "t1 \u00b7 t2 \u00b7 t3"
         }))
       }))
     }

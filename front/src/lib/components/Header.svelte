@@ -1,9 +1,19 @@
 <script lang="ts">
+ import {page} from '$app/stores'
+ import store from "$store";
+ import type { State } from "$state";
+
  import logo from "$lib/images/main-logo.png";
  import GoIcon from "$components/GoIcon.svelte";
  import Search from "$components/Search.svelte";
  import Button from "$components/Button.svelte";
- </script>
+
+ const st = store.get<State>();
+
+ let currentSession = $page.params.id;
+ let session = st.select(st => st.sessions[currentSession]);
+
+</script>
 
 <header>
   <h1 class="main-logo">
@@ -15,7 +25,8 @@
   <div class="search">
     <Search placeholder="Ideas for..."
             color="white"
-            fontSize="large" />
+            fontSize="large"
+            value={$session?.topic} />
   </div>
   <div class="done-btn">
     <Button type="primary">I'm done!</Button>

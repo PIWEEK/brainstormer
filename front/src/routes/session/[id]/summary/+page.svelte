@@ -14,12 +14,12 @@
     <li class="topic-item">
       <IdeaCard title="Test 1"
                 description="Develop a new test to evaluate the performance of an application"
-                tags={["uno", "dos", "tres"]}/>
+                keywords="t1 \u00b7 t2 \u00b7 t3"/>
     </li>
     <li class="topic-item">
       <IdeaCard title="Test 2"
                 description="Develop a new test to evaluate the performance of an application"
-                tags={["uno", "dos", "tres"]}/>
+                keywords="t1 \u00b7 t2 \u00b7 t3"/>
     </li>
   </ul>
 </section>

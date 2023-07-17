@@ -1,6 +1,16 @@
 <script lang="ts">
  import logo from "$lib/images/main-logo.png";
  import Search from "$components/Search.svelte";
+ import type {State} from "$state";
+ import store from "$store";
+ import { CreateSession } from "$events";
+
+ const st = store.get<State>();
+
+ function search(e: CustomEvent<string>) {
+   st.emit(new CreateSession(e.detail));
+ }
+ 
 </script>
 
 <section class="start">
@@ -18,7 +28,8 @@
       <div class="search">
         <Search placeholder="Give me ideas for ..."
                 color="blue"
-                fontSize="large" />
+                fontSize="large"
+                on:search={search} />
       </div>
     </div>
   </div>

@@ -1,18 +1,22 @@
+import { browser } from '$app/environment';
 import { getContext, setContext } from "svelte";
 import { Observable, Subject, EMPTY, concat, of } from "rxjs";
 import {empty} from "rxjs";
 import * as rx from "rxjs/operators";
-import {produce} from "immer";
+import {produce, enableMapSet} from "immer";
+
+enableMapSet();
 
 const STORE_CONTEXT_KEY = "store";
 
-type UpdateStateFn<State> = (st: State) => void;
-type Event<State> = StoreEvent<State> | UpdateStateFn<State>;
+export type UpdateStateFn<State> = (st: State) => void;
+export type Event<State> = StoreEvent<State> | UpdateStateFn<State>;
+export type Bus<State> = Observable<Event<State>>;
 
 export abstract class StoreEvent<State> {
   update(_state: State): void {}
 
-  watch(_state: State, _events: Observable<Event<State>>) {
+  watch(_state: State, _events: Bus<State>): Bus<State> {
     return EMPTY;
   }
 }
@@ -28,14 +32,21 @@ interface IStore<State> {
 export class Store<State> implements IStore<State>{
   // 
   private state$: Observable<State>;
-
-  private event$ = new Subject<StoreEvent<State> | UpdateStateFn<State>>();
+  private event$ = new Subject<Event<State>>();
 
   constructor(initialState: State) {
     this.state$ = concat(
       of(initialState),
       this.event$.pipe(
-        // rx.tap(x => console.log(x)),
+        rx.tap(e => {
+          if (!browser) return;
+          const debugEvents = (window as any).events;
+          if (!debugEvents) {
+            (window as any).events = [e]
+          } else {
+            debugEvents.push(e);
+          }
+        }),
         rx.scan((state, event) => {
           let fn: UpdateStateFn<State>;
           if (event instanceof Function) {
@@ -43,11 +54,13 @@ export class Store<State> implements IStore<State>{
           } else {
             fn = event.update.bind(event);
           }
-          //console.log("proc", fn);
           return produce(state, fn);
         }, initialState),
-        rx.tap(x => console.log(x)),
-        rx.tap((state) => (window as any).state = state),
+        rx.tap((state) => {
+          if (browser) {
+            (window as any).state = state
+          }
+        }),
         rx.catchError((err) => {
           console.error("Error", err);
           return this.state$;
@@ -56,7 +69,7 @@ export class Store<State> implements IStore<State>{
       )
     );
 
-    const watch$: Observable<StoreEvent<State>> = this.event$.pipe(
+    const watch$: Bus<State> = this.event$.pipe(
       rx.withLatestFrom(this.state$),
       rx.mergeMap(([e, state]) => {
         if (!(e instanceof Function)) {
@@ -93,9 +106,13 @@ export class Store<State> implements IStore<State>{
 }
 
 export function start<State>(initialState: State): Store<State> {
-  const store = new Store(initialState)
-  setContext(STORE_CONTEXT_KEY, store);
-  return store;
+  if (!getContext(STORE_CONTEXT_KEY)) {
+    const store = new Store(initialState)
+    setContext(STORE_CONTEXT_KEY, store);
+    return store;
+  } else {
+    return getContext(STORE_CONTEXT_KEY);
+  }
 }
 
 export function get<State>(): Store<State> {

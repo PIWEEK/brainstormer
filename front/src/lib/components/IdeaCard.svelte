@@ -1,24 +1,45 @@
 <script lang="ts">
+ import { createEventDispatcher } from 'svelte';
  import Search from "$components/Search.svelte";
  
  export let title: string;
  export let description: string;
- export let tags: string[];
+ export let keywords: string;
  
  export let selected: boolean = false;
  export let disabled: boolean = false;
+
+ const dispatch = createEventDispatcher();
+
+ let searchNode: Node;
+
+ function handleSelect(event: MouseEvent) {
+   if (!searchNode || !searchNode.contains(event.target as Node)) {
+     dispatch("select");
+   }
+ }
+
+ function handleSubmit(e: CustomEvent<string>) {
+   dispatch("next", e.detail);
+ }
+ 
 </script>
 
 <li class="idea-card"
     class:disabled={disabled}
-    class:selected={selected}>
+    class:selected={selected}
+    on:click={handleSelect}>
   <p class="title">{title}</p>
   <p class="description">{description}</p>
-  <p class="tags">{tags?.join(" · ") || ""}</p>
+  <p class="keywords">{keywords}</p>
 
   {#if selected}
-    <Search placeholder="More like this"
-            color="gray"/>
+    <div bind:this={searchNode}>
+      <Search 
+        placeholder="More like this"
+        color="gray"
+        on:search={handleSubmit} />
+    </div>
   {/if}
 </li>
 
@@ -53,7 +74,7 @@
    margin: 0.5rem 0;
  }
 
- .tags {
+ .keywords {
    font-size: 14px;
    line-height: 1.2;
    margin: 0.5rem 0;
