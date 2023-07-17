@@ -9,6 +9,7 @@ openai.organization = os.getenv('BRAINSTORMER_OPENAI_ORG')
 openai.api_key = os.getenv('BRAINSTORMER_OPENAI_KEY')
 
 def select_engine(engine="gpt-4", *args, **kwargs):
+    return GPT_4(*args, **kwargs)
     if engine == "gpt-4":
         return GPT_4(*args, **kwargs)  
     else:

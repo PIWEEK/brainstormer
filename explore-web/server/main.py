@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from engine import select_engine
-from prompts import *
+from utils import *
 
 app = Flask(__name__)
 
@@ -17,20 +17,12 @@ def generate():
 
     previous = parse_previous(data)
     user_inputs = parse_user_inputs(data)
-    prompt = next_prompt(topic, previous, user_inputs)
 
-    completion = select_engine(engine=engine, prompt=prompt)
+    engine = select_engine(engine=engine)
+    completion = engine.next(topic, previous, user_inputs)
 
-    print("=======================================")
-    print(prompt)
-    print("=======================================")
-    print(completion.get_message())
-    print("=======================================")
-
-    add_tokens(completion.get_token_count(prompt), metadata)
-    add_tokens(completion.get_token_count(completion.get_message()), metadata)
-
-    result = parse_result(completion.get_message())
+    result = parse_result(completion["message"])
+    add_tokens(completion["tokens"], metadata)
 
     # Return the generated text as a JSON response
     return jsonify({"metadata": metadata,
@@ -43,23 +35,16 @@ def generate_more():
     metadata = data['metadata']
     topic = data['topic']
     engine = data.get("engine", "gpt-4")
+
     current = parse_current(data)
     previous = parse_previous(data)
     user_inputs = parse_user_inputs(data)
-    prompt = more_prompt(topic, previous, current, user_inputs)
 
-    completion = select_engine(engine=engine, prompt=prompt)
+    engine = select_engine(engine=engine)
+    completion = engine.more(topic, previous, current, user_inputs)
 
-    print("=======================================")
-    print(prompt)
-    print("=======================================")
-    print(completion.get_message())
-    print("=======================================")
-
-    add_tokens(completion.get_token_count(prompt), metadata)
-    add_tokens(completion.get_token_count(completion.get_message()), metadata)
-
-    result = parse_result(completion.get_message())
+    result = parse_result(completion["message"])
+    add_tokens(completion["tokens"], metadata)
 
     # Return the generated text as a JSON response
     return jsonify({"metadata": metadata,
@@ -75,52 +60,16 @@ def generate_summary():
 
     current = parse_current_summary(data)
     first_option = parse_first_option(data)
-    prompt = format_summary_prompt(topic, first_option, current)
 
-    completion = select_engine(engine=engine,
-        prompt=prompt,
-        presence_penalty=2,
-        temperature=0.5,
-        top_p=1,
-        frequency_penalty=0,
-        max_tokens=512)
+    engine = select_engine(engine=engine)
+    completion = engine.summary(topic, first_option, current)
 
-    add_tokens(completion.get_token_count(prompt), metadata)
-    add_tokens(completion.get_token_count(completion.get_message()), metadata)
-
-    print("SUMMARY PROMPT 1")
-    print("=======================================")
-    print(prompt)
-    print("=======================================")
-    print(completion.get_message())
-    print("=======================================")
-
-    prompt = prompt + completion.get_message() + "\n## Summary\n"
-
-    completion = select_engine(engine=engine,
-        prompt=prompt,
-        presence_penalty=1,
-        temperature=0.1,
-        top_p=1,
-        frequency_penalty=0.2,
-        max_tokens=512)
-
-    print("SUMMARY PROMPT 2")
-    print("=======================================")
-    print(prompt)
-    print("=======================================")
-    print(completion.get_message())
-    print("=======================================")
-
-    add_tokens(completion.get_token_count(prompt), metadata)
-    add_tokens(completion.get_token_count(completion.get_message()), metadata)
-
-    result = prompt + completion.get_message()
-    result = result.split("---")[1].strip()
+    add_tokens(completion["tokens"], metadata)
 
     # Return the generated text as a JSON response
     return jsonify({"metadata": metadata,
-                    "result": result})
+                    # TODO: check this no parse
+                    "result": completion["message"]})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
