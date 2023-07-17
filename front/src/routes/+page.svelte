@@ -88,7 +88,7 @@
    margin-bottom: 20px;
  }
 
- header form, .searchForm {
+ .searchForm {
    display: flex;
    gap: 0.5rem;
    align-items: baseline;
