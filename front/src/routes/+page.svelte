@@ -1,14 +1,6 @@
 <script lang="ts">
- import store from "$store";
- import type { State } from "$state";
- import { initialState } from "$state";
-
  import logo from "$lib/images/main-logo.png";
  import Search from "$components/Search.svelte";
-
- import * as rx from "rxjs/operators";
- const st = store.start(initialState);
-
 </script>
 
 <section class="start">

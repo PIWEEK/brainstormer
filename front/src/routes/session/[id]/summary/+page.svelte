@@ -1,18 +1,11 @@
 <script lang="ts">
  import { marked } from 'marked';
- import store from "$store";
- import type { State } from "$state";
- import { initialState } from "$state";
 
  import Header from "$components/Header.svelte";
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
 
- import * as rx from "rxjs/operators";
- const st = store.start(initialState);
-
  const summary = "## Pros and cons for every idea\n\n### AAA\n\nPros:\n-  Increase visibility of AAA in the market\n-  Reach more people and potential customers\n-  Potential to create a stronger brand presence\n\nCons:\n- Need to invest time and resources into creating and managing the platform\n- Risk of not reaching desired results or ROI\n\n### Integrated AAA Platforms\n\nPros:\n- Easy access to all services, products and activities from one place\n- Increased convenience for users\n- More efficient use of resources\n\nCons:\n- High cost of implementation\n- Complexity of integrating different systems\n- Risk of user data security breaches\n\n### Integrated AAA Marketplace\n\nPros:\n- Easier access to services, products and activities from one place\n- Wider range of offerings available\n- Ability to reach a larger customer base\n\nCons:\n- High cost of implementation\n- Need to manage multiple vendors and suppliers\n- Risk of user data security breaches\n## Summary\n\nThe three ideas presented are all potential ways to increase the visibility of AAA in the market and reach more people. The first idea is about creating a platform that would allow users to access all of AAA's services from one place. The second idea is about creating an integrated platform that would integrate all of AAA's services, products and activities. The third idea is about creating a marketplace that would integrate all of AAA's services, products and activities from one place. Each of these ideas has its own pros and cons, so it is important to consider them carefully before making a decision.";
-
 </script>
 
 <section class="topics">
@@ -21,7 +14,7 @@
     <li class="topic-item">
       <IdeaCard title="Test 1"
                 description="Develop a new test to evaluate the performance of an application"
-                tags={["uno", "dos", "tres"]} selected/>
+                tags={["uno", "dos", "tres"]}/>
     </li>
     <li class="topic-item">
       <IdeaCard title="Test 2"

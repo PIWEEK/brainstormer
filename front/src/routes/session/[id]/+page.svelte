@@ -1,16 +1,10 @@
 <script lang="ts">
- import store from "$store";
- import type { Idea, State } from "$state";
- import { initialState, li, fakeState } from "$state";
-
  import Header from "$components/Header.svelte";
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
 
- import * as rx from "rxjs/operators";
- const st = store.start(initialState);
-
- const currentSession = "fake-id";
+ import { fakeState } from "$state";
+ let currentSession = "fake-id";
 </script>
 
 {#each fakeState.sessions[currentSession].lists as list}

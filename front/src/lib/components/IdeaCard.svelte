@@ -6,9 +6,11 @@
  export let tags: string[];
  
  export let selected: boolean = false;
+ export let disabled: boolean = false;
 </script>
 
 <li class="idea-card"
+    class:disabled={disabled}
     class:selected={selected}>
   <p class="title">{title}</p>
   <p class="description">{description}</p>
@@ -28,6 +30,10 @@
    padding: 1rem;
    position: relative;
    width: 100%;
+
+   &.disabled {
+     opacity: 0.7;
+   }
 
    &.selected {
      margin: 0;
