@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
  import "../styles/normalize.css";
  import "../styles/fonts.css";
  import "../styles/global.css";
@@ -7,31 +7,32 @@
 
  import {page} from '$app/stores'
 
- console.log(">>>", );
+ let isHome: boolean;
 
- const isHome = $page.url.pathname === "/";
+ $: isHome = $page.url.pathname === "/";
 </script>
 
 {#if !isHome}
   <Header></Header>
 {/if}
 
-<main class:explore={!isHome}>
+<main class:home={isHome}>
   <slot/>
 </main>
 
 <style lang="postcss">
  main {
    display: flex;
-   width: 100%;
-   height: 100%;
    gap: 8px;
+   height: 100%;
+   justify-content: center;
    overflow-x: auto;
    overflow-y: hidden;
-   justify-content: center;
+   padding: 10px 20px;
+   width: 100%;
  }
 
- .explore {
-   padding: 10px 20px;
+ .home {
+   padding: 0;
  }
 </style> 

@@ -1,223 +1,123 @@
 <script lang="ts">
+ import { marked } from 'marked';
  import store from "$store";
  import type { State } from "$state";
  import { initialState } from "$state";
 
  import Header from "$components/Header.svelte";
+ import Button from "$components/Button.svelte";
+ import IdeaCard from "$components/IdeaCard.svelte";
 
  import * as rx from "rxjs/operators";
  const st = store.start(initialState);
 
-</script>
+ const summary = "## Pros and cons for every idea\n\n### AAA\n\nPros:\n-  Increase visibility of AAA in the market\n-  Reach more people and potential customers\n-  Potential to create a stronger brand presence\n\nCons:\n- Need to invest time and resources into creating and managing the platform\n- Risk of not reaching desired results or ROI\n\n### Integrated AAA Platforms\n\nPros:\n- Easy access to all services, products and activities from one place\n- Increased convenience for users\n- More efficient use of resources\n\nCons:\n- High cost of implementation\n- Complexity of integrating different systems\n- Risk of user data security breaches\n\n### Integrated AAA Marketplace\n\nPros:\n- Easier access to services, products and activities from one place\n- Wider range of offerings available\n- Ability to reach a larger customer base\n\nCons:\n- High cost of implementation\n- Need to manage multiple vendors and suppliers\n- Risk of user data security breaches\n## Summary\n\nThe three ideas presented are all potential ways to increase the visibility of AAA in the market and reach more people. The first idea is about creating a platform that would allow users to access all of AAA's services from one place. The second idea is about creating an integrated platform that would integrate all of AAA's services, products and activities. The third idea is about creating a marketplace that would integrate all of AAA's services, products and activities from one place. Each of these ideas has its own pros and cons, so it is important to consider them carefully before making a decision.";
 
+</script>
 
 <section class="topics">
   <h3>Your ideation flow</h3>
   <ul>
     <li class="topic-item">
-      <p class="topic-item-title">Test 1</p>
-      <p class="topic-item-description">Develop a new test to evaluate the performance of an application</p>
-      <p class="topic-item-keywords"></p>
+      <IdeaCard title="Test 1"
+                description="Develop a new test to evaluate the performance of an application"
+                tags={["uno", "dos", "tres"]} selected/>
     </li>
     <li class="topic-item">
-      <p class="topic-item-title">Test 2</p>
-      <p class="topic-item-description">Design a test to evaluate the scalability of an application</p>
-      <p class="topic-item-keywords"></p>
+      <IdeaCard title="Test 2"
+                description="Develop a new test to evaluate the performance of an application"
+                tags={["uno", "dos", "tres"]}/>
     </li>
   </ul>
 </section>
 
-<section class="topics summary">
+<section class="summary">
   <div class="summary-content">
-    <h2 id="pros-and-cons-for-every-idea">Pros and cons for every idea</h2>
-
-    <h3 id="test-1">Test 1</h3>
-    <p>Pros:</p>
-    <ul>
-      <li>Allows for a comprehensive evaluation of the application's performance
-      </li>
-      <li>Can provide valuable insights into areas where improvements can be made
-      </li>
-      <li>Can help identify potential issues before they become major problems
-      </li>
-    </ul>
-    <p>Cons:</p>
-    <ul>
-      <li>Can be time consuming and costly to develop
-      </li>
-      <li>May require specialized expertise or resources to create
-      </li>
-      <li>Results may not always be reliable or accurate.
-      </li>
-    </ul>
-    <h3 id="test-2">Test 2</h3>
-    <p>Pros:</p>
-    <ul>
-      <li>Identifies any weaknesses in scalability that could lead to future performance issues
-      </li>
-      <li>Can detect any bottlenecks that might limit the application's growth
-      </li>
-      <li>Allows developers to plan ahead and make changes if necessary
-      </li>
-    </ul>
-    <p>Cons:</p>
-    <ul>
-      <li>Can be difficult to set up and execute properly
-      </li>
-      <li>Results may be unreliable depending on the environment used
-      </li>
-      <li>Can be expensive to run multiple tests with different scenarios
-      </li>
-    </ul>
-    <h2 id="summary">Summary</h2>
-    <p>The two ideas presented are Test 1 and Test 2. Test 1 is a test to evaluate the performance of an application, while Test 2 is a test to evaluate the scalability of an application. Both tests have their pros and cons, such as being time consuming and costly to develop for Test 1, or being difficult to set up and execute properly for Test 2. Ultimately, it depends on the specific needs of the project which test should be used.
-    </p>
-    <p>Total price: 0.03$</p>
-    <p>Tokens: 1295</p>
+    {@html marked.parse(summary, {mangle: false, headerIds: false})}
   </div>
+
   <div class="actions">
-    <button class="secondary-button">Copy text</button>
-    <button class="primary-button">Start over</button>
+    <Button type="secondary">Copy text</Button>
+    <Button type="primary">Start over</Button>
   </div>
 </section>
 
-
-<style>
-
- .topics {
-   min-width: 335px;
+<style lang="postcss">
+ .topics,
+ .summary {
    background: white;
    border-radius: 4px;
    padding-bottom: 1rem;
  }
 
- .topics h3 {
-   font-size: 20px;
+ .topics {
+   max-width: 335px;
+ }
+
+ h3 {
    color: var(--robin-egg-blue);
+   font-size: 20px;
    margin: 20px;
  }
 
  .topic-item {
-   padding: 1rem;
-   border-radius: 4px;
-   position: relative;
-   border: 2px solid var(--anti-flash-white);
-   width: 300px;
+   max-width: 300px;
    margin-bottom: calc(1rem + 1px);
-   cursor: pointer;
- }
-
- .topic-item-title {
-   font-size: 20px;
-   font-weight: 700;
- }
-
- .topic-item-description {
-   font-size: 16px;
-   line-height: 1.2;
-   margin: 0.5rem 0;
- }
-
- .topic-item-keywords {
-   font-size: 14px;
-   line-height: 1.2;
-   margin: 0.5rem 0;
-   font-weight: 700;
-   color: var(--robin-egg-blue);
  }
 
  .summary {
    display: flex;
    flex-direction: column;
-   width: 700px;
    max-width: 700px;
- }
- 
- .topics.summary {
-   padding: 1rem;
    overflow-y: auto;
+   padding: 1rem;
+   width: 700px;
  }
- 
+
  .summary-content {
    display: flex;
    flex-direction: column;
    overflow-y: auto;
+
+   :global(h2) {
+     margin: 0 0 1rem 0;
+     color: var(--robin-egg-blue);
+     font-size: 20px;
+   }
+
+   :global(h3) {
+     font-size: 20px;
+     color: black;
+     margin: 1rem 0;
+     text-align: left;
+     font-weight: 700;
+   }
+
+   :global(p) {
+     padding: 0.5rem 0;
+   }
+
+   :global(ul) {
+     display: flex;
+     flex-direction: column;
+     padding: 1rem;
+     overflow: initial;
+   }
+
+   :global(li) {
+     margin-bottom: 1rem;
+   }
  }
 
- .topics.summary h2 {
-   margin: 0 0 1rem 0;
-   color: var(--robin-egg-blue);
-   font-size: 20px;
- }
-
- .topics h3 {
-   font-size: 20px;
-   color: var(--robin-egg-blue);
-   margin: 20px;
- }
- 
- .topics.summary h3 {
-   color: black;
-   margin: 1rem 0;
-   text-align: left;
-   font-weight: 700;
- }
-
- .topics.summary p {
-   padding: 0.5rem 0;
- }
-
- .topics.summary ul {
-   display: flex;
-   flex-direction: column;
-   padding: 1rem;
-   overflow: initial;
- }
-
- .topics.summary ul li {
-   margin-bottom: 1rem;
- }
-
- .summary .actions {
+ .actions {
    display: flex;
    align-items: center;
    justify-content: center;
    column-gap: 20px;
    margin-top: auto;
- }
 
- .secondary-button {
-   width: 100%;
-   display: block;
-   height: 45px;
-   border: 2px solid var(--robin-egg-blue);
-   color: var(--robin-egg-blue);
-   font-family: Lato;
-   font-weight: 700;
-   font-size: 16px;
-   background: white;
-   border-radius: 4px;
-   padding: 0 1rem;
-   cursor: pointer;
+   & > :global(*) {
+     max-width: 170px;
+   }
  }
-
- .topic-more > button, .primary-button {
-   width: 100%;
-   display: block;
-   height: 45px;
-   background: var(--robin-egg-blue);
-   color: white;
-   font-family: Lato;
-   font-weight: 700;
-   font-size: 16px;
-   border: none;
-   border-radius: 4px;
-   padding: 0 1rem;
-   cursor: pointer;
- }
-
- .primary-button, .secondary-button {
-   max-width: 170px;
- }
- 
 </style>

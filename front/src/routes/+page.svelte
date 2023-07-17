@@ -4,7 +4,7 @@
  import { initialState } from "$state";
 
  import logo from "$lib/images/main-logo.png";
- import GoIcon from "$components/GoIcon.svelte";
+ import Search from "$components/Search.svelte";
 
  import * as rx from "rxjs/operators";
  const st = store.start(initialState);
@@ -22,12 +22,12 @@
     <div class="start-form-inside">
       <h2>Ready to kickstart your brainstorming session?</h2>
       <p>Enter your first idea and let our AI-powered app guide you towards a world of innovative and creative possibilities.</p>
-      <form class="searchForm" autocomplete="off">
-        <textarea class="searchInput" placeholder="Give me ideas for ..." style="height: 55px;"></textarea>
-        <button class="submit-btn" type="submit">
-          <GoIcon/>
-        </button>
-      </form>
+
+      <div class="search">
+        <Search placeholder="Give me ideas for ..."
+                color="blue"
+                fontSize="large" />
+      </div>
     </div>
   </div>
 </section>
@@ -60,16 +60,17 @@
  .main-logo {
    align-items: center;
    display: flex;
- }
+   font-family: Lato;
 
- .main-logo img {
-   width: 64px;
-   margin-right: 10px;
- }
+   img {
+     width: 64px;
+     margin-right: 10px;
+   }
 
- .main-logo span {
-   font-weight: 800;
-   font-size: 24px;
+   span {
+     font-weight: 700;
+     font-size: 24px;
+   }
  }
 
  .start-form-inside {
@@ -88,46 +89,10 @@
    margin-bottom: 20px;
  }
 
- .searchForm {
-   display: flex;
-   gap: 0.5rem;
-   align-items: baseline;
-   width: 100%;
-   position: relative;
+ .search {
+   margin-top: 4rem;
    max-width: 800px;
-   margin: 0 auto;
+   width: 100%;
  }
 
- .searchInput {
-   background-color: var(--alice-blue);
-   margin-top: 3rem;
-   height: 55px;
-   padding: 16px 1rem;
-   resize: none;
-   overflow: hidden;
-   flex-grow: 1;
-   font-family: Lato;
-   font-size: 20px;
-   font-weight: 700;
-   border: none;
-   border-radius: 4px;
-   
- }
- 
- .submit-btn {
-   align-self: normal;
-   position: absolute;
-   right: 8px;
-   bottom: 8px;
-   width: 40px;
-   border-radius: 8px;
-   background: var(--robin-egg-blue);
-   border: none;
-   margin: 0;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 0.25rem;
-   cursor: pointer;
- }
 </style>
