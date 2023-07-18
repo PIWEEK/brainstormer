@@ -1,0 +1,67 @@
+/* DESIGN TOKENS 
+----------------------------------*/
+
+.theme-light {
+    /* Colors */
+
+    /* --- BORRAR */
+    --alice-blue: #EFF7FA;
+    --anti-flash-white: #EBECEE;
+    --caribbean-current: #046D6C;
+    --light-blue: #AFD3CE;
+    --robin-egg-blue: #41C2BF;
+    /* BORRAR --- */
+
+
+    --color-blue: #41C2BF; /*aka robin-egg-blue*/
+    --color-blue-dark: #046D6C; /*aka caribbean-current*/
+    --color-blue-light: #AFD3CE; /*aka light-blue*/
+    --color-blue-lightish: #EFF7FA; /*aka alice-blue*/
+
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-grayish: #EBECEE; /*aka anti-flash-white*/
+
+    /* Color theming */
+    --color-theme-primary: var(--color-blue);
+    --color-theme-secondary: var(--color-blue-dark);
+    --color-theme-background-primary: var(--color-blue-lightish);
+    --color-theme-background-secondary: var(--color-blue-white);
+    --color-theme-text-primary: var(--color-black);
+    --color-theme-text-secondary: var(--color-black);
+
+    /* Typography */
+    --type-font-family: 'Roboto', sans-serif;
+
+    --type-primary: var(--type-font-family);
+
+    --type-font-size-13: 13px;
+    --type-font-size-16: 16px;
+    --type-font-size-24: 24px;
+    --type-font-size-40: 40px;
+
+    --type-small: var(--type-font-size-13);
+    --type-medium: var(--type-font-size-16);
+    --type-large: var(--type-font-size-24);
+    --type-extra-large: var(--type-font-size-40);
+
+    --type-line-height-small: 1.2;
+    --type-line-height-medium: 1.5;
+
+    /* Spacing */
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 2rem;
+    --spacing-extra-large: 4rem;
+
+      /* Radius */
+    --radius-small: 2px;
+    --radius-medium: 4px;
+    --radius-large: 8px;
+
+
+  }
+
+  .theme-dark {
+    
+  }

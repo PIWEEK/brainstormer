@@ -1,3 +1,6 @@
+/* GLOBAL STYLES 
+----------------------------------*/
+
 * {
   box-sizing: border-box;
 }
@@ -5,19 +8,13 @@
 html {
   height: 100%;
   overflow: hidden;
-  --alice-blue: #EFF7FA;
-  --anti-flash-white: #EBECEE;
-  --caribbean-current: #046D6C;
-  --light-blue: #AFD3CE;
-  --robin-egg-blue: #41C2BF;
 }
-
 body {
-	font-family: 'Roboto', sans-serif;
-  background: var(--alice-blue);
+	font-family: var(--type-primary);
+  background: var(--color-theme-background-primary);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--spacing-medium);
   height: 100%;
 }
 
@@ -31,7 +28,7 @@ ul {
   height: calc(100% - 45px);
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 1rem;
+  padding: var(--spacing-medium);
 }
 
 p {
