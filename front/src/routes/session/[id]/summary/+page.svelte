@@ -3,19 +3,26 @@
  import { marked } from 'marked';
  import { browser } from '$app/environment';
 
- import type {State} from "$state";
- import { selectedIdeas } from "$state";
  import store from "$store";
+
+ import type {State} from "$state";
+ import { currentSession, selectedIdeas } from "$state";
+
+ import { InitSession } from "$events";
 
  import Header from "$components/Header.svelte";
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
 
  const st = store.get<State>();
- let currentSession = $page.params.id;
 
- let summary = st.select(st => st.sessions[currentSession]?.summary);
+ let session = st.select(currentSession);
+ let summary = st.select(st => st.currentSession ? st.sessions[st.currentSession]?.summary : null);
  let selected = st.select(selectedIdeas);
+
+ $: if (browser && !$session) {
+   st.emit(new InitSession($page.params.id))
+ }
 
 </script>
 

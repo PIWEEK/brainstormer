@@ -87,3 +87,7 @@ export function selectedIdeas(state: State): Idea[] {
   }
   return result;
 }
+
+export function currentSession(state: State): Session | null {
+  return state.currentSession ? state.sessions[state.currentSession] : null;
+}

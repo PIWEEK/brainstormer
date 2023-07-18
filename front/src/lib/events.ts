@@ -10,6 +10,20 @@ import { selectedIdeas } from "$state";
 import { StoreEvent } from "$store";
 import api from "$lib/api";
 
+export class InitSession extends StoreEvent<State> {
+  constructor(
+    private sessionId: string
+  ) {
+    super();
+  }
+
+  update(state: State) {
+    goto("/");
+    delete state.currentSession;
+    delete state.selected;
+  }
+}
+
 export class LoadIdeas extends StoreEvent<State> {
   constructor(
     private sessionId: string,
@@ -157,18 +171,18 @@ export class MoreList extends StoreEvent<State> {
 }
 
 export class RetrieveSummary extends StoreEvent<State> {
-  constructor(private sessionId: string) {
+  constructor() {
     super();
   }
 
   watch(state: State, events: Bus<State>): Bus<State> {
-    goto("/session/" + this.sessionId + "/summary");
+    goto("/session/" + state.currentSession + "/summary");
 
-    const id = this.sessionId;
-    const session = state.sessions[id];
+    const id = state.currentSession;
+    const session = id ? state.sessions[id] : null;
     const topic = session?.topic;
 
-    if (session && topic){
+    if (id && session && topic){
       return concat(
         of((state: State) => {
           const session = state.sessions[id];
@@ -178,13 +192,7 @@ export class RetrieveSummary extends StoreEvent<State> {
           
         }),
         from(api.summary(topic, selectedIdeas(state))).pipe(
-          rx.map((data: string) => (state: State) => {
-            const summary = state.sessions[id]?.summary;
-            if (summary) {
-              summary.state = "Loaded";
-              summary.data = data;
-            }
-          })
+          rx.map((data: string) => new LoadSummary(data))
         )
       );
     } else {
@@ -192,4 +200,24 @@ export class RetrieveSummary extends StoreEvent<State> {
     }
   }
 }
+
+export class LoadSummary extends StoreEvent<State> {
+  constructor(
+    private data: string
+  ) {
+    super();
+  }
+
+  update(state: State) {
+    const id = state.currentSession;
+    const summary = id && state.sessions[id]?.summary;
+
+    if (summary) {
+      summary.state = "Loaded";
+      summary.data = this.data;
+    }
+  }
+}
+
+
 

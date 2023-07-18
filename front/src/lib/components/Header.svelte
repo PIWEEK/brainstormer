@@ -2,7 +2,7 @@
  import {page} from '$app/stores'
  import store from "$store";
  import type { State } from "$state";
- import { RetrieveSummary } from "$events";
+ import { RetrieveSummary, CreateSession } from "$events";
 
  import logo from "$lib/images/main-logo.png";
  import GoIcon from "$components/GoIcon.svelte";
@@ -11,11 +11,14 @@
 
  const st = store.get<State>();
 
- let currentSession = $page.params.id;
- let session = st.select(st => st.sessions[currentSession]);
+ let session = st.select(st => st.currentSession ? st.sessions[st.currentSession] : null);
+
+ function search(e: CustomEvent<string>) {
+   st.emit(new CreateSession(e.detail));
+ }
 
  function handleClick() {
-   st.emit(new RetrieveSummary(currentSession));
+   st.emit(new RetrieveSummary());
  }
 
 </script>
@@ -31,11 +34,14 @@
     <Search placeholder="Ideas for..."
             color="white"
             fontSize="large"
-            value={$session?.topic} />
+            value={$session?.topic}
+            on:search={search} />
   </div>
-  <div class="done-btn">
-    <Button type="primary" on:click={handleClick}>I'm done!</Button>
-  </div>
+  {#if $page.route.id !== "/session/[id]/summary"}
+    <div class="done-btn">
+      <Button type="primary" on:click={handleClick}>I'm done!</Button>
+    </div>
+  {/if}
 </header>
 
 <style lang="postcss">

@@ -4,28 +4,23 @@
  import { browser } from '$app/environment';
 
  import type {State} from "$state";
+ import { currentSession } from "$state";
  import store from "$store";
  
  import Header from "$components/Header.svelte";
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
 
- import { SelectIdeaCard, NextList, MoreList } from "$events";
+ import { InitSession, SelectIdeaCard, NextList, MoreList } from "$events";
 
  const st = store.get<State>();
 
- let currentSession = $page.params.id;
+ let session = st.select(currentSession);
+ let selected = st.select(s => s.selected)
 
- $: st.emit(st => {
-   st.currentSession = currentSession;
- });
- 
- let session = st.select(st => st.sessions[currentSession]);
  $: if (browser && !$session) {
-   goto("/");
+   st.emit(new InitSession($page.params.id))
  }
- 
- let selected = st.select(st => st.selected)
 
  function handleMoreClick(indexList: number) {
    st.emit(new MoreList(indexList));

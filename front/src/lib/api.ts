@@ -10,7 +10,7 @@ import moreFake from "./fakeresponses/more.json";
 /* @type { response: string } */
 import summaryFake from "./fakeresponses/summary.json";
 
-let WAIT_TIME = 1000;
+let WAIT_TIME = 100;
 let HOST = ""
 let metadata: any = { tokenCount: 0 };
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+ import { browser } from '$app/environment';
+
  import store from "$store";
  import type { State } from "$state";
  import { initialState } from "$state";
@@ -15,7 +17,7 @@
  let isHome: boolean;
  $: isHome = $page.url.pathname === "/";
 
- const st = store.start(initialState);
+ store.start(initialState);
 </script>
 
 {#if !isHome}

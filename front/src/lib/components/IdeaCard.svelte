@@ -1,7 +1,7 @@
 <script lang="ts">
  import { createEventDispatcher } from 'svelte';
  import Search from "$components/Search.svelte";
- 
+
  export let title: string;
  export let description: string;
  export let keywords: string;

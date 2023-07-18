@@ -26,6 +26,9 @@ interface IStore<State> {
   select<T>(selector: (st: State) => T): Observable<T>;
 }
 
+class StartStore<State> extends StoreEvent<State> {
+}
+
 /*
   Main class for state management. 
  */
@@ -85,6 +88,8 @@ export class Store<State> implements IStore<State>{
     );
 
     watch$.subscribe(this.event$);
+
+    this.emit(new StartStore<State>());
   }
 
   get state(): Observable<State> {
