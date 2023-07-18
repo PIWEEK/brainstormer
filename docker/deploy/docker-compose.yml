@@ -1,0 +1,22 @@
+# Docker-compose file to launch the web app.
+version: '3'
+
+services:
+  brainsurfer-nginx:
+    image: brainsurfer-nginx:1.0
+    container_name: brainsurfer-nginx
+    ports:
+      - "5050:5050"
+    networks:
+      - brainsurfer-network
+
+  brainsurfer-back:
+    image: brainsurfer-back:1.0
+    container_name: brainsurfer-back
+    command: bash -c ".env/bin/python main.py"
+    networks:
+      - brainsurfer-network
+
+networks:
+  brainsurfer-network:
+    driver: bridge

@@ -1,0 +1,12 @@
+FROM node:latest
+MAINTAINER Kaleidos hello@kaleidos.net
+WORKDIR /
+
+# Build the application
+COPY front /front
+WORKDIR /front
+RUN rm -rf build
+RUN npm install
+RUN npm run build
+RUN rm -rf node_modules
+VOLUME /front/build

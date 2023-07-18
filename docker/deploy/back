@@ -1,0 +1,28 @@
+FROM ubuntu:22.04
+MAINTAINER Kaleidos hello@kaleidos.net
+ARG DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /
+
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
+# Install dependencies
+RUN apt-get update
+RUN apt-get install -y -qq curl python3 git python3-venv python3-dev locales
+
+# Configure locales
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN locale-gen
+RUN rm -rf /var/lib/apt/lists/*
+
+COPY back /back
+
+WORKDIR /back
+
+# Install requirements
+RUN python3 -m venv .venv
+RUN /back/.venv/bin/pip install pip --upgrade
+RUN /back/.venv/bin/pip install -r requirements.txt
+
+WORKDIR /back
