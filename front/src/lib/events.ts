@@ -20,10 +20,34 @@ export class InitSession extends StoreEvent<State> {
   }
 
   update(state: State) {
-    goto("/");
-    delete state.currentSession;
+    const storedSession = localStorage.getItem(this.sessionId);
+
+    if (storedSession) {
+      const session = parseSession(storedSession);
+      state.sessions[session.id] = session;
+      state.currentSession = session.id;
+    } else {
+      goto("/");
+      delete state.currentSession;
+    }
   }
 }
+
+export class SaveSession extends StoreEvent<State> {
+  constructor(
+    private sessionId: string
+  ) {
+    super();
+  }
+
+  update(state: State) {
+    const session = state.sessions[this.sessionId];
+    if (session) {
+      localStorage.setItem(this.sessionId, formatSession(session));
+    }
+  }
+}
+
 
 export class LoadIdeas extends StoreEvent<State> {
   constructor(
@@ -245,16 +269,3 @@ export class StartSavingSystem extends StoreEvent<State> {
 
 
 
-export class SaveSession extends StoreEvent<State> {
-  constructor(
-    private sessionId: string
-  ) {
-    super();
-  }
-
-  update(state: State) {
-    const session = state.sessions[this.sessionId];
-
-    
-  }
-}
