@@ -1,0 +1,56 @@
+.topics {
+    min-width: 335px;
+    background: white;
+    border-radius: var(--radius-small);
+    padding-bottom: var(--spacing-medium);
+  }
+ 
+  ul {
+    height: calc(100% - 45px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: var(--spacing-medium);
+  }
+ 
+  .topic-more {
+    width: 100%;
+    text-align: center;
+    padding: 0 var(--spacing-medium);
+    position: relative;
+  }
+ 
+  .item {
+    width: 300px;
+    cursor: pointer;
+  }
+ 
+  .loader {
+    background-image: url("$lib/images/beaver-48.gif.webp");
+    background-size: 200px;
+    background-repeat: no-repeat;
+    background-position: -59px -37px;
+    width: 81px;
+    padding: var(--spacing-medium);
+    height: 80px;
+    border-radius: 50%;
+    margin: 20% auto;
+    color: transparent;
+    position: relative;
+  }
+ 
+  .topic-more .loader {
+    position: absolute;
+    top: -30px;
+    margin: 0;
+    left: 117px;
+  }
+ 
+  .topics ul::-webkit-scrollbar {
+    width: 10px;
+  }
+ 
+  .topics ul::-webkit-scrollbar-thumb {
+    border-radius: var(--radius-small);
+    border: solid 2px var(--color-theme-background-secondary);
+    background: var(--light-blue); 
+  }

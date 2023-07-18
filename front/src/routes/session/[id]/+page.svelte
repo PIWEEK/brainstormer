@@ -2,6 +2,8 @@
  import { page } from '$app/stores'
  import { goto } from '$app/navigation';
  import { browser } from '$app/environment';
+  
+ import "$styles/session.css";
 
  import type {State} from "$state";
  import { currentSession } from "$state";
@@ -66,63 +68,3 @@
     {/if}
   </section>
 {/each}
-
-<style lang="postcss">
- .topics {
-   min-width: 335px;
-   background: white;
-   border-radius: 4px;
-   padding-bottom: 1rem;
- }
-
- ul {
-   height: calc(100% - 45px);
-   overflow-y: auto;
-   overflow-x: hidden;
-   padding: 1rem;
- }
-
- .topic-more {
-   width: 100%;
-   text-align: center;
-   padding: 0 1rem;
-   position: relative;
- }
-
- .item {
-   width: 300px;
-   cursor: pointer;
- }
-
- .loader {
-   background-image: url("$lib/images/beaver-48.gif.webp");
-   background-size: 200px;
-   background-repeat: no-repeat;
-   background-position: -59px -37px;
-   width: 81px;
-   padding: 1rem;
-   height: 80px;
-   border-radius: 50%;
-   margin: 20% auto;
-   color: transparent;
-   position: relative;
- }
-
- .topic-more .loader {
-   position: absolute;
-   top: -30px;
-   margin: 0;
-   left: 117px;
- }
-
- .topics ul::-webkit-scrollbar {
-   width: 10px;
- }
-
- .topics ul::-webkit-scrollbar-thumb {
-   border-radius: 4px;
-   border: solid 2px white;
-   background: var(--light-blue); 
- }
- 
-</style>

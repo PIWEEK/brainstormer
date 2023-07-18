@@ -44,33 +44,3 @@
     </div>
   {/if}
 </header>
-
-<style lang="postcss">
- header {
-   align-items: center;
-   align-self: center;
-   display: flex;
-   padding: 10px 20px;
-   width: 100%;
- }
-
- .search {
-   margin: 0 auto;
-   max-width: 800px;
-   width: 800px;
- }
-
- .main-logo {
-   align-items: center;
-   display: flex;
-
-   img {
-     width: 64px;
-     margin-right: 10px;
-   }
- }
-
- .done-btn {
-   width: 170px;
- }
-</style>
