@@ -1,10 +1,10 @@
+<style src="$style/session.css"></style>
+
 <script lang="ts">
  import { page } from '$app/stores'
  import { goto } from '$app/navigation';
  import { browser } from '$app/environment';
-  
- import "$styles/session.css";
-
+ 
  import type {State} from "$state";
  import { currentSession } from "$state";
  import store from "$store";
@@ -69,3 +69,4 @@
     {/if}
   </section>
 {/each}
+
