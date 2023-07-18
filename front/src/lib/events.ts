@@ -10,6 +10,8 @@ import { selectedIdeas } from "$state";
 import { StoreEvent } from "$store";
 import api from "$lib/api";
 
+import { formatSession, parseSession } from "$lib/serializer";
+
 export class InitSession extends StoreEvent<State> {
   constructor(
     private sessionId: string
@@ -241,6 +243,8 @@ export class StartSavingSystem extends StoreEvent<State> {
   }
 }
 
+
+
 export class SaveSession extends StoreEvent<State> {
   constructor(
     private sessionId: string
@@ -249,6 +253,8 @@ export class SaveSession extends StoreEvent<State> {
   }
 
   update(state: State) {
-    console.log("SAVE", this.sessionId);
+    const session = state.sessions[this.sessionId];
+
+    
   }
 }
