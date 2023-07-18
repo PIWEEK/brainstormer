@@ -1,4 +1,4 @@
-<style src="$style/session.css"></style>
+<style lang="postcss" src="./session.css"></style>
 
 <script lang="ts">
  import { page } from '$app/stores'
