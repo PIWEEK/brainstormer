@@ -10,7 +10,7 @@
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
 
- import { SelectIdeaCard, NextList } from "$events";
+ import { SelectIdeaCard, NextList, MoreList } from "$events";
 
  const st = store.get<State>();
 
@@ -28,8 +28,7 @@
  let selected = st.select(st => st.selected)
 
  function handleMoreClick(indexList: number) {
-   console.log("More", indexList);
-   // st.emit(new MoreList(indexList, indexCard));
+   st.emit(new MoreList(indexList));
  }
 
  function handleSelectCard(indexList: number, indexCard: number) {
@@ -37,7 +36,6 @@
  }
  
  function handleNextClick(indexList: number, indexCard: number, event: CustomEvent<string>) {
-   console.log(">>>", indexList, indexCard, event.detail);
    st.emit(new NextList(indexList, indexCard, event.detail));
  }
 </script>

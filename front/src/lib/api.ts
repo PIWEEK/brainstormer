@@ -32,7 +32,7 @@ async function search(topic, previous=[]) {
   return result;
 }
 
-async function searchMore(topic, current, previous) {
+async function searchMore(topic, current: Idea[], previous: Idea[]=[]) {
   const response = await fetch(`${HOST}/api/more`, {
     method: "POST",
     mode: "cors",
@@ -109,7 +109,7 @@ async function fakeSearch(topic, previous: Idea[] =[]) {
   ];
 }
 
-async function fakeSearchMore(topic, current, previous=[]) {
+async function fakeSearchMore(topic: string, current: Idea[], previous: Idea[] = []): Promise<Idea[]> {
   await sleep(100);
 
   return [
@@ -141,7 +141,7 @@ async function fakeSearchMore(topic, current, previous=[]) {
   ];
 }
 
-async function fakeSummary(topic, current) {
+async function fakeSummary(topic: string, current: Idea[]): string {
   await sleep(100);
   return `
 ## Pros and cons for every idea

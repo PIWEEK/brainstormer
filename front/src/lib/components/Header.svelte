@@ -2,6 +2,7 @@
  import {page} from '$app/stores'
  import store from "$store";
  import type { State } from "$state";
+ import { RetrieveSummary } from "$events";
 
  import logo from "$lib/images/main-logo.png";
  import GoIcon from "$components/GoIcon.svelte";
@@ -12,6 +13,10 @@
 
  let currentSession = $page.params.id;
  let session = st.select(st => st.sessions[currentSession]);
+
+ function handleClick() {
+   st.emit(new RetrieveSummary(currentSession));
+ }
 
 </script>
 
@@ -29,7 +34,7 @@
             value={$session?.topic} />
   </div>
   <div class="done-btn">
-    <Button type="primary">I'm done!</Button>
+    <Button type="primary" on:click={handleClick}>I'm done!</Button>
   </div>
 </header>
 

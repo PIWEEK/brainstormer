@@ -21,6 +21,10 @@ export interface Session {
   id: ID;
   topic: string;
   lists: IdeaList[];
+  summary?: {
+    state: 'Loading' | 'Loaded',
+    data?: string
+  }
 }
 
 export interface State {
@@ -60,4 +64,32 @@ export const fakeState: State = {
       }))
     }
   }
+}
+
+export function selectedIdeas(state: State): Idea[] {
+  const id = state.currentSession;
+
+  if (!state.selected || !id) {
+    return [];
+  }
+
+  console.log(state.selected);
+
+  const result = [] as Idea[];
+  for (const v of state.selected) {
+    const [listIdxStr, cardIdxStr] = v.split(",");
+    const listIdx = parseInt(listIdxStr, 10);
+    const cardIdx = parseInt(cardIdxStr, 10);
+
+    console.log("??", listIdx, cardIdx);
+
+    const idea = listIdx && cardIdx &&
+      state.sessions[id].lists[listIdx]?.ideas[cardIdx];
+    console.log(idea);
+
+    if (idea) {
+      result.push(idea);
+    }
+  }
+  return result;
 }
