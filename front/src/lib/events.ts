@@ -52,7 +52,7 @@ export class CreateSession extends StoreEvent<State> {
     goto("/session/" + this.id);
 
     return concat(
-      from(api.fakeSearch(this.search)).pipe(
+      from(api.search(this.search)).pipe(
         rx.map(data => new LoadIdeas(this.id, 0, data))
       )
     );
@@ -115,7 +115,7 @@ export class NextList extends StoreEvent<State> {
     const topic = session?.topic;
 
     if (id && session && topic){
-      return from(api.fakeSearch(topic, selectedIdeas(state))).pipe(
+      return from(api.search(topic, selectedIdeas(state))).pipe(
         rx.map(data => new LoadIdeas(id, this.indexList + 1, data))
       );
     } else {
@@ -147,7 +147,7 @@ export class MoreList extends StoreEvent<State> {
     if (id && session && topic){
       const current = session.lists[this.indexList].ideas;
 
-      return from(api.fakeSearchMore(topic, current, selectedIdeas(state))).pipe(
+      return from(api.searchMore(topic, current, selectedIdeas(state))).pipe(
         rx.map(data => new LoadIdeas(id, this.indexList, data))
       );
     } else {
@@ -177,7 +177,7 @@ export class RetrieveSummary extends StoreEvent<State> {
           }
           
         }),
-        from(api.fakeSummary(topic, selectedIdeas(state))).pipe(
+        from(api.summary(topic, selectedIdeas(state))).pipe(
           rx.map((data: string) => (state: State) => {
             const summary = state.sessions[id]?.summary;
             if (summary) {
