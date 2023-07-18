@@ -52,3 +52,12 @@ p {
 textarea {
   resize: none;
 }
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-large);
+  border: solid 2px var(--color-theme-background-secondary);
+  background: var(--light-blue); 
+}

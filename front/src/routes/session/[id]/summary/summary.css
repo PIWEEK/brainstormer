@@ -93,16 +93,4 @@ h3 {
   color: transparent;
   position: relative;
 }
-
-.topics ul::-webkit-scrollbar,
-.summary-content::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  .topics ul::-webkit-scrollbar-thumb,
-  .summary-content::-webkit-scrollbar-thumb {
-    border-radius: var(--radius-small);
-    border: solid 2px var(--color-theme-background-secondary);
-    background: var(--light-blue); 
-  }
   
