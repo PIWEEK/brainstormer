@@ -1,0 +1,23 @@
+version: '3'
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  main:
+    privileged: true
+    image: "brainsurfer/devenv:latest"
+    build:
+      context: "."
+    container_name: "brainsurfer-devenv-main"
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+
+    volumes:
+      - "${PWD}:/home/brainsurfer:z"
+
+    ports:
+      - "5173:5173"
+      - "5000:5000"
