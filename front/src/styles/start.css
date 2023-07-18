@@ -50,7 +50,6 @@
   }
   
   h2 {
-    font-family: var(--type-primary);
     font-weight: var(--type-weight-regular);
     font-size: var(--type-extra-large);
     line-height: var(--type-line-height-large);

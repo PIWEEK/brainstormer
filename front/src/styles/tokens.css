@@ -30,6 +30,8 @@
     --color-theme-background-secondary: var(--color-white);
     --color-theme-text-primary: var(--color-black);
     --color-theme-text-secondary: var(--color-gray);
+    --color-theme-text-invert: var(--color-white);
+    --color-theme-disabled: var(--color-grayish);
 
     /* Typography */
     --type-font-family-roboto: 'Roboto', sans-serif;
