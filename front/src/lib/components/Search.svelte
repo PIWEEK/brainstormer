@@ -1,3 +1,5 @@
+<style lang="postcss" src="./Search.css"></style>
+
 <script lang="ts">
  import { createEventDispatcher } from 'svelte';
  import Button from "$components/Button.svelte";

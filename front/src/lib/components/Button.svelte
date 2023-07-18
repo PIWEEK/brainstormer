@@ -1,3 +1,5 @@
+<style lang="postcss" src="./Button.css"></style>
+
 <script lang="ts">
  import { createEventDispatcher } from 'svelte';
  import GoIcon from "$components/GoIcon.svelte";
