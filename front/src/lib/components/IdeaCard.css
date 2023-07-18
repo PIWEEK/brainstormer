@@ -1,0 +1,39 @@
+/* IDEA CARD
+----------------------------------*/
+.idea-card {
+    border-radius: var(--radius-small);
+    border: var(--border-medium) solid var(--color-theme-border);
+    margin-bottom: calc(var(--spacing-medium) + 1px);
+    padding: var(--spacing-medium);
+    position: relative;
+    width: 100%;
+ 
+    &.disabled {
+      opacity: 0.7;
+    }
+ 
+    &.selected {
+      margin: 0;
+      margin-bottom: var(--spacing-medium);
+      border: var(--border-medium) solid var(--color-theme-primary);
+    }
+  }
+ 
+  .title {
+    font-size: var(--type-large);
+    font-weight: var(--type-weight-bold);
+  }
+ 
+  .description {
+    font-size: var(--type-medium);
+    line-height: var(--type-line-height-regular);
+    margin: var(--spacing-small) 0;
+  }
+ 
+  .keywords {
+    font-size: var(--type-small);
+    line-height: var(--type-line-height-regular);
+    margin: var(--spacing-small) 0;
+    font-weight: var(--type-weight-bold);
+    color: var(--color-theme-primary);
+  }

@@ -1,0 +1,40 @@
+/* SEARCH FORM
+----------------------------------*/
+.searchForm {
+    display: flex;
+    position: relative;
+    width: 100%;
+  }
+
+.searchInput {
+    border-radius: var(--radius-medium);
+    color: var(--color-theme-text-primary);
+    font-family: var(--type-primary);
+    height: 50px;
+    padding-left: var(--spacing-small);
+    padding-top: var(--spacing-medium);
+    resize: none;
+    width: 100%;
+  }
+ 
+  .font-large .searchInput {
+    font-size: var(--type-large);
+    font-weight: var(--type-weight-bold);
+    padding-left: var(--spacing-medium);
+  }
+ 
+  .searchInput {
+    border: var(--color-theme-background-secondary);
+    background-color: var(--color-theme-background-secondary);
+  }
+ 
+  .gray .searchInput {
+    border: var(--color-grayish);
+    background: var(--color-grayish);
+  }
+ 
+  .submit-btn {
+    position: absolute;
+    right: var(--spacing-extra-small);
+    top: var(--spacing-extra-small);
+  }
