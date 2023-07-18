@@ -1,0 +1,108 @@
+.topics,
+.summary {
+  background: var(--color-theme-background-secondary);
+  border-radius: var(--radius-small);
+  padding-bottom: var(--spacing-medium);
+}
+
+.topics {
+  max-width: 335px;
+}
+
+h3 {
+  color: var(--color-theme-primary);
+  font-size: var(--type-large);
+  margin: var(--spacing-large);
+  font-weight: var(--type-weight-bold);
+}
+
+.topic-item {
+  max-width: 300px;
+  margin-bottom: calc(var(--spacing-medium) + 1px);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  overflow-y: auto;
+  padding: var(--spacing-large) var(--spacing-medium) var(--spacing-medium);
+  width: 700px;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  :global(h2) {
+    margin: 0 0 var(--spacing-large) 0;
+    color: var(--color-theme-primary);
+    font-size: var(--type-large);
+    line-height: var(--type-line-height-regular);
+    font-weight: var(--type-weight-bold);
+  }
+
+  :global(h3) {
+    font-size: var(--type-large);
+    color: var(--color-theme-text-primary);
+    margin: var(--spacing-medium) 0;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  :global(p) {
+    padding: var(--spacing-small) 0;
+  }
+
+  :global(ul) {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-medium);
+    overflow: initial;
+  }
+
+  :global(li) {
+    margin-bottom: var(--spacing-medium);
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--spacing-medium);
+  padding-top: var(--spacing-medium);
+  margin-top: auto;
+
+  & > :global(*) {
+    max-width: 170px;
+  }
+}
+
+.loader {
+  background-image: url("$lib/images/beaver-48.gif.webp");
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: -59px -37px;
+  width: 81px;
+  padding: var(--spacing-medium);
+  height: 80px;
+  border-radius: 50%;
+  margin: 20% auto;
+  color: transparent;
+  position: relative;
+}
+
+.topics ul::-webkit-scrollbar,
+.summary-content::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .topics ul::-webkit-scrollbar-thumb,
+  .summary-content::-webkit-scrollbar-thumb {
+    border-radius: var(--radius-small);
+    border: solid 2px var(--color-theme-background-secondary);
+    background: var(--light-blue); 
+  }
+  
