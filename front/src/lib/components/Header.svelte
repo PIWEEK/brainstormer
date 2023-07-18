@@ -1,3 +1,5 @@
+<style lang="postcss" src="./Header.css"></style>
+
 <script lang="ts">
  import {page} from '$app/stores'
  import store from "$store";

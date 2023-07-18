@@ -1,3 +1,5 @@
+<style lang="postcss" src="./IdeaCard.css"></style>
+
 <script lang="ts">
  import { createEventDispatcher } from 'svelte';
  import Search from "$components/Search.svelte";
