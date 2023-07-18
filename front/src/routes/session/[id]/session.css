@@ -44,3 +44,15 @@ ul {
   margin: 0;
   left: 117px;
 }
+
+
+  /*Media queries*/
+
+  @media (max-width: 900px) {
+    .topics {
+      width: 100vw;
+      flex-shrink: 0;
+      flex-grow: 1;
+    }
+    
+  }

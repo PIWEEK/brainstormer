@@ -61,3 +61,22 @@ textarea {
   border: solid 2px var(--color-theme-background-secondary);
   background: var(--light-blue); 
 }
+
+ /*Media queries*/
+
+ @media (max-width: 900px) {
+    
+  body {
+    gap: 0;
+  }
+  
+}
+
+
+@media (max-width: 700px) {
+    
+  main {
+    justify-content: flex-start;
+  }
+  
+}
