@@ -9,13 +9,30 @@ html {
   height: 100%;
   overflow: hidden;
 }
+
 body {
-	font-family: var(--type-primary);
+	font-family: var(--type-secondary);
   background: var(--color-theme-background-primary);
+  color: var(--color-theme-text-primary);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-medium);
   height: 100%;
+}
+
+main {
+  display: flex;
+  gap: 8px;
+  height: 100%;
+  justify-content: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--spacing-medium) var(--spacing-large);
+  width: 100%;
+}
+
+.home {
+  padding: 0;
 }
 
 li {
@@ -32,7 +49,7 @@ ul {
 }
 
 p {
-  line-height: 1.5;
+  line-height: var(--type-line-height-large);
 }
 
 textarea {
