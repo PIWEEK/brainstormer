@@ -10,6 +10,7 @@
  import "../styles/fonts.css";
  import "../styles/tokens.css";
  import "../styles/global.css";
+ import "../styles/components.css";
 
  import Header from "$components/Header.svelte";
 
@@ -34,20 +35,3 @@
 <main class:home={isHome}>
   <slot/>
 </main>
-
-<style lang="postcss">
- main {
-   display: flex;
-   gap: 8px;
-   height: 100%;
-   justify-content: center;
-   overflow-x: auto;
-   overflow-y: hidden;
-   padding: 10px 20px;
-   width: 100%;
- }
-
- .home {
-   padding: 0;
- }
-</style> 

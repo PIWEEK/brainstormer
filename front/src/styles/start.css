@@ -1,0 +1,64 @@
+/* START
+----------------------------------*/
+.start {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+  }
+  
+  .start-img {
+    background-image: url($lib/images/start-img.png);
+    background-size: cover;
+    background-position: center -60px;
+    max-width: 40%;
+    width: 100%;
+  }
+  
+  .start-form {
+    background-color: var(--color-theme-background-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    padding: var(--spacing-extra-large);
+  }
+  
+  .main-logo {
+    align-items: center;
+    display: flex;
+    font-family: var(--type-primary);
+  
+    img {
+      width: 64px;
+      margin-right: 10px;
+    }
+  
+    span {
+      font-weight: var(--type-weight-bold);
+      font-size: 24px;
+    }
+  }
+  
+  .start-form-inside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    margin: auto 0;
+  }
+  
+  h2 {
+    font-family: var(--type-primary);
+    font-weight: var(--type-weight-regular);
+    font-size: var(--type-extra-large);
+    line-height: var(--type-line-height-large);
+    margin-bottom: var(--spacing-large);
+  }
+  
+  .search {
+    margin-top: var(--spacing-extra-large);
+    max-width: 800px;
+    width: 100%;
+  }  

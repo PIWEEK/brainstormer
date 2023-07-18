@@ -20,44 +20,52 @@
 
     --color-white: #ffffff;
     --color-black: #000000;
+    --color-gray: #666666;
     --color-grayish: #EBECEE; /*aka anti-flash-white*/
 
     /* Color theming */
     --color-theme-primary: var(--color-blue);
     --color-theme-secondary: var(--color-blue-dark);
     --color-theme-background-primary: var(--color-blue-lightish);
-    --color-theme-background-secondary: var(--color-blue-white);
+    --color-theme-background-secondary: var(--color-white);
     --color-theme-text-primary: var(--color-black);
-    --color-theme-text-secondary: var(--color-black);
+    --color-theme-text-secondary: var(--color-gray);
 
     /* Typography */
-    --type-font-family: 'Roboto', sans-serif;
+    --type-font-family-roboto: 'Roboto', sans-serif;
+    --type-font-family-lato: 'Lato', sans-serif;
 
-    --type-primary: var(--type-font-family);
+    --type-primary: var(--type-font-family-lato);
+    --type-secondary: var(--type-font-family-roboto);
 
     --type-font-size-13: 13px;
     --type-font-size-16: 16px;
-    --type-font-size-24: 24px;
+    --type-font-size-22: 22px;
     --type-font-size-40: 40px;
+
+    --type-weight-light: 300;
+    --type-weight-regular: 500;
+    --type-weight-bold: 700;
 
     --type-small: var(--type-font-size-13);
     --type-medium: var(--type-font-size-16);
-    --type-large: var(--type-font-size-24);
+    --type-large: var(--type-font-size-22);
     --type-extra-large: var(--type-font-size-40);
 
-    --type-line-height-small: 1.2;
-    --type-line-height-medium: 1.5;
+    --type-line-height-regular: 1.2;
+    --type-line-height-large: 1.5;
 
     /* Spacing */
+    --spacing-extra-small: 0.25rem;
     --spacing-small: 0.5rem;
     --spacing-medium: 1rem;
     --spacing-large: 2rem;
     --spacing-extra-large: 4rem;
 
       /* Radius */
-    --radius-small: 2px;
-    --radius-medium: 4px;
-    --radius-large: 8px;
+    --radius-small: 4px;
+    --radius-medium: 8px;
+    --radius-large: 16px;
 
 
   }
