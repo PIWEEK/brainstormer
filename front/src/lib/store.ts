@@ -21,12 +21,28 @@ export abstract class StoreEvent<State> {
   }
 }
 
-interface IStore<State> {
+export interface IStore<State> {
   emit(event: Event<State>): void;
   select<T>(selector: (st: State) => T): Observable<T>;
 }
 
 class StartStore<State> extends StoreEvent<State> {
+}
+
+function saveEvent<State>(e: Event<State>) {
+  if (!browser) return;
+  const debugEvents = (window as any).events;
+  if (!debugEvents) {
+    (window as any).events = [e]
+  } else {
+    debugEvents.push(e);
+  }
+}
+
+function saveState<State>(state: State) {
+  if (browser) {
+    (window as any).state = state
+  }
 }
 
 /*
@@ -41,15 +57,7 @@ export class Store<State> implements IStore<State>{
     this.state$ = concat(
       of(initialState),
       this.event$.pipe(
-        rx.tap(e => {
-          if (!browser) return;
-          const debugEvents = (window as any).events;
-          if (!debugEvents) {
-            (window as any).events = [e]
-          } else {
-            debugEvents.push(e);
-          }
-        }),
+        rx.tap(saveEvent<State>),
         rx.scan((state, event) => {
           let fn: UpdateStateFn<State>;
           if (event instanceof Function) {
@@ -59,11 +67,7 @@ export class Store<State> implements IStore<State>{
           }
           return produce(state, fn);
         }, initialState),
-        rx.tap((state) => {
-          if (browser) {
-            (window as any).state = state
-          }
-        }),
+        rx.tap(saveState<State>),
         rx.catchError((err) => {
           console.error("Error", err);
           return this.state$;

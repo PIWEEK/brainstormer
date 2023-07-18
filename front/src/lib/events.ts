@@ -3,7 +3,7 @@ import { goto } from '$app/navigation';
 import { empty, concat, of, from } from "rxjs";
 import * as rx from "rxjs/operators"
 
-import type { Bus } from "$store";
+import type { IStore, Bus } from "$store";
 import type { State, Idea } from "$state";
 import { selectedIdeas } from "$state";
 
@@ -20,7 +20,6 @@ export class InitSession extends StoreEvent<State> {
   update(state: State) {
     goto("/");
     delete state.currentSession;
-    delete state.selected;
   }
 }
 
@@ -48,11 +47,11 @@ export class CreateSession extends StoreEvent<State> {
   }
 
   update(state: State) {
-    state.selected = new Set();
     state.currentSession = this.id;
     state.sessions[this.id] = {
       id: this.id,
       topic: this.search,
+      selected: new Set(),
       lists: [{
         state: "InitialLoading",
         ideas: []
@@ -82,23 +81,30 @@ export class SelectIdeaCard extends StoreEvent<State> {
   }
 
   update(state: State) {
-    const selid = this.indexList + "," + this.indexCard;
+    const id = state.currentSession;
 
-    if (!state.selected) {
-      state.selected = new Set();
+    if (!id) return;
+    
+    const selid = this.indexList + "," + this.indexCard;
+    const session = state.sessions[id];
+
+    if (!session) return;
+
+    if (!session.selected) {
+      session.selected = new Set();
     }
 
-    if (state.selected?.has(selid)) {
+    if (session.selected?.has(selid)) {
       return;
     }
 
-    for (let e of state.selected) {
+    for (let e of session.selected) {
       if (e.startsWith(this.indexList + ",")) {
-        state.selected?.delete(e);
+        session.selected?.delete(e);
       }
     }
     
-    state.selected?.add(selid);
+    session.selected?.add(selid);
   }
 }
 
@@ -189,7 +195,6 @@ export class RetrieveSummary extends StoreEvent<State> {
           if (session) {
             session.summary = { state: 'Loading' }
           }
-          
         }),
         from(api.summary(topic, selectedIdeas(state))).pipe(
           rx.map((data: string) => new LoadSummary(data))
@@ -219,5 +224,31 @@ export class LoadSummary extends StoreEvent<State> {
   }
 }
 
+export class StartSavingSystem extends StoreEvent<State> {
+  constructor(
+    private store: IStore<State>
+  ) {
+    super();
+  }
 
+  watch(state: State, events: Bus<State>): Bus<State> {
+    return this.store.select((st: State) => st.sessions).pipe(
+      rx.filter(s => !!s),
+      rx.bufferCount(2, 1),
+      rx.mergeMap(([prev, next]) => Object.entries(next).filter(([k, v]) => prev[k] !== v).map(([k, _]) => k)),
+      rx.map(id => new SaveSession(id)),
+    )
+  }
+}
 
+export class SaveSession extends StoreEvent<State> {
+  constructor(
+    private sessionId: string
+  ) {
+    super();
+  }
+
+  update(state: State) {
+    console.log("SAVE", this.sessionId);
+  }
+}

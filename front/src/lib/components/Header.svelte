@@ -2,6 +2,7 @@
  import {page} from '$app/stores'
  import store from "$store";
  import type { State } from "$state";
+ import { currentSession } from "$state";
  import { RetrieveSummary, CreateSession } from "$events";
 
  import logo from "$lib/images/main-logo.png";
@@ -11,7 +12,7 @@
 
  const st = store.get<State>();
 
- let session = st.select(st => st.currentSession ? st.sessions[st.currentSession] : null);
+ let session = st.select(currentSession);
 
  function search(e: CustomEvent<string>) {
    st.emit(new CreateSession(e.detail));

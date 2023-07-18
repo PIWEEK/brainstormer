@@ -16,7 +16,6 @@
  const st = store.get<State>();
 
  let session = st.select(currentSession);
- let selected = st.select(s => s.selected)
 
  $: if (browser && !$session) {
    st.emit(new InitSession($page.params.id))
@@ -46,7 +45,7 @@
             <IdeaCard title={idea.title}
                       description={idea.description}
                       keywords={idea.keywords}
-                      selected={$selected?.has(indexList + "," + indexCard)}
+                      selected={$session?.selected?.has(indexList + "," + indexCard)}
                       on:select={handleSelectCard.bind(null, indexList, indexCard)}
                       on:next={handleNextClick.bind(null, indexList, indexCard)}
             />

@@ -25,7 +25,7 @@
       class:gray={color === "gray"}
       class:font-large={fontSize === "large"}
       on:submit={handleSubmit}>
-  <textarea id="searchText" name="searchText" class="searchInput" placeholder={placeholder}>{value}</textarea>
+  <textarea id="searchText" name="searchText" class="searchInput" placeholder={placeholder}>{value || ""}</textarea>
 
   <div class="submit-btn">
     <Button type="icon" icon="go" submit/>

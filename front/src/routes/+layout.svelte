@@ -4,6 +4,7 @@
  import store from "$store";
  import type { State } from "$state";
  import { initialState } from "$state";
+ import { StartSavingSystem } from "$events";
 
  import "../styles/normalize.css";
  import "../styles/fonts.css";
@@ -14,10 +15,16 @@
 
  import {page} from '$app/stores'
 
+ export const ssr = false;
+
  let isHome: boolean;
  $: isHome = $page.url.pathname === "/";
 
- store.start(initialState);
+ const st = store.start(initialState);
+
+ if (browser) {
+   st.emit(new StartSavingSystem(st));
+ }
 </script>
 
 {#if !isHome}
