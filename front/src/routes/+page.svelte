@@ -3,12 +3,17 @@
  import Search from "$components/Search.svelte";
  import type {State} from "$state";
  import store from "$store";
- import { CreateSession } from "$events";
+ import { CreateSession, InitSession } from "$events";
 
  const st = store.get<State>();
+ const recent = st.select(st => st.recent ? [...st.recent].reverse() : []);
 
  function search(e: CustomEvent<string>) {
    st.emit(new CreateSession(e.detail));
+ }
+
+ function openSession(id: string) {
+   st.emit(new InitSession(id));
  }
  
 </script>
@@ -31,6 +36,16 @@
                 fontSize="large"
                 on:search={search} />
       </div>
+      {#if $recent}
+        <div class="recent-ideas">
+          <h3>Continue session:</h3>
+          <ul>
+            {#each $recent as ri}
+              <li><a href={"/session/" + ri.id} on:click={openSession.bind(null, ri.id)}>{ri.topic}</a></li>
+            {/each}
+          </ul>
+        </div>
+      {/if}
     </div>
   </div>
 </section>
@@ -98,4 +113,28 @@
    width: 100%;
  }
 
+ .recent-ideas {
+   margin-top: 1rem;
+   width: 100%;
+   padding: 0.5rem;
+   display: flex;
+   flex-direction: row;
+   text-align: left;
+   gap: 1rem;
+
+   & h3 {
+     font-weight: 700;
+     white-space: nowrap;
+   }
+
+   & ul {
+     height: auto;
+     padding: 0;
+     overflow: visible;
+     display: flex;
+     flex-direction: row;
+     gap: 0.5rem;
+     flex-wrap: wrap;
+   }
+ }
 </style>

@@ -30,6 +30,7 @@ export interface Session {
 
 export interface State {
   currentSession?: string;
+  recent?: {id: string; topic: string}[];
   sessions: Record<ID, Session>;
 }
 

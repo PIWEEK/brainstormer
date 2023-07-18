@@ -45,6 +45,7 @@
             <IdeaCard title={idea.title}
                       description={idea.description}
                       keywords={idea.keywords}
+                      input={idea.input}
                       selected={$session?.selected?.has(indexList + "," + indexCard)}
                       on:select={handleSelectCard.bind(null, indexList, indexCard)}
                       on:next={handleNextClick.bind(null, indexList, indexCard)}

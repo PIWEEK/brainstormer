@@ -5,6 +5,7 @@
  export let title: string;
  export let description: string;
  export let keywords: string;
+ export let input: string | undefined | null = null;
  
  export let selected: boolean = false;
  export let disabled: boolean = false;
@@ -38,7 +39,8 @@
       <Search 
         placeholder="More like this"
         color="gray"
-        on:search={handleSubmit} />
+        on:search={handleSubmit}
+        value={input} />
     </div>
   {/if}
 </li>
