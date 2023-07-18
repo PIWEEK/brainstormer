@@ -7,6 +7,6 @@ COPY front /front
 WORKDIR /front
 RUN rm -rf build
 RUN npm install
-RUN npm run build
 RUN rm -rf node_modules
+RUN npm run build
 VOLUME /front/build

@@ -29,7 +29,7 @@ function update_nginx() {
     echo "Updating nginx"
     echo "##############"
     echo "...Updating nginx: Create docker"
-    docker build --no-cache=true -t brainsurfer-nginx:1.0 -f nginx ./
+    docker build --no-cache=true -t brainsurfer-nginx:1.0 -f nginx ../../
     restart_module brainsurfer-nginx
     echo "Updating nginx: done!"
 }
