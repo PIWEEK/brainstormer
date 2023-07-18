@@ -4,12 +4,12 @@ tmux -2 new-session -d -s brainsurfer
 
 tmux rename-window -t brainsurfer:0 'back'
 tmux select-window -t brainsurfer:0
-# tmux send-keys -t brainsurfer 'cd /home/brainsurfer/brainsurfer-back' enter C-l
-# tmux send-keys -t brainsurfer 'python3 -m venv .env' enter C-l
-# tmux send-keys -t brainsurfer '.env/bin/pip install pip --upgrade' enter C-l
-# tmux send-keys -t brainsurfer '.env/bin/pip install -r requirements.txt' enter C-l
-# tmux send-keys -t brainsurfer 'cd src' enter C-l
-# tmux send-keys -t brainsurfer '../.env/bin/python app.py run' enter
+tmux send-keys -t brainsurfer 'cd /home/brainsurfer/back' enter C-l
+tmux send-keys -t brainsurfer 'python3 -m venv .env' enter C-l
+tmux send-keys -t brainsurfer '.env/bin/pip install pip --upgrade' enter C-l
+tmux send-keys -t brainsurfer '.env/bin/pip install -r requirements.txt' enter C-l
+tmux send-keys -t brainsurfer 'cd src' enter C-l
+tmux send-keys -t brainsurfer '.env/bin/python main.py' enter
 
 tmux new-window -t brainsurfer:1 -n 'front'
 tmux select-window -t brainsurfer:1
