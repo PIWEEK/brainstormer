@@ -44,13 +44,3 @@ ul {
   margin: 0;
   left: 117px;
 }
-
-.topics ul::-webkit-scrollbar {
-  width: 10px;
-}
-
-.topics ul::-webkit-scrollbar-thumb {
-  border-radius: var(--radius-small);
-  border: solid 2px var(--color-theme-background-secondary);
-  background: var(--light-blue); 
-}

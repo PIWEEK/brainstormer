@@ -22,6 +22,7 @@
     width: 100%;
     text-align: center;
     padding: var(--spacing-extra-large);
+    overflow: auto;
   }
   
   .main-logo {
@@ -54,10 +55,25 @@
     font-size: var(--type-extra-large);
     line-height: var(--type-line-height-large);
     margin-bottom: var(--spacing-large);
+    margin-top: var(--spacing-large);
   }
   
   .search {
     margin-top: var(--spacing-extra-large);
     max-width: 800px;
     width: 100%;
-  }  
+  }
+
+
+  /*Media queries*/
+
+  @media (max-width: 900px) {
+
+    .home {
+      --type-extra-large: var(--type-font-size-32);
+    }
+
+    .start-img {
+      display: none;
+    }
+  }
