@@ -73,19 +73,13 @@ export function selectedIdeas(state: State): Idea[] {
     return [];
   }
 
-  console.log(state.selected);
-
   const result = [] as Idea[];
   for (const v of state.selected) {
     const [listIdxStr, cardIdxStr] = v.split(",");
     const listIdx = parseInt(listIdxStr, 10);
     const cardIdx = parseInt(cardIdxStr, 10);
 
-    console.log("??", listIdx, cardIdx);
-
-    const idea = listIdx && cardIdx &&
-      state.sessions[id].lists[listIdx]?.ideas[cardIdx];
-    console.log(idea);
+    const idea = state.sessions[id].lists[listIdx]?.ideas[cardIdx];
 
     if (idea) {
       result.push(idea);
