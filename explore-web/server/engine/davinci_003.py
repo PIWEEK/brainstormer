@@ -124,8 +124,8 @@ class DAVINCI_003(BaseEngine):
         "message": completion.choices[0].text
       }
 
-    def more(self, topic, previous, user_inputs):
-      prompt = self.more_prompt(topic, previous, user_inputs)
+    def more(self, topic, previous, current, user_inputs):
+      prompt = self.more_prompt(topic, previous, current, user_inputs)
 
       completion = openai.Completion.create(
         model="text-davinci-003",
