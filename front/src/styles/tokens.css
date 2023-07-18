@@ -32,6 +32,7 @@
     --color-theme-text-secondary: var(--color-gray);
     --color-theme-text-invert: var(--color-white);
     --color-theme-disabled: var(--color-grayish);
+    --color-theme-border: var(--color-grayish);
 
     /* Typography */
     --type-font-family-roboto: 'Roboto', sans-serif;
@@ -40,7 +41,7 @@
     --type-primary: var(--type-font-family-lato);
     --type-secondary: var(--type-font-family-roboto);
 
-    --type-font-size-13: 13px;
+    --type-font-size-14: 14px;
     --type-font-size-16: 16px;
     --type-font-size-22: 22px;
     --type-font-size-40: 40px;
@@ -49,7 +50,7 @@
     --type-weight-regular: 500;
     --type-weight-bold: 700;
 
-    --type-small: var(--type-font-size-13);
+    --type-small: var(--type-font-size-14);
     --type-medium: var(--type-font-size-16);
     --type-large: var(--type-font-size-22);
     --type-extra-large: var(--type-font-size-40);
@@ -64,10 +65,15 @@
     --spacing-large: 2rem;
     --spacing-extra-large: 4rem;
 
-      /* Radius */
+    /* Radius */
     --radius-small: 4px;
     --radius-medium: 8px;
     --radius-large: 16px;
+
+    /* Border */
+    --border-small: 1px;
+    --border-medium: 2px;
+    --border-large: 4px;
 
 
   }
