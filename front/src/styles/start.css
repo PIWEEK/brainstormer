@@ -66,17 +66,24 @@
 
 
   .recent-ideas {
-   margin-top: 1rem;
+   padding-top: var(--spacing-large);
+   margin-top: var(--spacing-large);
+   border-top: var(--border-small) solid var(--color-theme-border-dark);
    width: 100%;
-   padding: 0.5rem;
    display: flex;
    flex-direction: row;
-   text-align: left;
-   gap: 1rem;
+   justify-content: center;
+   gap: var(--spacing-medium);
+   flex-wrap: wrap;
+   width: 100%;
 
    & h3 {
-     font-weight: 700;
      white-space: nowrap;
+     width: 100%;
+     font-size: var(--type-small);
+     text-transform: uppercase;
+     color: var(--color-theme-text-secondary);
+     text-align: center;
    }
 
    & ul {
@@ -85,7 +92,7 @@
      overflow: visible;
      display: flex;
      flex-direction: row;
-     gap: 0.5rem;
+     gap: var(--spacing-medium);
      flex-wrap: wrap;
    }
  }

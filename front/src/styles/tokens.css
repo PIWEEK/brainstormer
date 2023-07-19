@@ -3,16 +3,6 @@
 
 .theme-light {
     /* Colors */
-
-    /* --- BORRAR */
-    --alice-blue: #EFF7FA;
-    --anti-flash-white: #EBECEE;
-    --caribbean-current: #046D6C;
-    --light-blue: #AFD3CE;
-    --robin-egg-blue: #41C2BF;
-    /* BORRAR --- */
-
-
     --color-blue: #41C2BF; /*aka robin-egg-blue*/
     --color-blue-dark: #046D6C; /*aka caribbean-current*/
     --color-blue-light: #AFD3CE; /*aka light-blue*/
@@ -33,6 +23,7 @@
     --color-theme-text-invert: var(--color-white);
     --color-theme-disabled: var(--color-grayish);
     --color-theme-border: var(--color-grayish);
+    --color-theme-border-dark: var(--color-blue-light);
 
     /* Typography */
     --type-font-family-roboto: 'Roboto', sans-serif;

@@ -49,6 +49,15 @@ p {
   line-height: var(--type-line-height-large);
 }
 
+a {
+  color: var(--color-theme-secondary);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-theme-primary);
+  text-decoration: underline;
+}
+
 textarea {
   resize: none;
 }
