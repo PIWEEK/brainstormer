@@ -36,6 +36,14 @@
   margin: var(--spacing-small) 0;
   font-weight: var(--type-weight-bold);
   color: var(--color-primary);
+
+  & > :global(*) {
+    margin-right: var(--spacing-small);
+  }
+
+  & .keyword-link {
+    cursor: pointer;
+  }
 }
 
 .actions {

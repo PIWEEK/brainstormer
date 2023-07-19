@@ -27,6 +27,10 @@
  function handleSubmit(e: CustomEvent<string>) {
    dispatch("next", e.detail);
  }
+
+ function handleClickKeyword(keyword: string, event: MouseEvent) {
+   event.preventDefault();
+ }
  
 </script>
 
@@ -36,7 +40,12 @@
      on:click={handleSelect}>
   <p class="title">{idea.title}</p>
   <p class="description">{idea.description}</p>
-  <p class="keywords">{idea.keywords}</p>
+
+  <div class="keywords">
+    {#each idea.keywords?.split(" \u00b7 ") as keyword, idx}
+      {#if idx !== 0} {@html "<span>\u00b7<span>"} {/if}<a class="keyword-link" on:click={handleClickKeyword.bind(null, keyword)}>{keyword}</a>
+    {/each}
+  </div>
 
   {#if selected}
     <div bind:this={searchNode}>
@@ -49,8 +58,8 @@
   {/if}
 
   <div class="actions" bind:this={actionsNode}>
-    <Toggle icon="happy"/>
-    <Toggle icon="sad"/>
-    <Toggle icon="star"/>
+    <Toggle icon="happy" active={idea.liked} on:change={e => dispatch("toggleLike", e.detail)} />
+    <Toggle icon="sad" active={idea.disliked} on:change={e => dispatch("toggleLislike", e.detail)} />
+    <Toggle icon="star" active={idea.saved} on:change={e => dispatch("toggleSave", e.detail)} />
   </div>
 </div>

@@ -15,6 +15,7 @@ export interface Idea {
 export interface IdeaList {
   state: 'Loaded' | 'InitialLoading' | 'MoreLoading';
   ideas: Idea[];
+  title?: string;
 }
 
 export interface Session {
