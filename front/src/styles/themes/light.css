@@ -1,0 +1,33 @@
+/**
+ * Do not edit directly
+ * Generated on Wed, 19 Jul 2023 11:55:12 GMT
+ */
+
+:root {
+  --alias-color-theme-primary: #41c2bf;
+  --alias-color-theme-secondary: #046d6c;
+  --alias-color-theme-background-primary: #eff7fa;
+  --alias-color-theme-background-secondary: #ffffff;
+  --alias-color-theme-text-primary: #000000;
+  --alias-color-theme-text-secondary: #666666;
+  --alias-color-theme-text-invert: #ffffff;
+  --alias-color-theme-disabled: #ebecee;
+  --alias-color-theme-border: #ebecee;
+  --color-blue-base: #41c2bf;
+  --color-blue-dark: #046d6c;
+  --color-blue-light: #afd3ce;
+  --color-blue-lightish: #eff7fa;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray: #666666;
+  --color-grayish: #ebecee;
+  --color-primary: #41c2bf;
+  --color-secondary: #046d6c;
+  --color-background-primary: #eff7fa;
+  --color-background-secondary: #eff7fa;
+  --color-text-primary: #000000;
+  --color-text-secondary: #666666;
+  --color-text-invert: #ffffff;
+  --color-disabled: #ebecee;
+  --color-border: #ebecee;
+}

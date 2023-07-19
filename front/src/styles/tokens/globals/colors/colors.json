@@ -1,0 +1,27 @@
+{
+  "color": {
+    "blue": {
+      "base"     : { "value": "#41C2BF" },
+      "dark"     : { "value": "#046D6C" },
+      "light"    : { "value": "#AFD3CE" },
+      "lightish" : { "value": "#EFF7FA" }
+    },
+    "white"   : { "value": "#ffffff" },
+    "black"   : { "value": "#000000" },
+    "gray"    : { "value": "#666666" },
+    "grayish" : { "value": "#EBECEE" },
+    "primary"    : { "value" : "{alias.color.theme.primary.value}"},
+    "secondary"  : { "value" : "{alias.color.theme.secondary.value}"},
+    "background" : {
+      "primary"   : { "value" : "{alias.color.theme.background.primary.value}"},
+      "secondary" : { "value" : "{alias.color.theme.background.primary.value}"}
+    },
+    "text" : {
+      "primary"   : { "value" : "{alias.color.theme.text.primary.value}"},
+      "secondary" : { "value" : "{alias.color.theme.text.secondary.value}"},
+      "invert"    : { "value" : "{alias.color.theme.text.invert.value}"}
+    },      
+    "disabled"    : { "value" : "{alias.color.theme.disabled.value}"},
+    "border"      : { "value" : "{alias.color.theme.border.value}"}
+  }
+}

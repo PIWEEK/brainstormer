@@ -1,0 +1,21 @@
+{
+  "alias": {
+    "color": {
+      "theme"   : {
+        "primary"    : { "value" : "{color.blue.base.value}"},
+        "secondary"  : { "value" : "{color.blue.dark.value}"},
+        "background" : {
+          "primary"   : { "value" : "{color.blue.lightish}"},
+          "secondary" : { "value" : "{color.white}"}
+        },
+        "text" : {
+          "primary"   : { "value" : "{color.black}"},
+          "secondary" : { "value" : "{color.gray}"},
+          "invert"    : { "value" : "{color.white}"}
+        },      
+        "disabled"    : { "value" : "{color.grayish}"},
+        "border"      : { "value" : "{color.grayish}"}
+      }
+    }
+  }
+}
