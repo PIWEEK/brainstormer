@@ -50,7 +50,7 @@
     </div>
   {/if}
 
-  <div class="icons">
+  <div class="actions">
     <HappyFaceIcon/>
     <SadFaceIcon/>
     <StarIcon/>

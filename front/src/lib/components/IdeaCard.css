@@ -38,12 +38,12 @@
     color: var(--color-theme-primary);
   }
 
-  .icons {
+  .actions {
     height: 20px;
     display: flex;
-    margin: var(--spacing-small) 0;
+    margin-top: var(--spacing-medium);
     gap: var(--spacing-large);
-    justify-content: end;
+    justify-content: space-evenly;
 
     & > :global(*) {
       width: auto;
