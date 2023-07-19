@@ -1,10 +1,10 @@
 /* BUTTON -- se puede hacer mejor lo de primary y secondary
 ----------------------------------*/
 .primary {
-  background: var(--color-theme-primary);
+  background: var(--color-primary);
   border-radius: var(--radius-small);
   border: none;
-  color: var(--color-theme-text-invert);
+  color: var(--color-text-invert);
   cursor: pointer;
   display: block;
   font-family: var(--type-primary);
@@ -18,15 +18,15 @@
 [disabled].primary,
 [disabled]:hover.primary
 {
-  background: var(--color-theme-disabled);
+  background: var(--color-disabled);
   cursor: initial;
 }
 
 .secondary {
-  background: var(--color-theme-background-secondary);
+  background: var(--color-background-secondary);
   border-radius: var(--radius-small);
-  border: var(--border-medium) solid var(--color-theme-primary);
-  color: var(--color-theme-primary);
+  border: var(--border-medium) solid var(--color-primary);
+  color: var(--color-primary);
   cursor: pointer;
   display: block;
   font-family: var(--type-primary);
@@ -39,7 +39,7 @@
 
 .icon {
   align-items: center;
-  background: var(--color-theme-primary);
+  background: var(--color-primary);
   border-radius: var(--radius-medium);
   border: none;
   cursor: pointer;
@@ -51,5 +51,5 @@
 }
 
 .primary:hover, .icon:hover {
-  background: var(--color-theme-secondary);
+  background: var(--color-secondary);
 }

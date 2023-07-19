@@ -35,9 +35,9 @@ ul {
   display: flex;
   padding: var(--spacing-medium) var(--spacing-small) var(--spacing-medium) var(--spacing-medium);
   border-radius: var(--radius-small) var(--radius-small) 0 0;
-  border-bottom: var(--border-medium) solid var(--color-theme-border);
+  border-bottom: var(--border-medium) solid var(--color-border);
   align-items: center;
-  color: var(--color-theme-text-secondary);
+  color: var(--color-text-secondary);
 
   & .list-header-title {
     flex: 1;

@@ -9,8 +9,8 @@ html {
 
 body {
 	font-family: var(--type-secondary);
-  background: var(--color-theme-background-primary);
-  color: var(--color-theme-text-primary);
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-medium);
@@ -50,11 +50,11 @@ p {
 }
 
 a {
-  color: var(--color-theme-secondary);
+  color: var(--color-secondary);
   text-decoration: none;
 }
 a:hover {
-  color: var(--color-theme-primary);
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
@@ -67,7 +67,7 @@ textarea {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: var(--radius-large);
-  border: solid 2px var(--color-theme-background-secondary);
+  border: solid 2px var(--color-background-secondary);
   background: var(--color-blue-light); 
 }
 

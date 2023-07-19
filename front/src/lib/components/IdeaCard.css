@@ -2,7 +2,7 @@
 ----------------------------------*/
 .idea-card {
   border-radius: var(--radius-small);
-  border: var(--border-medium) solid var(--color-theme-border);
+  border: var(--border-medium) solid var(--color-border);
   margin-bottom: calc(var(--spacing-medium) + 1px);
   padding: var(--spacing-medium);
   position: relative;
@@ -15,7 +15,7 @@
   &.selected {
     margin: 0;
     margin-bottom: var(--spacing-medium);
-    border: var(--border-medium) solid var(--color-theme-primary);
+    border: var(--border-medium) solid var(--color-primary);
   }
 }
 
@@ -35,7 +35,7 @@
   line-height: var(--type-line-height-regular);
   margin: var(--spacing-small) 0;
   font-weight: var(--type-weight-bold);
-  color: var(--color-theme-primary);
+  color: var(--color-primary);
 }
 
 .actions {

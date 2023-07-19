@@ -8,7 +8,7 @@
 
 .searchInput {
   border-radius: var(--radius-medium);
-  color: var(--color-theme-text-primary);
+  color: var(--color-text-primary);
   font-family: var(--type-primary);
   height: 50px;
   padding-left: var(--spacing-small);
@@ -24,8 +24,8 @@
 }
 
 .searchInput {
-  border: var(--color-theme-background-secondary);
-  background-color: var(--color-theme-background-secondary);
+  border: var(--color-background-secondary);
+  background-color: var(--color-background-secondary);
 }
 
 .gray .searchInput {

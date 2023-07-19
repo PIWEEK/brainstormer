@@ -1,6 +1,6 @@
 .topics,
 .summary {
-  background: var(--color-theme-background-secondary);
+  background: var(--color-background-secondary);
   border-radius: var(--radius-small);
   padding-bottom: var(--spacing-medium);
 }
@@ -10,7 +10,7 @@
 }
 
 h3 {
-  color: var(--color-theme-primary);
+  color: var(--color-primary);
   font-size: var(--type-large);
   margin: var(--spacing-large);
   font-weight: var(--type-weight-bold);
@@ -37,7 +37,7 @@ h3 {
 
   :global(h2) {
     margin: 0 0 var(--spacing-large) 0;
-    color: var(--color-theme-primary);
+    color: var(--color-primary);
     font-size: var(--type-large);
     line-height: var(--type-line-height-regular);
     font-weight: var(--type-weight-bold);
@@ -45,7 +45,7 @@ h3 {
 
   :global(h3) {
     font-size: var(--type-large);
-    color: var(--color-theme-text-primary);
+    color: var(--color-text-primary);
     margin: var(--spacing-medium) 0;
     text-align: left;
     font-weight: 700;
