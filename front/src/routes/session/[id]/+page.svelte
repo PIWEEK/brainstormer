@@ -14,6 +14,8 @@
  import IdeaCard from "$components/IdeaCard.svelte";
  import Loader from "$components/Loader.svelte";
 
+ import TrashIcon from "$lib/icons/TrashIcon.svelte";
+
  import { InitSession, SelectIdeaCard, NextList, MoreList } from "$events";
 
  const st = store.get<State>();
@@ -44,6 +46,12 @@
         <Loader/>
       </div>
     {:else}
+      <div class="list-header">
+        <div class="list-header-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget scelerisque erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ullamcorper a lorem id porttitor. </div>
+        <div class="list-header-actions">
+          <TrashIcon/>
+        </div>
+      </div>
       <ul>
         {#each list.ideas as idea, indexCard}
           <li class="item">
