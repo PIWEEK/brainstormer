@@ -47,7 +47,7 @@ ul {
   }
 
   & .list-header-actions {
-    width: 1.5rem;
+    width: 2rem;
     margin-left: var(--spacing-medium);
   }
   

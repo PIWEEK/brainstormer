@@ -63,7 +63,7 @@
   width: 100%;
 
   &:hover {
-    background: var(--color-grayish);
+    background-color: var(--color-grayish);
   }
 }
 
