@@ -9,6 +9,7 @@
     "white"   : { "value": "#ffffff" },
     "black"   : { "value": "#000000" },
     "gray"    : { "value": "#666666" },
+    "grayer"  : { "value": "#A0A0A0" },
     "grayish" : { "value": "#EBECEE" },
     "primary"    : { "value" : "{alias.color.theme.primary.value}"},
     "secondary"  : { "value" : "{alias.color.theme.secondary.value}"},

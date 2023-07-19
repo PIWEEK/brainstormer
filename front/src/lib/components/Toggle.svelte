@@ -19,10 +19,10 @@
  let border: string;
 
  $: if (active) {
-   border = "var(--color-blue-dark)";
-   background = "var(--color-blue-light)";
+   border = "var(--color-primary)";
+   background = "var(--color-blue-lightish)";
  } else {
-   border = "var(--color-blue-light)";
+   border = "var(--color-grayer)";
    background = "none";
  }
 

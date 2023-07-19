@@ -47,7 +47,7 @@
 }
 
 .actions {
-  height: 20px;
+  height: 24px;
   display: flex;
   margin-top: var(--spacing-medium);
   gap: var(--spacing-large);
