@@ -160,8 +160,11 @@ export class NextList extends StoreEvent<State> {
 
     if (id) {
       const session = state.sessions[id];
+      let listTitle = session.lists[this.indexList].ideas[this.indexCard].title
+
       if (this.input) {
         session.lists[this.indexList].ideas[this.indexCard].input = this.input;
+        listTitle = listTitle + "(" + this.input + ")"
       }
 
       const indexList = this.indexList;
@@ -180,7 +183,8 @@ export class NextList extends StoreEvent<State> {
       session.lists.splice(this.indexList + 1);
       session.lists.push({
         state: "InitialLoading",
-        ideas: []
+        ideas: [],
+        title: listTitle,
       });
     }
   }

@@ -35,6 +35,10 @@
  function handleNextClick(indexList: number, indexCard: number, event: CustomEvent<string>) {
    st.emit(new NextList(indexList, indexCard, event.detail));
  }
+
+ function handleRemoveList(indexList: number) {
+   console.log("delete", indexList);
+ }
 </script>
 
 {#each ($session?.lists || []) as list, indexList}
@@ -45,9 +49,9 @@
       </div>
     {:else}
       <div class="list-header">
-        <div class="list-header-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget scelerisque erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ullamcorper a lorem id porttitor. </div>
+        <div class="list-header-title">{list.title || ((indexList === 0) ? $session?.topic : "")}</div>
         <div class="list-header-actions">
-          <Button type="icon-secondary" icon="remove"/>
+          <Button type="icon-secondary" icon="remove" on:click={handleRemoveList.bind(null, indexList)} />
         </div>
       </div>
       <ul>
