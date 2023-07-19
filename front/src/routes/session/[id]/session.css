@@ -21,7 +21,7 @@ ul {
 }
 
 .item {
-  cursor: pointer;
+  cursor: default;
 }
 
 .topic-more .loader {

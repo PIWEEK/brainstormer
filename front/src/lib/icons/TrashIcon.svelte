@@ -1,6 +1,6 @@
 <script lang="ts">
  export let background: string = "none";
- export let border: string = "black";
+ export let border: string = "white";
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

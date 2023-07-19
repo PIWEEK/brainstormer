@@ -47,7 +47,24 @@
   justify-content: center;
   margin: 0;
   padding: var(--spacing-extra-small);
-  width: 40px;
+  width: 100%;
+}
+
+.icon-secondary {
+  background: var(--color-theme-background-secondary);
+  border: none;
+  align-items: center;
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: var(--spacing-extra-small);
+  width: 100%;
+
+  &:hover {
+    background: var(--color-grayish);
+  }
 }
 
 .primary:hover, .icon:hover {

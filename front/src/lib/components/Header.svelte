@@ -11,7 +11,7 @@
  import Search from "$components/Search.svelte";
  import Button from "$components/Button.svelte";
 
- import CircleCheck from "$lib/icons/CircleCheck.svelte";
+ import CircleCheckIcon from "$lib/icons/CircleCheckIcon.svelte";
 
  const st = store.get<State>();
 
@@ -47,7 +47,7 @@
     <div class="done-btn">
       <Button type="primary" on:click={handleClick}>
         <span class="text">I'm done!</span>
-        <span class="icon"><CircleCheck/><span>
+        <span class="icon"><CircleCheckIcon border="white" /><span>
       </Button>
     </div>
   {/if}

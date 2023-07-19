@@ -5,10 +5,7 @@
 
  import type { Idea } from "$state";
  import Search from "$components/Search.svelte";
-
- import StarIcon from "$lib/icons/StarIcon.svelte";
- import HappyFaceIcon from "$lib/icons/HappyFaceIcon.svelte";
- import SadFaceIcon from "$lib/icons/SadFaceIcon.svelte";
+ import Toggle from "$components/Toggle.svelte";
 
  export let idea: Idea;
  
@@ -18,9 +15,11 @@
  const dispatch = createEventDispatcher();
 
  let searchNode: Node;
+ let actionsNode: Node;
 
  function handleSelect(event: MouseEvent) {
-   if (!searchNode || !searchNode.contains(event.target as Node)) {
+   if (!searchNode?.contains(event.target as Node) &&
+       !actionsNode?.contains(event.target as Node)) {
      dispatch("select");
    }
  }
@@ -49,9 +48,9 @@
     </div>
   {/if}
 
-  <div class="actions">
-    <HappyFaceIcon/>
-    <SadFaceIcon/>
-    <StarIcon/>
+  <div class="actions" bind:this={actionsNode}>
+    <Toggle icon="happy"/>
+    <Toggle icon="sad"/>
+    <Toggle icon="star"/>
   </div>
 </div>

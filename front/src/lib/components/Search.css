@@ -37,6 +37,7 @@
   position: absolute;
   right: var(--spacing-extra-small);
   top: var(--spacing-extra-small);
+  width: 40px;
 }
 
 @media (max-width: 700px) {
