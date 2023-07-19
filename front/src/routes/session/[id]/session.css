@@ -7,7 +7,7 @@
 }
 
 ul {
-  height: calc(100% - 95px);
+  height: calc(100% - 105px);
   overflow-y: auto;
   overflow-x: hidden;
   padding: var(--spacing-medium);
@@ -48,6 +48,7 @@ ul {
 
   & .list-header-actions {
     width: 1.5rem;
+    margin-left: var(--spacing-medium);
   }
   
 }

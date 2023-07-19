@@ -66,6 +66,7 @@
     --border-small: 1px;
     --border-medium: 2px;
     --border-large: 4px;
+    --border-extra-large: 8px;
 
     /*Media queries*/
     --mediaquery-700: 700px;
