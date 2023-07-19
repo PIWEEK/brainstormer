@@ -4,6 +4,10 @@
  import { createEventDispatcher } from 'svelte';
  import Search from "$components/Search.svelte";
 
+ import StarIcon from "$lib/icons/StarIcon.svelte";
+ import HappyFaceIcon from "$lib/icons/HappyFaceIcon.svelte";
+ import SadFaceIcon from "$lib/icons/SadFaceIcon.svelte";
+
  export let title: string;
  export let description: string;
  export let keywords: string;
@@ -45,4 +49,10 @@
         value={input} />
     </div>
   {/if}
+
+  <div class="icons">
+    <HappyFaceIcon/>
+    <SadFaceIcon/>
+    <StarIcon/>
+  </div>
 </li>
