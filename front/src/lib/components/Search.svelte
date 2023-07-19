@@ -13,17 +13,21 @@
 
  const dispatch = createEventDispatcher();
 
+ function onSearch() {
+   const formData = new FormData(formElement);
+   const value = formData.get("searchText") as string | null;
+   dispatch("search", value?.trim());
+ }
+ 
  function handleSubmit(event: SubmitEvent) {
    event.preventDefault();
-   const formData = new FormData(formElement);
-   dispatch("search", formData.get("searchText"));
+   onSearch();
  }
 
  function handleInput(event: KeyboardEvent) {
    if (event.key === "Enter" && !event.shiftKey) {
      event.preventDefault();
-     const formData = new FormData(formElement);
-     dispatch("search", formData.get("searchText"));
+     onSearch();
    }
  }
 </script>

@@ -10,7 +10,9 @@
  const recent = st.select(st => st.recent ? [...st.recent].reverse() : []);
 
  function search(e: CustomEvent<string>) {
-   st.emit(new CreateSession(e.detail));
+   if (e.detail && e.detail !== "") {
+     st.emit(new CreateSession(e.detail));
+   }
  }
 
  function openSession(id: string) {

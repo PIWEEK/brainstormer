@@ -16,7 +16,9 @@
  let session = st.select(currentSession);
 
  function search(e: CustomEvent<string>) {
-   st.emit(new CreateSession(e.detail));
+   if (e.detail && e.detail !== "") {
+     st.emit(new CreateSession(e.detail));
+   }
  }
 
  function handleClick() {
