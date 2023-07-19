@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 19 Jul 2023 11:55:12 GMT
+ * Generated on Wed, 19 Jul 2023 12:38:02 GMT
  */
 
 :root {
@@ -13,6 +13,9 @@
   --alias-color-theme-text-invert: #TODO;
   --alias-color-theme-disabled: #TODO;
   --alias-color-theme-border: #TODO;
+  --border-small: 1px;
+  --border-medium: 2px;
+  --border-large: 4px;
   --color-blue-base: #41c2bf;
   --color-blue-dark: #046d6c;
   --color-blue-light: #afd3ce;
@@ -30,4 +33,32 @@
   --color-text-invert: #TODO;
   --color-disabled: #TODO;
   --color-border: #TODO;
+  --mediaquery-700: 700px;
+  --mediaquery-900: 900px;
+  --radius-small: 4px;
+  --radius-medium: 8px;
+  --radius-large: 16px;
+  --spacing-extra-small: 0.25rem;
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --spacing-extra-large: 4rem;
+  --type-primary: 'Lato', sans-serif;
+  --type-secondary: 'Roboto', sans-serif;
+  --type-small: 14px;
+  --type-medium: 16px;
+  --type-large: 22px;
+  --type-extra-large: 40px;
+  --type-weight-light: 300;
+  --type-weight-regular: 500;
+  --type-weight-bold: 700;
+  --type-line-height-regular: 1.2;
+  --type-line-height-large: 1.5;
+  --type-font-family-roboto: 'Roboto', sans-serif;
+  --type-font-family-lato: 'Lato', sans-serif;
+  --type-font-size-14: 14px;
+  --type-font-size-16: 16px;
+  --type-font-size-22: 22px;
+  --type-font-size-32: 32px;
+  --type-font-size-40: 40px;
 }

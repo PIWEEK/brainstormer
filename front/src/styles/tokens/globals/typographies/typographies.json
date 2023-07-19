@@ -1,0 +1,32 @@
+{
+  "type": {
+    "primary"   : { "value": "{type.font.family.lato}" },
+    "secondary" : { "value": "{type.font.family.roboto}" }, 
+    "small"   : { "value": "{type.font.size.14}" },
+    "medium" : { "value": "{type.font.size.16}" },       
+    "large"   : { "value": "{type.font.size.22}" },
+    "extra-large" : { "value": "{type.font.size.40}" },
+    "weight" : {
+      "light" : { "value": "300" }, 
+      "regular" : { "value": "500" }, 
+      "bold" : { "value": "700" }
+    },
+    "line-height" : {
+      "regular" : { "value": "1.2" }, 
+      "large" : { "value": "1.5" }
+    },    
+    "font": {
+      "family" : { 
+        "roboto" : {"value" : "'Roboto', sans-serif"},
+        "lato" : {"value" : "'Lato', sans-serif"}
+      },
+      "size" : {
+        "14" : { "value": "14px" }, 
+        "16" : { "value": "16px" }, 
+        "22" : { "value": "22px" }, 
+        "32" : { "value": "32px" }, 
+        "40" : { "value": "40px" }
+      }
+    }
+  }
+}
