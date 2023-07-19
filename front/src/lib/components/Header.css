@@ -28,6 +28,7 @@ header {
 .done-btn {
   min-width: 170px;
 }
+
 .done-btn .icon {
   display: none;
   width: 32px;
@@ -53,10 +54,13 @@ header {
     display: block;
     fill: white;
   }
+
+  /*
   .done-btn .icon svg {
     fill: white;
     width: auto;
     height: auto;
   }
+ */
   
 }

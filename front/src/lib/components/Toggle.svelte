@@ -27,7 +27,8 @@
  }
 
  function handleClick() {
-   dispatch("change", !active);
+   active = !active;
+   //dispatch("change", !active);
  }
 </script>
 

@@ -101,10 +101,12 @@ h2 {
 
 @media (max-width: 900px) {
 
+  /*
   .home {
     --type-extra-large: var(--type-font-size-32);
     --spacing-extra-large: var(--spacing-large);
   }
+ */
 
   .start-img {
     display: none;
