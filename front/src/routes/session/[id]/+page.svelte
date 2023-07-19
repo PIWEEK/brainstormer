@@ -14,7 +14,7 @@
  import IdeaCard from "$components/IdeaCard.svelte";
  import Loader from "$components/Loader.svelte";
 
- import TrashIcon from "$lib/icons/TrashIcon.svelte";
+ import SquareRemove from "$lib/icons/SquareRemove.svelte";
 
  import { InitSession, SelectIdeaCard, NextList, MoreList } from "$events";
 
@@ -49,7 +49,7 @@
       <div class="list-header">
         <div class="list-header-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget scelerisque erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ullamcorper a lorem id porttitor. </div>
         <div class="list-header-actions">
-          <TrashIcon/>
+          <SquareRemove/>
         </div>
       </div>
       <ul>

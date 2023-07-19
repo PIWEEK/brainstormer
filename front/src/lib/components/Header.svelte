@@ -11,6 +11,8 @@
  import Search from "$components/Search.svelte";
  import Button from "$components/Button.svelte";
 
+ import CircleCheck from "$lib/icons/CircleCheck.svelte";
+
  const st = store.get<State>();
 
  let session = st.select(currentSession);
@@ -43,7 +45,10 @@
   </div>
   {#if $page.route.id !== "/session/[id]/summary"}
     <div class="done-btn">
-      <Button type="primary" on:click={handleClick}>I'm done!</Button>
+      <Button type="primary" on:click={handleClick}>
+        <span class="text">I'm done!</span>
+        <span class="icon"><CircleCheck/><span>
+      </Button>
     </div>
   {/if}
 </header>

@@ -6,6 +6,7 @@ header {
   display: flex;
   padding: var(--spacing-medium) var(--spacing-large);
   width: 100%;
+  gap: var(--spacing-medium);
 }
 
 .search {
@@ -25,7 +26,10 @@ header {
 }
 
 .done-btn {
-  width: 170px;
+  min-width: 170px;
+}
+.done-btn .icon {
+  display: none;
 }
 
 @media (max-width: 700px) {
@@ -36,6 +40,22 @@ header {
 
   header {
     padding: var(--spacing-medium) var(--spacing-medium);
+  }
+
+  .done-btn {
+    min-width: auto;
+  }
+  .done-btn .text {
+    display: none;
+  }
+  .done-btn .icon {
+    display: block;
+    fill: white;
+  }
+  .done-btn .icon svg {
+    fill: white;
+    width: auto;
+    height: auto;
   }
   
 }
