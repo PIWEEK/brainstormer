@@ -1,5 +1,6 @@
 .topics {
   min-width: 335px;
+  max-width: 400px;
   background: white;
   border-radius: var(--radius-small);
   padding-bottom: var(--spacing-medium);
@@ -36,6 +37,7 @@ ul {
   @media (max-width: 700px) {
     .topics {
       width: 100%;
+      max-width: none;
       flex-shrink: 0;
       flex-grow: 1;
       justify-content: flex-start;
