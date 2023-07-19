@@ -6,10 +6,11 @@
 		"build": "vite build",
 		"dev-build": "vite build -w -d",
 		"preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --compiler-warnings 'a11y-aria-attributes:ignore,a11y-incorrect-aria-attribute-type:ignore,a11y-unknown-aria-attribute:ignore,a11y-hidden:ignore,a11y-misplaced-role:ignore,a11y-unknown-role:ignore,a11y-no-abstract-role:ignore,a11y-no-redundant-roles:ignore,a11y-role-has-required-aria-props:ignore,a11y-accesskey:ignore,a11y-autofocus:ignore,a11y-misplaced-scope:ignore,a11y-positive-tabindex:ignore,a11y-invalid-attribute:ignore,a11y-missing-attribute:ignore,a11y-img-redundant-alt:ignore,a11y-label-has-associated-control:ignore,a11y-media-has-caption:ignore,a11y-distracting-elements:ignore,a11y-structure:ignore,a11y-mouse-events-have-key-events:ignore,a11y-missing-content:ignore,a11y-click-events-have-key-events:ignore'",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch --compiler-warnings 'a11y-aria-attributes:ignore,a11y-incorrect-aria-attribute-type:ignore,a11y-unknown-aria-attribute:ignore,a11y-hidden:ignore,a11y-misplaced-role:ignore,a11y-unknown-role:ignore,a11y-no-abstract-role:ignore,a11y-no-redundant-roles:ignore,a11y-role-has-required-aria-props:ignore,a11y-accesskey:ignore,a11y-autofocus:ignore,a11y-misplaced-scope:ignore,a11y-positive-tabindex:ignore,a11y-invalid-attribute:ignore,a11y-missing-attribute:ignore,a11y-img-redundant-alt:ignore,a11y-label-has-associated-control:ignore,a11y-media-has-caption:ignore,a11y-distracting-elements:ignore,a11y-structure:ignore,a11y-mouse-events-have-key-events:ignore,a11y-missing-content:ignore,a11y-click-events-have-key-events:ignore'",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --compiler-warnings 'a11y-aria-attributes:ignore,a11y-incorrect-aria-attribute-type:ignore,a11y-unknown-aria-attribute:ignore,a11y-hidden:ignore,a11y-misplaced-role:ignore,a11y-unknown-role:ignore,a11y-no-abstract-role:ignore,a11y-no-redundant-roles:ignore,a11y-role-has-required-aria-props:ignore,a11y-accesskey:ignore,a11y-autofocus:ignore,a11y-misplaced-scope:ignore,a11y-positive-tabindex:ignore,a11y-invalid-attribute:ignore,a11y-missing-attribute:ignore,a11y-img-redundant-alt:ignore,a11y-label-has-associated-control:ignore,a11y-media-has-caption:ignore,a11y-distracting-elements:ignore,a11y-structure:ignore,a11y-mouse-events-have-key-events:ignore,a11y-missing-content:ignore,a11y-click-events-have-key-events:ignore'",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch --compiler-warnings 'a11y-aria-attributes:ignore,a11y-incorrect-aria-attribute-type:ignore,a11y-unknown-aria-attribute:ignore,a11y-hidden:ignore,a11y-misplaced-role:ignore,a11y-unknown-role:ignore,a11y-no-abstract-role:ignore,a11y-no-redundant-roles:ignore,a11y-role-has-required-aria-props:ignore,a11y-accesskey:ignore,a11y-autofocus:ignore,a11y-misplaced-scope:ignore,a11y-positive-tabindex:ignore,a11y-invalid-attribute:ignore,a11y-missing-attribute:ignore,a11y-img-redundant-alt:ignore,a11y-label-has-associated-control:ignore,a11y-media-has-caption:ignore,a11y-distracting-elements:ignore,a11y-structure:ignore,a11y-mouse-events-have-key-events:ignore,a11y-missing-content:ignore,a11y-click-events-have-key-events:ignore'",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write .",
+    "build-styles": "node ./build-styles.js"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
@@ -43,6 +44,7 @@
 		"marked": "^5.1.1",
 		"ramda": "^0.29.0",
 		"rxjs": "^7.8.1",
+		"style-dictionary": "^3.8.0",
 		"svelte-forms-lib": "^2.0.1",
 		"uuid": "^9.0.0",
 		"yup": "^1.2.0"

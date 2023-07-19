@@ -1,0 +1,21 @@
+{
+  "alias": {
+    "color": {
+      "theme"   : {
+        "primary"    : { "value" : "#TODO"},
+        "secondary"  : { "value" : "#TODO"},
+        "background" : {
+          "primary"   : { "value" : "#TODO"},
+          "secondary" : { "value" : "#TODO"}
+        },
+        "text" : {
+          "primary"   : { "value" : "#TODO"},
+          "secondary" : { "value" : "#TODO"},
+          "invert"    : { "value" : "#TODO"}
+        },      
+        "disabled"    : { "value" : "#TODO"},
+        "border"      : { "value" : "#TODO"}
+      }
+    }
+  }
+}

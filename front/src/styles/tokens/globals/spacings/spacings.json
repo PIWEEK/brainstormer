@@ -1,0 +1,9 @@
+{
+  "spacing": {
+    "extra-small"   : { "value": "0.25rem" },
+    "small" : { "value": "0.5rem" }, 
+    "medium"   : { "value": "1rem" },
+    "large" : { "value": "2rem" },       
+    "extra-large"   : { "value": "4rem" }
+  }
+}
