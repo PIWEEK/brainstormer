@@ -1,7 +1,7 @@
 .topics {
   min-width: 400px;
   max-width: 400px;
-  background: white;
+  background: var(--color-background-secondary);
   border-radius: var(--radius-small);
   padding-bottom: var(--spacing-medium);
 }
@@ -35,7 +35,7 @@ ul {
   display: flex;
   padding: var(--spacing-medium) var(--spacing-small) var(--spacing-medium) var(--spacing-medium);
   border-radius: var(--radius-small) var(--radius-small) 0 0;
-  border-bottom: var(--border-medium) solid var(--color-border);
+  border-bottom: var(--border-medium) solid var(--color-border-soft);
   align-items: center;
   color: var(--color-text-secondary);
 

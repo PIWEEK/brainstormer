@@ -29,8 +29,8 @@
 }
 
 .gray .searchInput {
-  border: var(--color-grayish);
-  background: var(--color-grayish);
+  border: var(--color-background-primary);
+  background: var(--color-background-primary);
 }
 
 .submit-btn {

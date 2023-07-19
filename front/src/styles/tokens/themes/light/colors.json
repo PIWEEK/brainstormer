@@ -12,9 +12,17 @@
           "primary"   : { "value" : "{color.black}"},
           "secondary" : { "value" : "{color.gray}"},
           "invert"    : { "value" : "{color.white}"}
-        },      
-        "disabled"    : { "value" : "{color.grayish}"},
-        "border"      : { "value" : "{color.grayish}"}
+        },
+        "scrollbar" : {
+          "border"     : { "value" : "{color.background.secondary}"},
+          "background" : { "value" : "{color.blue.light}"}
+        },
+        "border" : {
+          "strong" : { "value" : "{color.grayer}"},
+          "medium" : { "value" : "{color.blue.light}"},
+          "soft"   : { "value" : "{color.grayish}"}
+        },
+        "disabled"    : { "value" : "{color.grayish}"}
       }
     }
   }

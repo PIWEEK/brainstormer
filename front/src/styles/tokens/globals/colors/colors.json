@@ -3,6 +3,7 @@
     "blue": {
       "base"     : { "value": "#41C2BF" },
       "dark"     : { "value": "#046D6C" },
+      "darker"   : { "value": "#03403e"},
       "light"    : { "value": "#AFD3CE" },
       "lightish" : { "value": "#EFF7FA" }
     },
@@ -21,8 +22,16 @@
       "primary"   : { "value" : "{alias.color.theme.text.primary.value}"},
       "secondary" : { "value" : "{alias.color.theme.text.secondary.value}"},
       "invert"    : { "value" : "{alias.color.theme.text.invert.value}"}
-    },      
-    "disabled"    : { "value" : "{alias.color.theme.disabled.value}"},
-    "border"      : { "value" : "{alias.color.theme.border.value}"}
+    },
+    "scrollbar" : {
+      "border"     : { "value" : "{alias.color.theme.scrollbar.border.value}"},
+      "background" : { "value" : "{alias.color.theme.scrollbar.background.value}"}
+    },
+    "border" : {
+      "strong" : { "value" : "{alias.color.theme.border.strong.value}"},
+      "medium" : { "value" : "{alias.color.theme.border.medium.value}"},
+      "soft"   : { "value" : "{alias.color.theme.border.soft.value}"}
+    },
+    "disabled"    : { "value" : "{alias.color.theme.disabled.value}"}
   }
 }

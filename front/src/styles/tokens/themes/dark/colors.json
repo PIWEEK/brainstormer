@@ -12,9 +12,17 @@
           "primary"   : { "value" : "#TODO"},
           "secondary" : { "value" : "#TODO"},
           "invert"    : { "value" : "#TODO"}
-        },      
-        "disabled"    : { "value" : "#TODO"},
-        "border"      : { "value" : "#TODO"}
+        },
+        "scrollbar" : {
+          "border"     : { "value" : "#TODO"},
+          "background" : { "value" : "#TODO"}
+        },
+        "border" : {
+          "strong" : { "value" : "#TODO"},
+          "medium" : { "value" : "#TODO"},
+          "soft"   : { "value" : "#TODO"}
+        },
+        "disabled"    : { "value" : "#TODO"}
       }
     }
   }

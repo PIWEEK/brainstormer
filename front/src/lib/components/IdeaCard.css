@@ -2,7 +2,7 @@
 ----------------------------------*/
 .idea-card {
   border-radius: var(--radius-small);
-  border: var(--border-medium) solid var(--color-border);
+  border: var(--border-medium) solid var(--color-border-soft);
   margin-bottom: calc(var(--spacing-medium) + 1px);
   padding: var(--spacing-medium);
   position: relative;

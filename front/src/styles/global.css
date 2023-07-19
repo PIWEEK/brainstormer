@@ -50,11 +50,11 @@ p {
 }
 
 a {
-  color: var(--color-secondary);
+  color: var(--color-primary);
   text-decoration: none;
 }
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   text-decoration: underline;
 }
 
@@ -67,8 +67,8 @@ textarea {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: var(--radius-large);
-  border: solid 2px var(--color-background-secondary);
-  background: var(--color-blue-light); 
+  border: solid 2px var(--color-scrollbar-border);
+  background: var(--color-scrollbar-background); 
 }
 
  /*Media queries*/

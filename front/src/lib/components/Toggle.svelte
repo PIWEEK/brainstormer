@@ -20,9 +20,9 @@
 
  $: if (active) {
    border = "var(--color-primary)";
-   background = "var(--color-blue-lightish)";
+   background = "var(--color-background-primary)";
  } else {
-   border = "var(--color-grayer)";
+   border = "var(--color-border-strong)";
    background = "none";
  }
 
