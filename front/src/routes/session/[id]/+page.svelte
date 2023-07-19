@@ -12,6 +12,7 @@
  import Header from "$components/Header.svelte";
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
+ import Loader from "$components/Loader.svelte";
 
  import { InitSession, SelectIdeaCard, NextList, MoreList } from "$events";
 
@@ -39,26 +40,27 @@
 {#each ($session?.lists || []) as list, indexList}
   <section class="topics">
     {#if list.state === "InitialLoading" }
-      <div class="loader">loading...</div>
+      <div class="loader">
+        <Loader/>
+      </div>
     {:else}
       <ul>
         {#each list.ideas as idea, indexCard}
           <li class="item">
-            <IdeaCard title={idea.title}
-                      description={idea.description}
-                      keywords={idea.keywords}
-                      input={idea.input}
-                      selected={$session?.selected?.has(indexList + "," + indexCard)}
-                      on:select={handleSelectCard.bind(null, indexList, indexCard)}
-                      on:next={handleNextClick.bind(null, indexList, indexCard)}
-            />
+            <IdeaCard
+              idea={idea}
+              selected={$session?.selected?.has(indexList + "," + indexCard)}
+              on:select={handleSelectCard.bind(null, indexList, indexCard)}
+              on:next={handleNextClick.bind(null, indexList, indexCard)}/>
           </li>
         {/each}
       </ul>
       
       <div class="topic-more">
         {#if list.state === "MoreLoading"}
-          <div class="loader">loading...</div>
+          <div class="loader">
+            <Loader/>
+          </div>
         {/if}
         <Button type="primary"
                 disabled={list.state === "MoreLoading"}

@@ -2,16 +2,15 @@
 
 <script lang="ts">
  import { createEventDispatcher } from 'svelte';
+
+ import type { Idea } from "$state";
  import Search from "$components/Search.svelte";
 
  import StarIcon from "$lib/icons/StarIcon.svelte";
  import HappyFaceIcon from "$lib/icons/HappyFaceIcon.svelte";
  import SadFaceIcon from "$lib/icons/SadFaceIcon.svelte";
 
- export let title: string;
- export let description: string;
- export let keywords: string;
- export let input: string | undefined | null = null;
+ export let idea: Idea;
  
  export let selected: boolean = false;
  export let disabled: boolean = false;
@@ -32,13 +31,13 @@
  
 </script>
 
-<li class="idea-card"
-    class:disabled={disabled}
-    class:selected={selected}
-    on:click={handleSelect}>
-  <p class="title">{title}</p>
-  <p class="description">{description}</p>
-  <p class="keywords">{keywords}</p>
+<div class="idea-card"
+     class:disabled={disabled}
+     class:selected={selected}
+     on:click={handleSelect}>
+  <p class="title">{idea.title}</p>
+  <p class="description">{idea.description}</p>
+  <p class="keywords">{idea.keywords}</p>
 
   {#if selected}
     <div bind:this={searchNode}>
@@ -46,7 +45,7 @@
         placeholder="More like this"
         color="gray"
         on:search={handleSubmit}
-        value={input} />
+        value={idea.input} />
     </div>
   {/if}
 
@@ -55,4 +54,4 @@
     <SadFaceIcon/>
     <StarIcon/>
   </div>
-</li>
+</div>
