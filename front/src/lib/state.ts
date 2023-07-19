@@ -14,6 +14,7 @@ export interface Idea {
 
 export interface IdeaList {
   state: 'Loaded' | 'InitialLoading' | 'MoreLoading';
+  id: string;
   ideas: Idea[];
   title?: string;
 }
@@ -39,34 +40,6 @@ export const initialState: State = {
   sessions: {}
 }
 
-export function li() {
-  return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus enim in ante pharetra, vitae tempus dolor scelerisque. Aliquam erat volutpat. Nulla pellentesque lacus mollis maximus vestibulum. Mauris lectus ipsum, porta ut mi ac, vulputate consequat nulla. Maecenas sed lectus lobortis, lacinia urna id, tristique dolor. ";
-}
-
-// Number of lists to fake
-const FAKE_NUM_LISTS = 5;
-
-// Number of ideas per list
-const FAKE_NUM_IDEAS = 20;
-
-export const fakeState: State = {
-  sessions: {
-    "fake-id": {
-      id: "fake-id",
-      topic: "Plans for kids on a rainy day",
-      selected: new Set(),
-      lists: [...Array(FAKE_NUM_LISTS).fill(0)].map((_, i) => ({
-        state: 'Loaded',
-        ideas: [...Array(FAKE_NUM_IDEAS).fill(0)].map((_, i) => ({
-          title: "Idea " + i,
-          description: li(),
-          keywords: "t1 \u00b7 t2 \u00b7 t3"
-        }))
-      }))
-    }
-  }
-}
-
 export function selectedIdeas(state: State): Idea[] {
   const id = state.currentSession;
 
@@ -78,9 +51,14 @@ export function selectedIdeas(state: State): Idea[] {
 
   const result = [] as Idea[];
   for (const v of session.selected) {
-    const [listIdxStr, cardIdxStr] = v.split(",");
-    const listIdx = parseInt(listIdxStr, 10);
+    const [listId, cardIdxStr] = v.split(",");
+    const listIdx = listIndex(session, listId);
     const cardIdx = parseInt(cardIdxStr, 10);
+
+    if (listIdx === null) {
+      continue;
+    }
+
     const idea = session.lists[listIdx]?.ideas[cardIdx];
 
     if (idea) {
@@ -98,4 +76,40 @@ export function currentSession(state: State): Session | null {
 export function hasLoadingSession(session: Session): boolean {
   return session.lists.some(l => l.state !== "Loaded") ||
     (!!session.summary && session.summary.state !== "Loaded");
+}
+
+export function listIndex(session: Session | undefined, id: string): number | null{
+  if (!session) {
+    return null;
+  }
+  
+  const idx = session.lists.findIndex(l => l.id === id);
+
+  if (idx === -1) {
+    return null;
+  }
+
+  return idx;
+}
+
+export function updateCard(state: State, listId: string, indexCard: number, updatefn: (i:Idea)=>void): void {
+  const session = currentSession(state);
+
+  if (!session) {
+    return;
+  }
+
+  const listIdx = listIndex(session, listId);
+
+  if (listIdx === null) {
+    return;
+  }
+  
+  const idea = session.lists[listIdx].ideas[indexCard];
+
+  if (!idea) {
+    return;
+  }
+
+  updatefn(idea);
 }

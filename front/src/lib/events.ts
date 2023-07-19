@@ -5,12 +5,16 @@ import * as rx from "rxjs/operators"
 
 import type { IStore, Bus } from "$store";
 import type { State, Idea } from "$state";
-import { selectedIdeas, hasLoadingSession } from "$state";
+import { selectedIdeas, hasLoadingSession, listIndex } from "$state";
 
 import { StoreEvent } from "$store";
 import api from "$lib/api";
 
 import { formatSession, parseSession } from "$lib/serializer";
+
+function newid(): string {
+  return `${uuid()}`
+}
 
 export class InitSession extends StoreEvent<State> {
   constructor(
@@ -60,51 +64,56 @@ export class SaveSession extends StoreEvent<State> {
   }
 }
 
-
 export class LoadIdeas extends StoreEvent<State> {
   constructor(
     private sessionId: string,
-    private targetListIndex: number,
+    private listId: string,
     private ideas: Idea[]
   ) {
     super();
   }
 
   update(state: State) {
-    const current = state.sessions[this.sessionId].lists[this.targetListIndex];
-    current.state = "Loaded";
-    current.ideas = current.ideas.concat(this.ideas);
+    const session = state.sessions[this.sessionId];
+    const targetListIndex = listIndex(session, this.listId);
+
+    if (targetListIndex !== null) {
+      const current = session.lists[targetListIndex];
+      current.state = "Loaded";
+      current.ideas = current.ideas.concat(this.ideas);
+    }
   }
 }
 
 export class CreateSession extends StoreEvent<State> {
-  private id: string = "" + uuid();
+  private sessionId: string = newid();
+  private listId: string = newid();
 
   constructor(private search: string) {
     super();
   }
 
   update(state: State) {
-    state.currentSession = this.id;
-    state.sessions[this.id] = {
-      id: this.id,
+    state.currentSession = this.sessionId;
+    state.sessions[this.sessionId] = {
+      id: this.sessionId,
       topic: this.search,
       selected: new Set(),
       lists: [{
+        id: this.listId,
         state: "InitialLoading",
-        ideas: []
+        ideas: [],
+        title: this.search,
       }]
     }
   }
   
   watch(state: State, events: Bus<State>): Bus<State> {
-    const session = "" + uuid();
-
-    goto("/session/" + this.id);
+    goto("/session/" + this.sessionId);
 
     return concat(
       from(api.search(this.search)).pipe(
-        rx.map(data => new LoadIdeas(this.id, 0, data))
+        rx.map(data => new LoadIdeas(this.sessionId, this.listId, data))
       )
     );
   }
@@ -112,7 +121,7 @@ export class CreateSession extends StoreEvent<State> {
 
 export class SelectIdeaCard extends StoreEvent<State> {
   constructor(
-    private indexList: number,
+    private listId: string,
     private indexCard: number
   ) {
     super();
@@ -123,7 +132,7 @@ export class SelectIdeaCard extends StoreEvent<State> {
 
     if (!id) return;
     
-    const selid = this.indexList + "," + this.indexCard;
+    const selid = `${this.listId},${this.indexCard}`;
     const session = state.sessions[id];
 
     if (!session) return;
@@ -137,7 +146,7 @@ export class SelectIdeaCard extends StoreEvent<State> {
     }
 
     for (let e of session.selected) {
-      if (e.startsWith(this.indexList + ",")) {
+      if (e.startsWith(this.listId)) {
         session.selected?.delete(e);
       }
     }
@@ -147,8 +156,10 @@ export class SelectIdeaCard extends StoreEvent<State> {
 }
 
 export class NextList extends StoreEvent<State> {
+  private newListId = newid();
+
   constructor(
-    private indexList: number,
+    private listId: string,
     private indexCard: number,
     private input: string
   ) {
@@ -156,33 +167,21 @@ export class NextList extends StoreEvent<State> {
   }
 
   update(state: State) {
-    const id = state.currentSession;
+    const sesionId = state.currentSession;
 
-    if (id) {
-      const session = state.sessions[id];
-      let listTitle = session.lists[this.indexList].ideas[this.indexCard].title
+    if (sesionId) {
+      const session = state.sessions[sesionId];
+      const listIdx = listIndex(session, this.listId);
+      let listTitle = (listIdx !== null) ? session.lists[listIdx].ideas[this.indexCard].title : undefined;
 
-      if (this.input) {
-        session.lists[this.indexList].ideas[this.indexCard].input = this.input;
+      if (this.input && listIdx !== null) {
+        session.lists[listIdx].ideas[this.indexCard].input = this.input;
         listTitle = listTitle + ": " + this.input
       }
 
-      const indexList = this.indexList;
-
-      if (session.selected) {
-        const newSelected = [...session.selected].filter((v: string) => {
-          const [listIdxStr, cardIdxStr] = v.split(",");
-          const listIdx = parseInt(listIdxStr, 10);
-          const cardIdx = parseInt(cardIdxStr, 10);
-          return listIdx <= indexList;
-        });
-
-        session.selected = new Set(newSelected);
-      }
-
-      session.lists.splice(this.indexList + 1);
       session.lists.push({
         state: "InitialLoading",
+        id: this.newListId,
         ideas: [],
         title: listTitle,
       });
@@ -196,7 +195,7 @@ export class NextList extends StoreEvent<State> {
 
     if (id && session && topic){
       return from(api.search(topic, selectedIdeas(state))).pipe(
-        rx.map(data => new LoadIdeas(id, this.indexList + 1, data))
+        rx.map(data => new LoadIdeas(id, this.newListId, data))
       );
     } else {
       return empty();
@@ -206,32 +205,62 @@ export class NextList extends StoreEvent<State> {
 
 export class MoreList extends StoreEvent<State> {
   constructor(
-    private indexList: number
+    private listId: string
   ) {
     super();
   }
 
   update(state: State) {
-    const id = state.currentSession;
+    const sessionId = state.currentSession;
 
-    if (id) {
-      state.sessions[id].lists[this.indexList].state = "MoreLoading";
+    if (sessionId) {
+      const session = state.sessions[sessionId];
+      const indexList = listIndex(session, this.listId);
+
+      if (session && indexList !== null){
+        session.lists[indexList].state = "MoreLoading";
+      }
     }
   }
   
   watch(state: State, events: Bus<State>): Bus<State> {
-    const id = state.currentSession;
-    const session = id ? state.sessions[id] : undefined;
+    const sessionId = state.currentSession;
+    const session = sessionId ? state.sessions[sessionId] : undefined;
     const topic = session?.topic;
+    const indexList = listIndex(session, this.listId);
 
-    if (id && session && topic){
-      const current = session.lists[this.indexList].ideas;
+    if (sessionId && session && topic && indexList !== null){
+      const current = session.lists[indexList].ideas;
 
       return from(api.searchMore(topic, current, selectedIdeas(state))).pipe(
-        rx.map(data => new LoadIdeas(id, this.indexList, data))
+        rx.map(data => new LoadIdeas(sessionId, this.listId, data))
       );
     } else {
       return empty();
+    }
+  }
+}
+
+export class RemoveList extends StoreEvent<State> {
+  constructor(
+    private listId: string
+  ) {
+    super();
+  }
+
+  update(state: State) {
+    const sessionId = state.currentSession;
+
+    if (sessionId) {
+      const session = state.sessions[sessionId];
+      const indexList = listIndex(session, this.listId);
+
+      if (session && indexList !== null){
+        const listCopy = [...session.lists];
+        const rest = listCopy.splice(indexList);
+        rest.splice(0, 1);
+        session.lists = listCopy.concat(rest);
+      }
     }
   }
 }

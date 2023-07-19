@@ -29,30 +29,32 @@
 
 </script>
 
-<section class="topics">
-  <h3>Your ideation flow</h3>
-  <ul>
-    {#each $selected as idea}
-      <li class="topic-item">
-        <IdeaCard idea={idea}/>
-      </li>
-    {/each}
-  </ul>
-</section>
+<section class="summary-wrapper">
+  <div class="topics">
+    <h3>Your ideation flow</h3>
+    <ul>
+      {#each $selected as idea}
+        <li class="topic-item">
+          <IdeaCard idea={idea} showActions={false} />
+        </li>
+      {/each}
+    </ul>
+  </div>
 
-<section class="summary">
-  {#if $summary?.state === "Loading"}
-    <div class="loader">
-      <Loader/>
-    </div>
-  {:else}
-    <div class="summary-content">
-      {@html $summary?.data ? marked.parse($summary.data, {mangle: false, headerIds: false}) : ""}
-    </div>
+  <div class="summary">
+    {#if $summary?.state === "Loading"}
+      <div class="loader">
+        <Loader/>
+      </div>
+    {:else}
+      <div class="summary-content">
+        {@html $summary?.data ? marked.parse($summary.data, {mangle: false, headerIds: false}) : ""}
+      </div>
 
-    <div class="actions">
-      <Button type="secondary">Copy text</Button>
-      <Button type="primary">Start over</Button>
-    </div>
-  {/if}
+      <div class="actions">
+        <Button type="secondary">Copy text</Button>
+        <Button type="primary">Start over</Button>
+      </div>
+    {/if}
+  </div>
 </section>

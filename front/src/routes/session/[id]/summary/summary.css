@@ -1,3 +1,10 @@
+.summary-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .topics,
 .summary {
   background: var(--color-background-secondary);
@@ -7,6 +14,8 @@
 
 .topics {
   max-width: 335px;
+  overflow: hidden;
+  padding-bottom: 40px;
 }
 
 h3 {
@@ -83,18 +92,50 @@ h3 {
 /*Media queries*/
 
 @media (max-width: 700px) {
-  .topics {
-    min-width: 330px;
-    max-width: none;
-    flex-shrink: 0;
-    flex-grow: 1;
-    justify-content: flex-start;
+  .summary-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
   }
+
+  .topics {
+    overflow: hidden;
+    max-width: initial;
+    width: 100%;
+    height: auto;
+    padding: 0 1rem;
+  }
+
+  h3 {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: fit-content;
+    padding: 1rem 0;
+    gap: 1rem;
+    padding-bottom: 0;
+
+  }
+
+  .topic-item {
+    min-width: 300px;
+    margin: 0;
+  }
+
   .summary {
     width: 100%;
-    max-width: none;
-    flex-shrink: 0;
-    flex-grow: 1;
-    justify-content: flex-start;
+    flex: 1;
+    max-width: initial;
+  }
 }
-}
+
+
+

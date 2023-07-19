@@ -8,7 +8,8 @@
  import Toggle from "$components/Toggle.svelte";
 
  export let idea: Idea;
- 
+ export let showActions: boolean = true;
+
  export let selected: boolean = false;
  export let disabled: boolean = false;
 
@@ -16,10 +17,12 @@
 
  let searchNode: Node;
  let actionsNode: Node;
+ let keywordsNode: Node;
 
  function handleSelect(event: MouseEvent) {
    if (!searchNode?.contains(event.target as Node) &&
-       !actionsNode?.contains(event.target as Node)) {
+       !actionsNode?.contains(event.target as Node) &&
+       !keywordsNode?.contains(event.target as Node)) {
      dispatch("select");
    }
  }
@@ -30,6 +33,7 @@
 
  function handleClickKeyword(keyword: string, event: MouseEvent) {
    event.preventDefault();
+   dispatch("selectKeyword", keyword);
  }
  
 </script>
@@ -41,11 +45,16 @@
   <p class="title">{idea.title}</p>
   <p class="description">{idea.description}</p>
 
-  <div class="keywords">
-    {#each idea.keywords?.split(" \u00b7 ") as keyword, idx}
-      {#if idx !== 0} {@html "<span>\u00b7<span>"} {/if}<a class="keyword-link" on:click={handleClickKeyword.bind(null, keyword)}>{keyword}</a>
-    {/each}
-  </div>
+  {#if showActions}
+    <div class="keywords" bind:this={keywordsNode}>
+      {#each idea.keywords?.split(" \u00b7 ") as keyword, idx}
+        {#if idx !== 0} {@html "<span>\u00b7<span>"} {/if}<a class="keyword-link" on:click={handleClickKeyword.bind(null, keyword)}>{keyword}</a>
+      {/each}
+    </div>
+  {:else}
+    <div class="keyword-list">{idea.keywords}</div>
+  {/if}
+  
 
   {#if selected}
     <div bind:this={searchNode}>
@@ -57,9 +66,11 @@
     </div>
   {/if}
 
-  <div class="actions" bind:this={actionsNode}>
-    <Toggle icon="happy" active={idea.liked} on:change={e => dispatch("toggleLike", e.detail)} />
-    <Toggle icon="sad" active={idea.disliked} on:change={e => dispatch("toggleLislike", e.detail)} />
-    <Toggle icon="star" active={idea.saved} on:change={e => dispatch("toggleSave", e.detail)} />
-  </div>
+  {#if showActions}
+    <div class="actions" bind:this={actionsNode}>
+      <Toggle icon="happy" active={idea.liked} on:change={e => dispatch("toggleLike", e.detail)} />
+      <Toggle icon="sad" active={idea.disliked} on:change={e => dispatch("toggleDislike", e.detail)} />
+      <Toggle icon="star" active={idea.saved} on:change={e => dispatch("toggleSave", e.detail)} />
+    </div>
+  {/if}
 </div>
