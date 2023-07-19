@@ -1,55 +1,55 @@
 /* BUTTON -- se puede hacer mejor lo de primary y secondary
 ----------------------------------*/
 .primary {
-    background: var(--color-theme-primary);
-    border-radius: var(--radius-small);
-    border: none;
-    color: var(--color-theme-text-invert);
-    cursor: pointer;
-    display: block;
-    font-family: var(--type-primary);
-    font-size: var(--type-medium);
-    font-weight: var(--type-weight-bold);
-    height: 45px;
-    padding: 0 var(--spacing-medium);
-    width: 100%;
-  }
- 
-  [disabled].primary,
-  [disabled]:hover.primary
-  {
-    background: var(--color-theme-disabled);
-    cursor: initial;
-  }
- 
-  .secondary {
-    background: var(--color-theme-background-secondary);
-    border-radius: var(--radius-small);
-    border: var(--border-medium) solid var(--color-theme-primary);
-    color: var(--color-theme-primary);
-    cursor: pointer;
-    display: block;
-    font-family: var(--type-primary);
-    font-size: var(--type-medium);
-    font-weight: var(--type-weight-bold);
-    height: 45px;
-    padding: 0 var(--spacing-medium);
-    width: 100%;
-  }
- 
-  .icon {
-    align-items: center;
-    background: var(--color-theme-primary);
-    border-radius: var(--radius-medium);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: var(--spacing-extra-small);
-    width: 40px;
-  }
- 
-  .primary:hover, .icon:hover {
-    background: var(--color-theme-secondary);
-  }
+  background: var(--color-theme-primary);
+  border-radius: var(--radius-small);
+  border: none;
+  color: var(--color-theme-text-invert);
+  cursor: pointer;
+  display: block;
+  font-family: var(--type-primary);
+  font-size: var(--type-medium);
+  font-weight: var(--type-weight-bold);
+  height: 45px;
+  padding: 0 var(--spacing-medium);
+  width: 100%;
+}
+
+[disabled].primary,
+[disabled]:hover.primary
+{
+  background: var(--color-theme-disabled);
+  cursor: initial;
+}
+
+.secondary {
+  background: var(--color-theme-background-secondary);
+  border-radius: var(--radius-small);
+  border: var(--border-medium) solid var(--color-theme-primary);
+  color: var(--color-theme-primary);
+  cursor: pointer;
+  display: block;
+  font-family: var(--type-primary);
+  font-size: var(--type-medium);
+  font-weight: var(--type-weight-bold);
+  height: 45px;
+  padding: 0 var(--spacing-medium);
+  width: 100%;
+}
+
+.icon {
+  align-items: center;
+  background: var(--color-theme-primary);
+  border-radius: var(--radius-medium);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: var(--spacing-extra-small);
+  width: 40px;
+}
+
+.primary:hover, .icon:hover {
+  background: var(--color-theme-secondary);
+}

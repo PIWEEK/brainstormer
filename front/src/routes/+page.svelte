@@ -1,10 +1,11 @@
+<style lang="postcss" src="./start.css"></style>
+
 <script lang="ts">
  import logo from "$lib/images/main-logo.png";
  import Search from "$components/Search.svelte";
  import type {State} from "$state";
  import store from "$store";
  import { CreateSession, InitSession } from "$events";
- import "../styles/start.css";
 
  const st = store.get<State>();
  const recent = st.select(st => st.recent ? [...st.recent].reverse() : []);

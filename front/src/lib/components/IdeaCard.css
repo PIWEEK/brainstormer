@@ -1,51 +1,51 @@
 /* IDEA CARD
 ----------------------------------*/
 .idea-card {
-    border-radius: var(--radius-small);
-    border: var(--border-medium) solid var(--color-theme-border);
-    margin-bottom: calc(var(--spacing-medium) + 1px);
-    padding: var(--spacing-medium);
-    position: relative;
-    width: 100%;
- 
-    &.disabled {
-      opacity: 0.7;
-    }
- 
-    &.selected {
-      margin: 0;
-      margin-bottom: var(--spacing-medium);
-      border: var(--border-medium) solid var(--color-theme-primary);
-    }
+  border-radius: var(--radius-small);
+  border: var(--border-medium) solid var(--color-theme-border);
+  margin-bottom: calc(var(--spacing-medium) + 1px);
+  padding: var(--spacing-medium);
+  position: relative;
+  width: 100%;
+  
+  &.disabled {
+    opacity: 0.7;
   }
- 
-  .title {
-    font-size: var(--type-large);
-    font-weight: var(--type-weight-bold);
+  
+  &.selected {
+    margin: 0;
+    margin-bottom: var(--spacing-medium);
+    border: var(--border-medium) solid var(--color-theme-primary);
   }
- 
-  .description {
-    font-size: var(--type-medium);
-    line-height: var(--type-line-height-regular);
-    margin: var(--spacing-small) 0;
-  }
- 
-  .keywords {
-    font-size: var(--type-small);
-    line-height: var(--type-line-height-regular);
-    margin: var(--spacing-small) 0;
-    font-weight: var(--type-weight-bold);
-    color: var(--color-theme-primary);
-  }
+}
 
-  .actions {
-    height: 20px;
-    display: flex;
-    margin-top: var(--spacing-medium);
-    gap: var(--spacing-large);
-    justify-content: space-evenly;
+.title {
+  font-size: var(--type-large);
+  font-weight: var(--type-weight-bold);
+}
 
-    & > :global(*) {
-      width: auto;
-    }
+.description {
+  font-size: var(--type-medium);
+  line-height: var(--type-line-height-regular);
+  margin: var(--spacing-small) 0;
+}
+
+.keywords {
+  font-size: var(--type-small);
+  line-height: var(--type-line-height-regular);
+  margin: var(--spacing-small) 0;
+  font-weight: var(--type-weight-bold);
+  color: var(--color-theme-primary);
+}
+
+.actions {
+  height: 20px;
+  display: flex;
+  margin-top: var(--spacing-medium);
+  gap: var(--spacing-large);
+  justify-content: space-evenly;
+
+  & > :global(*) {
+    width: auto;
   }
+}

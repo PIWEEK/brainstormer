@@ -1,0 +1,113 @@
+/* START
+----------------------------------*/
+.start {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+}
+
+.start-img {
+  background-image: url($lib/images/start-img.png);
+  background-size: cover;
+  background-position: center -60px;
+  max-width: 40%;
+  width: 100%;
+}
+
+.start-form {
+  background-color: var(--color-theme-background-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: var(--spacing-extra-large);
+  overflow: auto;
+}
+
+.main-logo {
+  align-items: center;
+  display: flex;
+  font-family: var(--type-primary);
+  
+  img {
+    width: 64px;
+    margin-right: 10px;
+  }
+  
+  span {
+    font-weight: var(--type-weight-bold);
+    font-size: 24px;
+  }
+}
+
+.start-form-inside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  margin: auto 0;
+}
+
+h2 {
+  font-weight: var(--type-weight-regular);
+  font-size: var(--type-extra-large);
+  line-height: var(--type-line-height-large);
+  margin-bottom: var(--spacing-large);
+  margin-top: var(--spacing-large);
+}
+
+.search {
+  margin-top: var(--spacing-extra-large);
+  max-width: 800px;
+  width: 100%;
+}
+
+
+.recent-ideas {
+  padding-top: var(--spacing-large);
+  margin-top: var(--spacing-large);
+  border-top: var(--border-small) solid var(--color-theme-border-dark);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--spacing-medium);
+  flex-wrap: wrap;
+  width: 100%;
+
+  & h3 {
+    white-space: nowrap;
+    width: 100%;
+    font-size: var(--type-small);
+    text-transform: uppercase;
+    color: var(--color-theme-text-secondary);
+    text-align: center;
+  }
+
+  & ul {
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-medium);
+    flex-wrap: wrap;
+  }
+}
+
+/*Media queries*/
+
+@media (max-width: 900px) {
+
+  .home {
+    --type-extra-large: var(--type-font-size-32);
+    --spacing-extra-large: var(--spacing-large);
+  }
+
+  .start-img {
+    display: none;
+  }
+  
+}
