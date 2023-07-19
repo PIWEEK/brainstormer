@@ -13,6 +13,7 @@
  import { InitSession } from "$events";
 
  import Header from "$components/Header.svelte";
+ import Loader from "$components/Loader.svelte";
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
 
@@ -33,9 +34,7 @@
   <ul>
     {#each $selected as idea}
       <li class="topic-item">
-        <IdeaCard title={idea.title}
-                  description={idea.description}
-                  keywords={idea.keywords}/>
+        <IdeaCard idea={idea}/>
       </li>
     {/each}
   </ul>
@@ -43,7 +42,9 @@
 
 <section class="summary">
   {#if $summary?.state === "Loading"}
-    <div class="loader"></div>
+    <div class="loader">
+      <Loader/>
+    </div>
   {:else}
     <div class="summary-content">
       {@html $summary?.data ? marked.parse($summary.data, {mangle: false, headerIds: false}) : ""}

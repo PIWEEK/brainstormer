@@ -24,20 +24,6 @@ ul {
   cursor: pointer;
 }
 
-.loader {
-  background-image: url("$lib/images/beaver-48.gif.webp");
-  background-size: 200px;
-  background-repeat: no-repeat;
-  background-position: -59px -37px;
-  width: 81px;
-  padding: var(--spacing-medium);
-  height: 80px;
-  border-radius: 50%;
-  margin: 20% auto;
-  color: transparent;
-  position: relative;
-}
-
 .topic-more .loader {
   position: absolute;
   top: -30px;
