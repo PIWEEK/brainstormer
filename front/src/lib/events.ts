@@ -5,7 +5,7 @@ import * as rx from "rxjs/operators"
 
 import type { IStore, Bus } from "$store";
 import type { State, Idea } from "$state";
-import { selectedIdeas } from "$state";
+import { selectedIdeas, hasLoadingSession } from "$state";
 
 import { StoreEvent } from "$store";
 import api from "$lib/api";
@@ -42,7 +42,8 @@ export class SaveSession extends StoreEvent<State> {
 
   update(state: State) {
     const session = state.sessions[this.sessionId];
-    if (session) {
+
+    if (session && !hasLoadingSession(session)) {
       localStorage.setItem(this.sessionId, formatSession(session));
 
       const recentStr = localStorage.getItem("recent-sessions");

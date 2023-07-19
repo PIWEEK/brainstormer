@@ -92,3 +92,9 @@ export function selectedIdeas(state: State): Idea[] {
 export function currentSession(state: State): Session | null {
   return state.currentSession ? state.sessions[state.currentSession] : null;
 }
+
+// Checks if the session is still loading some element
+export function hasLoadingSession(session: Session): boolean {
+  return session.lists.some(l => l.state !== "Loaded") ||
+    (!!session.summary && session.summary.state !== "Loaded");
+}
