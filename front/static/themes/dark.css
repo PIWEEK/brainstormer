@@ -1,18 +1,18 @@
 /**
  * Do not edit directly
- * Generated on Wed, 19 Jul 2023 14:47:54 GMT
+ * Generated on Wed, 19 Jul 2023 15:00:49 GMT
  */
 
 :root {
-  --alias-color-theme-primary: #41c2bf;
-  --alias-color-theme-secondary: #046d6c;
-  --alias-color-theme-background-primary: #eff7fa;
-  --alias-color-theme-background-secondary: #ffffff;
-  --alias-color-theme-text-primary: #000000;
-  --alias-color-theme-text-secondary: #666666;
-  --alias-color-theme-text-invert: #ffffff;
-  --alias-color-theme-disabled: #ebecee;
-  --alias-color-theme-border: #ebecee;
+  --alias-color-theme-primary: #TODO;
+  --alias-color-theme-secondary: #TODO;
+  --alias-color-theme-background-primary: #TODO;
+  --alias-color-theme-background-secondary: #TODO;
+  --alias-color-theme-text-primary: #TODO;
+  --alias-color-theme-text-secondary: #TODO;
+  --alias-color-theme-text-invert: #TODO;
+  --alias-color-theme-disabled: #TODO;
+  --alias-color-theme-border: #TODO;
   --alias-type-theme-primary: #TODO;
   --border-small: 1px;
   --border-medium: 2px;
@@ -25,15 +25,15 @@
   --color-black: #000000;
   --color-gray: #666666;
   --color-grayish: #ebecee;
-  --color-primary: #41c2bf;
-  --color-secondary: #046d6c;
-  --color-background-primary: #eff7fa;
-  --color-background-secondary: #ffffff;
-  --color-text-primary: #000000;
-  --color-text-secondary: #666666;
-  --color-text-invert: #ffffff;
-  --color-disabled: #ebecee;
-  --color-border: #ebecee;
+  --color-primary: #TODO;
+  --color-secondary: #TODO;
+  --color-background-primary: #TODO;
+  --color-background-secondary: #TODO;
+  --color-text-primary: #TODO;
+  --color-text-secondary: #TODO;
+  --color-text-invert: #TODO;
+  --color-disabled: #TODO;
+  --color-border: #TODO;
   --mediaquery-700: 700px;
   --mediaquery-900: 900px;
   --radius-small: 4px;

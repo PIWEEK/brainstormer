@@ -8,7 +8,6 @@
 
  import "../styles/normalize.css";
  import "../styles/fonts.css";
- import "../styles/themes/light.css";
  import "../styles/global.css";
 
  import Header from "$components/Header.svelte";
@@ -16,6 +15,8 @@
  import {page} from '$app/stores'
 
  export const ssr = false;
+
+ let theme = "light";
 
  let isHome: boolean;
  $: isHome = $page.url.pathname === "/";
@@ -30,6 +31,10 @@
 {#if !isHome}
   <Header></Header>
 {/if}
+
+<svelte:head>
+  <link rel="stylesheet" href={"/themes/" + theme + ".css"} />
+</svelte:head>
 
 <main class:home={isHome}>
   <slot/>

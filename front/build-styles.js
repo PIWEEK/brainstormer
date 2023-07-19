@@ -21,7 +21,7 @@ function getStyleDictionaryConfig(theme, platform) {
       "platforms": {
         "scss": {
           "transformGroup": "scss",
-          "buildPath": "src/styles/themes/",
+          "buildPath": "static/themes/",
           "files": [{
             "destination": `${theme}.css`,
             "format": "css/variables"
