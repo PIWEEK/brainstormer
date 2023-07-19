@@ -14,7 +14,7 @@
     "secondary"  : { "value" : "{alias.color.theme.secondary.value}"},
     "background" : {
       "primary"   : { "value" : "{alias.color.theme.background.primary.value}"},
-      "secondary" : { "value" : "{alias.color.theme.background.primary.value}"}
+      "secondary" : { "value" : "{alias.color.theme.background.secondary.value}"}
     },
     "text" : {
       "primary"   : { "value" : "{alias.color.theme.text.primary.value}"},
