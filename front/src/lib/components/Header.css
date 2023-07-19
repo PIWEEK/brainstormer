@@ -36,8 +36,10 @@ header {
 
 @media (max-width: 700px) {
   
-  .main-logo{
-    display: none;
+  .main-logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 0;
   }
 
   header {
@@ -54,13 +56,5 @@ header {
     display: block;
     fill: white;
   }
-
-  /*
-  .done-btn .icon svg {
-    fill: white;
-    width: auto;
-    height: auto;
-  }
- */
   
 }
