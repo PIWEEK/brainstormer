@@ -164,7 +164,7 @@ export class NextList extends StoreEvent<State> {
 
       if (this.input) {
         session.lists[this.indexList].ideas[this.indexCard].input = this.input;
-        listTitle = listTitle + "(" + this.input + ")"
+        listTitle = listTitle + ": " + this.input
       }
 
       const indexList = this.indexList;
