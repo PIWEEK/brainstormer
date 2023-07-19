@@ -37,3 +37,15 @@
     font-weight: var(--type-weight-bold);
     color: var(--color-theme-primary);
   }
+
+  .icons {
+    height: 20px;
+    display: flex;
+    margin: var(--spacing-small) 0;
+    gap: var(--spacing-large);
+    justify-content: end;
+
+    & > :global(*) {
+      width: auto;
+    }
+  }

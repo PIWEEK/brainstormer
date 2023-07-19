@@ -8,7 +8,6 @@
  import { RetrieveSummary, CreateSession } from "$events";
 
  import logo from "$lib/images/main-logo.png";
- import GoIcon from "$components/GoIcon.svelte";
  import Search from "$components/Search.svelte";
  import Button from "$components/Button.svelte";
 

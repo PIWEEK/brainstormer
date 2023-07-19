@@ -2,7 +2,7 @@
 
 <script lang="ts">
  import { createEventDispatcher } from 'svelte';
- import GoIcon from "$components/GoIcon.svelte";
+ import GoIcon from "$lib/icons/GoIcon.svelte";
  
  export let type: 'primary' | 'secondary' | 'icon';
  export let icon: 'go' | null = null;
