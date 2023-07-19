@@ -67,6 +67,10 @@
     --border-medium: 2px;
     --border-large: 4px;
 
+    /*Media queries*/
+    --mediaquery-700: 700px;
+    --mediaquery-900: 900px;
+
 
   }
 
