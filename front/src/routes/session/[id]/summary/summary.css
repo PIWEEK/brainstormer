@@ -79,3 +79,22 @@ h3 {
     max-width: 170px;
   }
 }
+
+/*Media queries*/
+
+@media (max-width: 700px) {
+  .topics {
+    min-width: 330px;
+    max-width: none;
+    flex-shrink: 0;
+    flex-grow: 1;
+    justify-content: flex-start;
+  }
+  .summary {
+    width: 100%;
+    max-width: none;
+    flex-shrink: 0;
+    flex-grow: 1;
+    justify-content: flex-start;
+}
+}
