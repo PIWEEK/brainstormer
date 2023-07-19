@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 19 Jul 2023 13:34:13 GMT
+ * Generated on Wed, 19 Jul 2023 14:47:54 GMT
  */
 
 :root {
@@ -13,6 +13,7 @@
   --alias-color-theme-text-invert: #ffffff;
   --alias-color-theme-disabled: #ebecee;
   --alias-color-theme-border: #ebecee;
+  --alias-type-theme-primary: #TODO;
   --border-small: 1px;
   --border-medium: 2px;
   --border-large: 4px;

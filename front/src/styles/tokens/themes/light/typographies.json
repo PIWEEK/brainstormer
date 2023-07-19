@@ -1,0 +1,9 @@
+{
+    "alias": {
+      "type": {
+        "theme"   : {
+          "primary"    : { "value" : "#TODO"}
+        }
+      }
+    }
+  }
