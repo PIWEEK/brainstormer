@@ -1,7 +1,7 @@
 {
   "type": {
-    "primary"   : { "value": "{type.font.family.lato}" },
-    "secondary" : { "value": "{type.font.family.roboto}" }, 
+    "primary"   : { "value": "{alias.type.theme.primary.value}" },
+    "secondary" : { "value": "{alias.type.theme.secondary.value}" },
     "size" : 
     {
       "small"   : { "value": "{type.font.size.14}" },
