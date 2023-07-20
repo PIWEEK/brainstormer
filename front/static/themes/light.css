@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 20 Jul 2023 08:07:04 GMT
+ * Generated on Thu, 20 Jul 2023 09:12:43 GMT
  */
 
 :root {
@@ -22,8 +22,9 @@
   --border-medium: 2px;
   --border-large: 4px;
   --color-blue-base: #41c2bf;
+  --color-blue-darkish: #1e8f8c;
   --color-blue-dark: #046d6c;
-  --color-blue-darker: #03403e;
+  --color-blue-darker: #004a48;
   --color-blue-light: #afd3ce;
   --color-blue-lightish: #eff7fa;
   --color-white: #ffffff;

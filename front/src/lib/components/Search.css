@@ -16,6 +16,9 @@
   resize: none;
   width: 100%;
 }
+.searchInput::placeholder {
+  color: var(--color-text-secondary);
+}
 
 .font-large .searchInput {
   font-size: var(--type-size-large);

@@ -2,8 +2,9 @@
   "color": {
     "blue": {
       "base"     : { "value": "#41C2BF" },
+      "darkish"  : { "value": "#1e8f8c" },
       "dark"     : { "value": "#046D6C" },
-      "darker"   : { "value": "#03403e"},
+      "darker"   : { "value": "#004a48"},
       "light"    : { "value": "#AFD3CE" },
       "lightish" : { "value": "#EFF7FA" }
     },

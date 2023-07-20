@@ -1,29 +1,30 @@
 /**
  * Do not edit directly
- * Generated on Thu, 20 Jul 2023 08:07:04 GMT
+ * Generated on Thu, 20 Jul 2023 09:12:44 GMT
  */
 
 :root {
-  --alias-color-theme-primary: #TODO;
-  --alias-color-theme-secondary: #TODO;
-  --alias-color-theme-background-primary: #TODO;
-  --alias-color-theme-background-secondary: #TODO;
-  --alias-color-theme-text-primary: #TODO;
-  --alias-color-theme-text-secondary: #TODO;
-  --alias-color-theme-text-invert: #TODO;
-  --alias-color-theme-scrollbar-border: #TODO;
-  --alias-color-theme-scrollbar-background: #TODO;
-  --alias-color-theme-border-strong: #TODO;
-  --alias-color-theme-border-medium: #TODO;
-  --alias-color-theme-border-soft: #TODO;
-  --alias-color-theme-disabled: #TODO;
+  --alias-color-theme-primary: #41c2bf;
+  --alias-color-theme-secondary: #1e8f8c;
+  --alias-color-theme-background-primary: #004a48;
+  --alias-color-theme-background-secondary: #000000;
+  --alias-color-theme-text-primary: #ffffff;
+  --alias-color-theme-text-secondary: #afd3ce;
+  --alias-color-theme-text-invert: #004a48;
+  --alias-color-theme-scrollbar-border: #000000;
+  --alias-color-theme-scrollbar-background: #1e8f8c;
+  --alias-color-theme-border-strong: #1e8f8c;
+  --alias-color-theme-border-medium: #1e8f8c;
+  --alias-color-theme-border-soft: #046d6c;
+  --alias-color-theme-disabled: color.blue.darkish;
   --alias-type-theme-primary: #TODO;
   --border-small: 1px;
   --border-medium: 2px;
   --border-large: 4px;
   --color-blue-base: #41c2bf;
+  --color-blue-darkish: #1e8f8c;
   --color-blue-dark: #046d6c;
-  --color-blue-darker: #03403e;
+  --color-blue-darker: #004a48;
   --color-blue-light: #afd3ce;
   --color-blue-lightish: #eff7fa;
   --color-white: #ffffff;
@@ -31,19 +32,19 @@
   --color-gray: #666666;
   --color-grayer: #a0a0a0;
   --color-grayish: #ebecee;
-  --color-primary: #TODO;
-  --color-secondary: #TODO;
-  --color-background-primary: #TODO;
-  --color-background-secondary: #TODO;
-  --color-text-primary: #TODO;
-  --color-text-secondary: #TODO;
-  --color-text-invert: #TODO;
-  --color-scrollbar-border: #TODO;
-  --color-scrollbar-background: #TODO;
-  --color-border-strong: #TODO;
-  --color-border-medium: #TODO;
-  --color-border-soft: #TODO;
-  --color-disabled: #TODO;
+  --color-primary: #41c2bf;
+  --color-secondary: #1e8f8c;
+  --color-background-primary: #004a48;
+  --color-background-secondary: #000000;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #afd3ce;
+  --color-text-invert: #004a48;
+  --color-scrollbar-border: #000000;
+  --color-scrollbar-background: #1e8f8c;
+  --color-border-strong: #1e8f8c;
+  --color-border-medium: #1e8f8c;
+  --color-border-soft: #046d6c;
+  --color-disabled: color.blue.darkish;
   --mediaquery-700: 700px;
   --mediaquery-900: 900px;
   --radius-small: 4px;

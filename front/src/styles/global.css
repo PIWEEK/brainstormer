@@ -61,6 +61,11 @@ a:hover {
 textarea {
   resize: none;
 }
+textarea:focus-visible {
+  outline: none !important;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px var(--color-primary);
+}
 
 ::-webkit-scrollbar {
   width: 12px;

@@ -2,27 +2,27 @@
   "alias": {
     "color": {
       "theme"   : {
-        "primary"    : { "value" : "#TODO"},
-        "secondary"  : { "value" : "#TODO"},
+        "primary"    : { "value" : "{color.blue.base.value}"},
+        "secondary"  : { "value" : "{color.blue.darkish.value}"},
         "background" : {
-          "primary"   : { "value" : "#TODO"},
-          "secondary" : { "value" : "#TODO"}
+          "primary"   : { "value" : "{color.blue.darker.value}"},
+          "secondary" : { "value" : "{color.black.value}"}
         },
         "text" : {
-          "primary"   : { "value" : "#TODO"},
-          "secondary" : { "value" : "#TODO"},
-          "invert"    : { "value" : "#TODO"}
+          "primary"   : { "value" : "{color.white.value}"},
+          "secondary" : { "value" : "{color.blue.light.value}"},
+          "invert"    : { "value" : "{color.blue.darker.value}"}
         },
         "scrollbar" : {
-          "border"     : { "value" : "#TODO"},
-          "background" : { "value" : "#TODO"}
+          "border"     : { "value" : "{color.background.secondary}"},
+          "background" : { "value" : "{color.blue.darkish}"}
         },
         "border" : {
-          "strong" : { "value" : "#TODO"},
-          "medium" : { "value" : "#TODO"},
-          "soft"   : { "value" : "#TODO"}
+          "strong" : { "value" : "{color.blue.darkish}"},
+          "medium" : { "value" : "{color.blue.darkish}"},
+          "soft"   : { "value" : "{color.blue.dark}"}
         },
-        "disabled"    : { "value" : "#TODO"}
+        "disabled"    : { "value" : "color.blue.darkish"}
       }
     }
   }
