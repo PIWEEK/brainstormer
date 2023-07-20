@@ -5,7 +5,7 @@ import * as rx from "rxjs/operators"
 
 import type { IStore, Bus } from "$store";
 import type { State, Idea } from "$state";
-import { selectedIdeas, hasLoadingSession, listIndex } from "$state";
+import { selectedIdeas, hasLoadingSession, listIndex, context } from "$state";
 
 import { StoreEvent } from "$store";
 import api from "$lib/api";
@@ -194,7 +194,48 @@ export class NextList extends StoreEvent<State> {
     const topic = session?.topic;
 
     if (id && session && topic){
-      return from(api.search(topic, selectedIdeas(state))).pipe(
+      const { saved, liked, disliked } = context(state);
+      return from(api.next(topic, selectedIdeas(state), saved, liked, disliked)).pipe(
+        rx.map(data => new LoadIdeas(id, this.newListId, data))
+      );
+    } else {
+      return empty();
+    }
+  }
+}
+
+export class KeywordList extends StoreEvent<State> {
+  private newListId = newid();
+
+  constructor(
+    private keyword: string
+  ) {
+    super();
+  }
+
+  update(state: State) {
+    const sesionId = state.currentSession;
+
+    if (sesionId) {
+      const session = state.sessions[sesionId];
+
+      session.lists.push({
+        state: "InitialLoading",
+        id: this.newListId,
+        ideas: [],
+        title: this.keyword,
+      });
+    }
+  }
+
+  watch(state: State, events: Bus<State>): Bus<State> {
+    const id = state.currentSession;
+    const session = id ? state.sessions[id] : undefined;
+    const topic = session?.topic;
+
+    if (id && session && topic){
+      const { saved, liked, disliked } = context(state);
+      return from(api.keyword(topic, this.keyword, saved, liked, disliked)).pipe(
         rx.map(data => new LoadIdeas(id, this.newListId, data))
       );
     } else {
@@ -231,8 +272,9 @@ export class MoreList extends StoreEvent<State> {
 
     if (sessionId && session && topic && indexList !== null){
       const current = session.lists[indexList].ideas;
+      const { saved, liked, disliked } = context(state);
 
-      return from(api.searchMore(topic, current, selectedIdeas(state))).pipe(
+      return from(api.more(topic, current, selectedIdeas(state), saved, liked, disliked)).pipe(
         rx.map(data => new LoadIdeas(sessionId, this.listId, data))
       );
     } else {

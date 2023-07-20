@@ -24,8 +24,15 @@ Home Science Lab | Conduct simple science experiments at home with common househ
 
 The summary cannot exceed three words and the description can be as long as necessary.
 
-These are the previous selected ideas
+{saved_ideas_text}
+
+{liked_ideas_text}
+
+{disliked_ideas_text}
+
+These are the previously selected ideas:
 {previous_text}
+
 """
 
 initial_question_template = """
@@ -35,6 +42,10 @@ Suggest 5 ideas for {topic}.
 question_template = """
 Suggest 5 ideas for {topic} that based combine ideas from {previous_text}.
 {user_inputs_text}
+"""
+
+keyword_question_template = """
+Suggest 5 ideas for {topic} but ONLY give suggestions that *keyword* "{keyword}"
 """
 
 previous_text_template = """
@@ -61,10 +72,25 @@ You're a brainstorming application.
 These are the ideas for: {topic}
 
 {current_text}
-""" 
+"""
+
+saved_ideas_template = """
+The user has already selected these ideas as candidates:
+{}
+"""
+
+liked_ideas_template = """
+The user has already LOVED these ideas
+{}
+"""
+
+disliked_ideas_template = """
+CAREFUL!! The user HATED the following ideas:
+{}
+"""
 
 class GPT_4(BaseEngine):
-    def next(self, topic, previous, user_inputs):
+    def next(self, topic, previous, user_inputs, saved, liked, disliked):
       previous_list = ""
       previous_text = ""
       if previous and len(previous) > 0:
@@ -80,11 +106,29 @@ class GPT_4(BaseEngine):
       else:
         question_text = initial_question_template.format(topic=topic.upper())
 
+      if saved and len(saved) > 0:
+        saved_ideas_text = saved_ideas_template.format("\n".join(saved))
+      else:
+        saved_ideas_text = ""
+
+      if liked and len(liked) > 0:
+        liked_ideas_text = liked_ideas_template.format("\n".join(liked))
+      else:
+        liked_ideas_text = ""
+
+      if disliked and len(disliked) > 0:
+        disliked_ideas_text = disliked_ideas_template.format("\n".join(disliked))
+      else:
+        disliked_ideas_text = ""
+
       messages = [
         {
           "role": "system",
           "content": system_prompt_template.format(
-            previous_text=previous_text)
+              previous_text=previous_text,
+              saved_ideas_text=saved_ideas_text,
+              liked_ideas_text=liked_ideas_text,
+              disliked_ideas_text=disliked_ideas_text)
         },
         {
           "role": "user",
@@ -117,7 +161,65 @@ class GPT_4(BaseEngine):
         "message": completion.choices[0].message.content
       }
 
-    def more(self, topic, previous, current, user_inputs):
+    def keyword(self, topic, keyword, saved, liked, disliked):
+      if saved and len(saved) > 0:
+        saved_ideas_text = saved_ideas_template.format("\n".join(saved))
+      else:
+        saved_ideas_text = ""
+
+      if liked and len(liked) > 0:
+        liked_ideas_text = liked_ideas_template.format("\n".join(liked))
+      else:
+        liked_ideas_text = ""
+
+      if disliked and len(disliked) > 0:
+        disliked_ideas_text = disliked_ideas_template.format("\n".join(disliked))
+      else:
+        disliked_ideas_text = ""
+
+      question_text = keyword_question_template.format(topic=topic.upper(), keyword=keyword.upper())
+
+      messages = [
+        {
+          "role": "system",
+          "content": system_prompt_template.format(
+              previous_text="",
+              saved_ideas_text=saved_ideas_text,
+              liked_ideas_text=liked_ideas_text,
+              disliked_ideas_text=disliked_ideas_text)
+        },
+        {
+          "role": "user",
+          "content": question_text
+        }
+      ]
+
+      completion = openai.ChatCompletion.create(
+        model="gpt-4",
+        presence_penalty=1,
+        temperature=0.6,
+        top_p=1,
+        frequency_penalty=1,
+        max_tokens=512,
+        messages=messages)
+
+      print("=======================================")
+      pprint.pprint(messages)
+      print("=======================================")
+      print(completion.choices[0].message.content)
+      print("=======================================")
+
+      num_request_tokens = 0
+      for message in messages:
+          num_request_tokens += 3 + len(encoding.encode(message["content"]))
+      num_request_tokens += 3  # every reply is primed with <|start|>assistant<|message|>\n",
+
+      return {
+        "tokens": num_request_tokens + len(encoding.encode(completion.choices[0].message.content)),
+        "message": completion.choices[0].message.content
+      }
+
+    def more(self, topic, previous, current, user_inputs, saved, liked, disliked):
       previous_list = ""
       previous_text = ""
       if previous and len(previous) > 0:
@@ -130,11 +232,29 @@ class GPT_4(BaseEngine):
           
       question_text = more_items_template.format(topic=topic.upper(), current="\n".join(current), user_inputs_text=user_inputs_text)
 
+      if saved and len(saved) > 0:
+        saved_ideas_text = saved_ideas_template.format("\n".join(saved))
+      else:
+        saved_ideas_text = ""
+
+      if liked and len(liked) > 0:
+        liked_ideas_text = liked_ideas_template.format("\n".join(liked))
+      else:
+        liked_ideas_text = ""
+
+      if disliked and len(disliked) > 0:
+        disliked_ideas_text = disliked_ideas_template.format("\n".join(disliked))
+      else:
+        disliked_ideas_text = ""
+
       messages = [
         {
           "role": "system",
           "content": system_prompt_template.format(
-            previous_text=previous_text)
+            previous_text="",
+            saved_ideas_text=saved_ideas_text,
+            liked_ideas_text=liked_ideas_text,
+            disliked_ideas_text=disliked_ideas_text)
         },
         {
           "role": "user",

@@ -18,7 +18,7 @@
  import HappyFaceIcon from "$lib/icons/HappyFaceIcon.svelte";
  import SadFaceIcon from "$lib/icons/SadFaceIcon.svelte";
 
- import { InitSession, SelectIdeaCard, NextList, MoreList, RemoveList } from "$events";
+ import { InitSession, SelectIdeaCard, NextList, MoreList, RemoveList, KeywordList } from "$events";
 
  const st = store.get<State>();
 
@@ -66,7 +66,7 @@
  }
 
  function handleSelectKeyword(event: CustomEvent<string>) {
-   // console.log(event.detail);
+   st.emit(new KeywordList(event.detail));
  }
 
  function focusList(listId: string) {

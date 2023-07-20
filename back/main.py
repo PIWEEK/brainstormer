@@ -17,9 +17,35 @@ def generate():
 
     previous = parse_previous(data)
     user_inputs = parse_user_inputs(data)
+    saved = parse_saved(data)
+    liked = parse_liked(data)
+    disliked = parse_disliked(data)
 
     engine = select_engine(engine=engine)
-    completion = engine.next(topic, previous, user_inputs)
+    completion = engine.next(topic, previous, user_inputs, saved, liked, disliked)
+
+    result = parse_result(completion["message"])
+    add_tokens(completion["tokens"], metadata)
+
+    # Return the generated text as a JSON response
+    return jsonify({"metadata": metadata,
+                    "result": result})
+
+@app.route('/api/keyword', methods=['POST'])
+@cross_origin()
+def keyword():
+    data = request.get_json()
+    topic = data['topic']
+    metadata = data['metadata']
+    engine = data.get("engine", "gpt-4")
+
+    keyword = data['keyword']
+    saved = parse_saved(data)
+    liked = parse_liked(data)
+    disliked = parse_disliked(data)
+
+    engine = select_engine(engine=engine)
+    completion = engine.keyword(topic, keyword, saved, liked, disliked)
 
     result = parse_result(completion["message"])
     add_tokens(completion["tokens"], metadata)
@@ -39,9 +65,12 @@ def generate_more():
     current = parse_current(data)
     previous = parse_previous(data)
     user_inputs = parse_user_inputs(data)
+    saved = parse_saved(data)
+    liked = parse_liked(data)
+    disliked = parse_disliked(data)
 
     engine = select_engine(engine=engine)
-    completion = engine.more(topic, previous, current, user_inputs)
+    completion = engine.more(topic, previous, current, user_inputs, saved, liked, disliked)
 
     result = parse_result(completion["message"])
     add_tokens(completion["tokens"], metadata)

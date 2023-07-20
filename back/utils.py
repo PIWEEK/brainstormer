@@ -7,6 +7,24 @@ def parse_current(data):
         current = ["{}|{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['current']]
     return current
 
+def parse_saved(data):
+    result = []
+    if data.get('saved', None):
+        result = ["{}|{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['saved']]
+    return result
+
+def parse_liked(data):
+    result = []
+    if data.get('liked', None):
+        result = ["{}|{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['liked']]
+    return result
+
+def parse_disliked(data):
+    result = []
+    if data.get('disliked', None):
+        result = ["{}|{}|{}".format(i["title"], i["description"], i["keywords"]) for i in data['disliked']]
+    return result
+
 def parse_current_summary(data):
     current = []
     if data.get('current', None):

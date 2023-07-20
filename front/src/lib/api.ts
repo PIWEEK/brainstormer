@@ -15,7 +15,7 @@ let WAIT_TIME = 100;
 let HOST = ""
 let metadata: any = { tokenCount: 0 };
 
-const FAKE_RESPONSES = PUBLIC_FAKE_RESPONSES === "true";
+const FAKE_RESPONSES = false; //PUBLIC_FAKE_RESPONSES === "true";
 console.log("FAKE_RESPONSES", FAKE_RESPONSES);
 
 if (browser && window.location.hostname === "localhost") {
@@ -42,22 +42,37 @@ async function post<T>(uri: string, data: Object): Promise<T> {
   return responseJson["result"] as T;
 }
 
-async function search(topic: string, previous: Idea[]=[]): Promise<Idea[]> {
+async function search(topic: string): Promise<Idea[]> {
   if (FAKE_RESPONSES) {
     await sleep(WAIT_TIME);
     return searchFake;
   }
-
-  return post<Idea[]>("next", { topic, previous });
+  return post<Idea[]>("next", { topic });
 }
 
-async function searchMore(topic: string, current: Idea[], previous: Idea[]=[]): Promise<Idea[]> {
+async function next(topic: string, previous: Idea[], saved: Idea[], liked: Idea[], disliked: Idea[]): Promise<Idea[]> {
+  if (FAKE_RESPONSES) {
+    await sleep(WAIT_TIME);
+    return searchFake;
+  }
+  return post<Idea[]>("next", { topic, previous, saved, liked, disliked });
+}
+
+async function keyword(topic: string, keyword: string, saved: Idea[], liked: Idea[], disliked: Idea[]): Promise<Idea[]> {
+  if (FAKE_RESPONSES) {
+    await sleep(WAIT_TIME);
+    return searchFake;
+  }
+  return post<Idea[]>("keyword", { topic, keyword, saved, liked, disliked });
+}
+
+async function more(topic: string, current: Idea[], previous: Idea[], saved: Idea[], liked: Idea[], disliked: Idea[]): Promise<Idea[]> {
   if (FAKE_RESPONSES) {
     await sleep(WAIT_TIME);
     return moreFake;
   }
 
-  return post<Idea[]>("more", {topic, current, previous});
+  return post<Idea[]>("more", { topic, current, previous, saved, liked, disliked });
 }
 
 async function summary(topic: string, current: Idea[]): Promise<string> {
@@ -71,6 +86,8 @@ async function summary(topic: string, current: Idea[]): Promise<string> {
 
 export default {
   search,
-  searchMore,
-  summary
+  next,
+  more,
+  summary,
+  keyword,
 };

@@ -129,6 +129,13 @@ export function queryIdeas(state: State, predicate: (idea: Idea) => boolean): Id
       }
     }
   }
-
   return result;
+}
+
+export function context(state: State): { saved: Idea[], liked: Idea[], disliked: Idea[] } {
+  const saved = queryIdeas(state, (i: Idea) => !!i.saved);
+  const liked = queryIdeas(state, (i: Idea) => !!i.liked);
+  const disliked = queryIdeas(state, (i: Idea) => !!i.disliked);
+  return { saved, liked, disliked };
+
 }
