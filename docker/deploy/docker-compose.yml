@@ -6,7 +6,7 @@ services:
     image: brainsurfer-nginx:1.0
     container_name: brainsurfer-nginx
     ports:
-      - "5050:5050"
+      - "8002:8002"
     networks:
       - brainsurfer-network
 
