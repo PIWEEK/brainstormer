@@ -66,30 +66,31 @@
  }
 
  function handleSelectKeyword(event: CustomEvent<string>) {
-   console.log(event.detail);
+   // console.log(event.detail);
+ }
+
+ function focusList(listId: string) {
+   setTimeout(() => {
+     const node = document.querySelector(`[data-list-id='${listId}']`);
+     node?.scrollIntoView({ behavior: "smooth", block: "end", inline: "start" });
+   }, 0);
  }
 
  function focusCard(idea: Idea) {
  }
+
 
  let prevList: IdeaList[] | undefined;
  let curList: IdeaList[] | undefined;
 
  $: {
    curList = $session?.lists;
-   console.log(prevList?.length, curList?.length);
 
-   if (prevList && curList) {
-     if (prevList.length < curList.length) {
-       const last = curList[curList.length - 1];
-
-       setTimeout(() => {
-         console.log("TIMEOUT");
-         const node = document.querySelector(`[data-list-id='${last.id}']`);
-         console.log(node);
-         node?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-       }, 0);
-     }
+   if (prevList && curList && (prevList.length < curList.length)) {
+     const last = curList[curList.length - 1];
+     focusList(last.id);
+   } else if (!prevList && curList && curList.length) {
+     focusList(curList[0].id);
    }
    prevList = curList;
  }

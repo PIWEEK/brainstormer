@@ -1,10 +1,13 @@
 <script lang="ts">
+ import { onMount } from 'svelte';
+
  import { browser } from '$app/environment';
 
  import store from "$store";
  import type { State } from "$state";
  import { initialState } from "$state";
  import { StartSavingSystem } from "$events";
+ import { activateStickyScroll } from "$lib/stickyScroll";
 
  import "../styles/normalize.css";
  import "../styles/fonts.css";
@@ -29,6 +32,17 @@
    }
    st.emit(new StartSavingSystem(st));
  }
+
+ let mainElement: HTMLElement;
+
+ onMount(() => {
+   // Only on mobile
+   if (window.innerWidth <= 900) {
+     activateStickyScroll(mainElement);
+   }
+ });
+
+
 </script>
 
 {#if !isHome}
@@ -39,6 +53,7 @@
   <link rel="stylesheet" href={"/themes/" + theme + ".css"} />
 </svelte:head>
 
-<main class:home={isHome}>
+<main bind:this={mainElement}
+      class:home={isHome}>
   <slot/>
 </main>
