@@ -69,8 +69,8 @@
 
     {#if showActions}
       <div class="actions" bind:this={actionsNode}>
-        <Toggle icon="happy" active={idea.liked} on:change={e => dispatch("toggleLike", e.detail)} />
         <Toggle icon="sad" active={idea.disliked} on:change={e => dispatch("toggleDislike", e.detail)} />
+        <Toggle icon="happy" active={idea.liked} on:change={e => dispatch("toggleLike", e.detail)} />
         <Toggle icon="star" active={idea.saved} on:change={e => dispatch("toggleSave", e.detail)} />
       </div>
     {/if}

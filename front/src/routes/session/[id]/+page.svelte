@@ -50,18 +50,30 @@
  function handleLikeCard(listId: string, indexCard: number, event: CustomEvent<boolean>) {
    st.emit(state => updateCard(state, listId, indexCard, idea => {
      idea.liked = event.detail;
+     if (idea.liked) {
+       idea.disliked = false;
+       idea.saved = false;
+     }
    }));
  }
 
  function handleDisikeCard(listId: string, indexCard: number, event: CustomEvent<boolean>) {
    st.emit(state => updateCard(state, listId, indexCard, idea => {
      idea.disliked = event.detail;
+     if (idea.disliked) {
+       idea.liked = false;
+       idea.saved = false;
+     }
    }));
  }
 
  function handleSaveCard(listId: string, indexCard: number, event: CustomEvent<boolean>) {
    st.emit(state => updateCard(state, listId, indexCard, idea => {
      idea.saved = event.detail;
+     if (idea.saved) {
+       idea.liked = false;
+       idea.disliked = false;
+     }
    }));
  }
 
