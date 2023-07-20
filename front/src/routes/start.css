@@ -104,5 +104,8 @@ h2 {
   .start-img {
     display: none;
   }
+  .start-form {
+    padding: var(--spacing-large)
+  }
   
 }
