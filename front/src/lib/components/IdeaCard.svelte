@@ -7,6 +7,7 @@
  import Search from "$components/Search.svelte";
  import Toggle from "$components/Toggle.svelte";
 
+ export let small: boolean = false;
  export let idea: Idea;
  export let showActions: boolean = true;
 
@@ -43,34 +44,35 @@
      class:selected={selected}
      on:click={handleSelect}>
   <p class="title">{idea.title}</p>
-  <p class="description">{idea.description}</p>
+  {#if !small}
+    <p class="description">{idea.description}</p>
 
-  {#if showActions}
-    <div class="keywords" bind:this={keywordsNode}>
-      {#each idea.keywords?.split(" \u00b7 ") as keyword, idx}
-        {#if idx !== 0} {@html "<span>\u00b7<span>"} {/if}<a class="keyword-link" on:click={handleClickKeyword.bind(null, keyword)}>{keyword}</a>
-      {/each}
-    </div>
-  {:else}
-    <div class="keyword-list">{idea.keywords}</div>
-  {/if}
-  
+    {#if showActions}
+      <div class="keywords" bind:this={keywordsNode}>
+        {#each idea.keywords?.split(" \u00b7 ") as keyword, idx}
+          {#if idx !== 0} {@html "<span>\u00b7<span>"} {/if}<a class="keyword-link" on:click={handleClickKeyword.bind(null, keyword)}>{keyword}</a>
+        {/each}
+      </div>
+    {:else}
+      <div class="keyword-list">{idea.keywords}</div>
+    {/if}
 
-  {#if selected}
-    <div bind:this={searchNode}>
-      <Search 
-        placeholder="More like this"
-        color="gray"
-        on:search={handleSubmit}
-        value={idea.input} />
-    </div>
-  {/if}
+    {#if selected}
+      <div bind:this={searchNode}>
+        <Search 
+          placeholder="More like this"
+          color="gray"
+          on:search={handleSubmit}
+                       value={idea.input} />
+      </div>
+    {/if}
 
-  {#if showActions}
-    <div class="actions" bind:this={actionsNode}>
-      <Toggle icon="happy" active={idea.liked} on:change={e => dispatch("toggleLike", e.detail)} />
-      <Toggle icon="sad" active={idea.disliked} on:change={e => dispatch("toggleDislike", e.detail)} />
-      <Toggle icon="star" active={idea.saved} on:change={e => dispatch("toggleSave", e.detail)} />
-    </div>
+    {#if showActions}
+      <div class="actions" bind:this={actionsNode}>
+        <Toggle icon="happy" active={idea.liked} on:change={e => dispatch("toggleLike", e.detail)} />
+        <Toggle icon="sad" active={idea.disliked} on:change={e => dispatch("toggleDislike", e.detail)} />
+        <Toggle icon="star" active={idea.saved} on:change={e => dispatch("toggleSave", e.detail)} />
+      </div>
+    {/if}
   {/if}
 </div>
