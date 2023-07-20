@@ -19,8 +19,8 @@
         },
         "border" : {
           "strong" : { "value" : "{color.blue.darkish}"},
-          "medium" : { "value" : "{color.blue.darkish}"},
-          "soft"   : { "value" : "{color.blue.dark}"}
+          "medium" : { "value" : "{color.blue.dark}"},
+          "soft"   : { "value" : "{color.blue.darker}"}
         },
         "disabled"    : { "value" : "color.blue.darkish"}
       }
