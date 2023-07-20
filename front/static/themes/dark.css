@@ -1,21 +1,21 @@
 /**
  * Do not edit directly
- * Generated on Thu, 20 Jul 2023 10:57:54 GMT
+ * Generated on Thu, 20 Jul 2023 11:52:14 GMT
  */
 
 :root {
   --alias-color-theme-primary: #41c2bf;
   --alias-color-theme-secondary: #1e8f8c;
-  --alias-color-theme-background-primary: #002e2e;
+  --alias-color-theme-background-primary: #003139;
   --alias-color-theme-background-secondary: #000000;
   --alias-color-theme-text-primary: #ffffff;
   --alias-color-theme-text-secondary: #afd3ce;
-  --alias-color-theme-text-invert: #002e2e;
+  --alias-color-theme-text-invert: #003139;
   --alias-color-theme-scrollbar-border: #000000;
   --alias-color-theme-scrollbar-background: #1e8f8c;
   --alias-color-theme-border-strong: #1e8f8c;
   --alias-color-theme-border-medium: #046d6c;
-  --alias-color-theme-border-soft: #002e2e;
+  --alias-color-theme-border-soft: #003139;
   --alias-color-theme-disabled: color.blue.darkish;
   --alias-type-theme-primary: 'Lato', sans-serif;
   --alias-type-theme-secondary: 'Roboto', sans-serif;
@@ -31,7 +31,7 @@
   --color-blue-base: #41c2bf;
   --color-blue-darkish: #1e8f8c;
   --color-blue-dark: #046d6c;
-  --color-blue-darker: #002e2e;
+  --color-blue-darker: #003139;
   --color-blue-light: #afd3ce;
   --color-blue-lightish: #eff7fa;
   --color-white: #ffffff;
@@ -41,16 +41,16 @@
   --color-grayish: #ebecee;
   --color-primary: #41c2bf;
   --color-secondary: #1e8f8c;
-  --color-background-primary: #002e2e;
+  --color-background-primary: #003139;
   --color-background-secondary: #000000;
   --color-text-primary: #ffffff;
   --color-text-secondary: #afd3ce;
-  --color-text-invert: #002e2e;
+  --color-text-invert: #003139;
   --color-scrollbar-border: #000000;
   --color-scrollbar-background: #1e8f8c;
   --color-border-strong: #1e8f8c;
   --color-border-medium: #046d6c;
-  --color-border-soft: #002e2e;
+  --color-border-soft: #003139;
   --color-disabled: color.blue.darkish;
   --mediaquery-700: 700px;
   --mediaquery-900: 900px;
