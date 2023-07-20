@@ -1,0 +1,21 @@
+{
+    "alias": {
+      "type": {
+        "theme"   : {
+          "primary"    : { "value" : "{type.font.family.barbie.value}"},
+          "secondary"  : { "value" : "{type.font.family.barbie.value}"},
+          "size" : 
+          {
+            "small"   : { "value": "28px" },
+            "medium" : { "value": "32px" },       
+            "large"   : { "value": "40px" },
+            "extra-large" : { "value": "100px" }
+          },
+          "line-height" : {
+            "regular" : { "value": "0.8" }, 
+            "large" : { "value": "1" }
+          }
+        }
+      }
+    }
+  }

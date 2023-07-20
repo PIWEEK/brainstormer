@@ -9,6 +9,8 @@ html {
 
 body {
 	font-family: var(--type-secondary);
+  font-size: var(--type-size-medium);
+  line-height: var(--type-line-height-regular);
   background: var(--color-background-primary);
   color: var(--color-text-primary);
   display: flex;

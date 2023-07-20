@@ -3,7 +3,18 @@
       "type": {
         "theme"   : {
           "primary"    : { "value" : "{type.font.family.lato.value}"},
-          "secondary"  : { "value" : "{type.font.family.roboto.value}"}
+          "secondary"  : { "value" : "{type.font.family.roboto.value}"},
+          "size" : 
+          {
+            "small"   : { "value": "{type.font.size.14}" },
+            "medium" : { "value": "{type.font.size.16}" },       
+            "large"   : { "value": "{type.font.size.22}" },
+            "extra-large" : { "value": "{type.font.size.40}" }
+          },
+          "line-height" : {
+            "regular" : { "value": "{type.font.line-height.2}" }, 
+            "large" : { "value": "{type.font.line-height.3}" }
+          }
         }
       }
     }

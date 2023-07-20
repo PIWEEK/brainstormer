@@ -1,7 +1,7 @@
 import StyleDictionary from 'style-dictionary';
 
 console.log('Build started...');
-['light', 'dark'].map(function(theme) {
+['light', 'dark', 'barbie'].map(function(theme) {
     console.log('\n======================================');
     console.log(`\nProcessing: [${theme}]`);
     const StyleDictionaryExtended = StyleDictionary.extend(getStyleDictionaryConfig(theme, "web"));

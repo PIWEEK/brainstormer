@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 20 Jul 2023 09:58:52 GMT
+ * Generated on Thu, 20 Jul 2023 10:57:54 GMT
  */
 
 :root {
@@ -19,6 +19,12 @@
   --alias-color-theme-disabled: color.blue.darkish;
   --alias-type-theme-primary: 'Lato', sans-serif;
   --alias-type-theme-secondary: 'Roboto', sans-serif;
+  --alias-type-theme-size-small: 14px;
+  --alias-type-theme-size-medium: 16px;
+  --alias-type-theme-size-large: 22px;
+  --alias-type-theme-size-extra-large: 40px;
+  --alias-type-theme-line-height-regular: 1.2;
+  --alias-type-theme-line-height-large: 1.5;
   --border-small: 1px;
   --border-medium: 2px;
   --border-large: 4px;
@@ -69,9 +75,13 @@
   --type-line-height-large: 1.5;
   --type-font-family-roboto: 'Roboto', sans-serif;
   --type-font-family-lato: 'Lato', sans-serif;
+  --type-font-family-barbie: 'Barbie', sans-serif;
   --type-font-size-14: 14px;
   --type-font-size-16: 16px;
   --type-font-size-22: 22px;
   --type-font-size-32: 32px;
   --type-font-size-40: 40px;
+  --type-font-line-height-1: 1;
+  --type-font-line-height-2: 1.2;
+  --type-font-line-height-3: 1.5;
 }

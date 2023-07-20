@@ -4,10 +4,10 @@
     "secondary" : { "value": "{alias.type.theme.secondary.value}" },
     "size" : 
     {
-      "small"   : { "value": "{type.font.size.14}" },
-      "medium" : { "value": "{type.font.size.16}" },       
-      "large"   : { "value": "{type.font.size.22}" },
-      "extra-large" : { "value": "{type.font.size.40}" }
+      "small"   : { "value": "{alias.type.theme.size.small.value}" },
+      "medium" : { "value": "{alias.type.theme.size.medium.value}" },       
+      "large"   : { "value": "{alias.type.theme.size.large.value}" },
+      "extra-large" : { "value": "{alias.type.theme.size.extra-large.value}" }
     },
     "weight" : {
       "light" : { "value": "300" }, 
@@ -15,13 +15,14 @@
       "bold" : { "value": "700" }
     },
     "line-height" : {
-      "regular" : { "value": "1.2" }, 
-      "large" : { "value": "1.5" }
+      "regular" : { "value": "{alias.type.theme.line-height.regular.value}" }, 
+      "large" : { "value": "{alias.type.theme.line-height.large.value}" }
     },    
     "font": {
       "family" : { 
         "roboto" : {"value" : "'Roboto', sans-serif"},
-        "lato" : {"value" : "'Lato', sans-serif"}
+        "lato" : {"value" : "'Lato', sans-serif"},
+        "barbie" : {"value" : "'Barbie', sans-serif"}
       },
       "size" : {
         "14" : { "value": "14px" }, 
@@ -29,6 +30,11 @@
         "22" : { "value": "22px" }, 
         "32" : { "value": "32px" }, 
         "40" : { "value": "40px" }
+      },
+      "line-height" : {
+        "1" : { "value" : "1"},
+        "2" : { "value" : "1.2"},
+        "3" : { "value" : "1.5"}
       }
     }
   }

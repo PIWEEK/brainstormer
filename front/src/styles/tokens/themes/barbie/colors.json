@@ -1,0 +1,29 @@
+{
+    "alias": {
+      "color": {
+        "theme"   : {
+          "primary"    : { "value" : "#f200a1"},
+          "secondary"  : { "value" : "#55a8ff"},
+          "background" : {
+            "primary"   : { "value" : "#fcdce5"},
+            "secondary" : { "value" : "{color.white}"}
+          },
+          "text" : {
+            "primary"   : { "value" : "{color.black}"},
+            "secondary" : { "value" : "#55a8ff"},
+            "invert"    : { "value" : "{color.white}"}
+          },
+          "scrollbar" : {
+            "border"     : { "value" : "#ffffff"},
+            "background" : { "value" : "#f200a1"}
+          },
+          "border" : {
+            "strong" : { "value" : "#6fb7fe"},
+            "medium" : { "value" : "#6fb7fe"},
+            "soft"   : { "value" : "#fcdce5"}
+          },
+          "disabled"    : { "value" : "{color.grayish}"}
+        }
+      }
+    }
+  }
