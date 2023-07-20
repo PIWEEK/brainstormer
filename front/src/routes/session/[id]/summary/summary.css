@@ -91,7 +91,7 @@ h3 {
 
 /*Media queries*/
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .summary-wrapper {
     width: 100%;
     display: flex;
@@ -110,8 +110,15 @@ h3 {
     padding: 0 1rem;
   }
 
+  .summary {
+    padding-top: var(--spacing-medium);
+  }
+  :global(.summary .summary-content h2) {
+    margin-bottom: var(--spacing-medium);
+  }
+
   h3 {
-    display: none;
+    margin: var(--spacing-medium) 0 0;
   }
 
   ul {
