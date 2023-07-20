@@ -24,6 +24,9 @@
  const st = store.start(initialState);
 
  if (browser) {
+   (window as any).setTheme = (input: string) => {
+     theme = input;
+   }
    st.emit(new StartSavingSystem(st));
  }
 </script>
