@@ -16,7 +16,7 @@
 
  export const ssr = false;
 
- let theme = "dark";
+ let theme = "light";
 
  let isHome: boolean;
  $: isHome = $page.url.pathname === "/";

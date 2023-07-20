@@ -2,7 +2,7 @@
   min-width: 400px;
   max-width: 400px;
   background: var(--color-background-secondary);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-medium);
   padding-bottom: var(--spacing-medium);
 }
 
@@ -34,7 +34,6 @@ ul {
 .list-header {
   display: flex;
   padding: var(--spacing-medium) var(--spacing-small) var(--spacing-medium) var(--spacing-medium);
-  border-radius: var(--radius-small) var(--radius-small) 0 0;
   border-bottom: var(--border-medium) solid var(--color-border-soft);
   align-items: center;
   color: var(--color-text-secondary);
@@ -64,6 +63,7 @@ ul {
 .topics.selected-ideas {
   .list-header:not(:first-child) {
     border-top: var(--spacing-small) solid var(--color-background-primary);
+    border-radius: 0;
   }
 
   ul {
