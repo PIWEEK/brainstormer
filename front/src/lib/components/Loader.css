@@ -5,7 +5,7 @@
 
 .time {
   position: absolute;
-  bottom: 33%;
+  bottom: calc(50% - 38px);
   color: white;
   left: 0;
   width: 100%;
