@@ -63,6 +63,10 @@
  }
 </script>
 
+<svelte:head>
+  <title>{($session?.topic) ? ("Brainsurfer: " + $session?.topic) : "Brainsurfer"}</title>
+</svelte:head>
+
 {#each ($session?.lists || []) as list}
   <section class="topics" data-list-id={list.id}>
     {#if list.state === "InitialLoading" }

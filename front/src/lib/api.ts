@@ -30,6 +30,7 @@ async function search(topic: string, previous: Idea[]=[]): Promise<Idea[]> {
     return searchFake;
   }
   
+  const engine = (window as any).engine || "gpt-4";
   const response = await fetch(`${HOST}/api/next`, {
     method: "POST",
     mode: "cors",
@@ -40,6 +41,7 @@ async function search(topic: string, previous: Idea[]=[]): Promise<Idea[]> {
       metadata: metadata,
       topic: topic,
       previous: previous,
+      engine,
     })
   });
 
@@ -56,6 +58,7 @@ async function searchMore(topic: string, current: Idea[], previous: Idea[]=[]): 
     return moreFake;
   }
 
+  const engine = (window as any).engine || "gpt-4";
   const response = await fetch(`${HOST}/api/more`, {
     method: "POST",
     mode: "cors",
@@ -67,6 +70,7 @@ async function searchMore(topic: string, current: Idea[], previous: Idea[]=[]): 
       topic: topic,
       current: current,
       previous: previous,
+      engine,
     })
   });
 
@@ -83,6 +87,7 @@ async function summary(topic: string, current: Idea[]) {
     return summaryFake["response"];
   }
 
+  const engine = (window as any).engine || "gpt-4";
   const response = await fetch(`${HOST}/api/summary`, {
     method: "POST",
     mode: "cors",

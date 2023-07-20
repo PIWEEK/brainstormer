@@ -22,6 +22,10 @@
  
 </script>
 
+<svelte:head>
+  <title>Brainsurfer</title>
+</svelte:head>
+
 <section class="start">
   <div class="start-img"></div>
   <div class="start-form">
