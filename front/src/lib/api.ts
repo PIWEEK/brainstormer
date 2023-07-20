@@ -14,6 +14,8 @@ let WAIT_TIME = 100;
 let HOST = ""
 let metadata: any = { tokenCount: 0 };
 
+const VITE_FAKE_RESPONSES = import.meta.env.VITE_FAKE_RESPONSES;
+
 if (browser && window.location.hostname === "localhost") {
   HOST = "http://localhost:5000";
 }
