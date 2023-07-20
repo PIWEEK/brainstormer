@@ -20,18 +20,18 @@
 }
 
 .title {
-  font-size: var(--type-large);
+  font-size: var(--type-size-large);
   font-weight: var(--type-weight-bold);
 }
 
 .description {
-  font-size: var(--type-medium);
+  font-size: var(--type-size-medium);
   line-height: var(--type-line-height-regular);
   margin: var(--spacing-small) 0;
 }
 
 .keywords {
-  font-size: var(--type-small);
+  font-size: var(--type-size-small);
   line-height: var(--type-line-height-regular);
   margin: var(--spacing-small) 0;
   font-weight: var(--type-weight-bold);
@@ -47,7 +47,7 @@
 }
 
 .keyword-list {
-  font-size: var(--type-small);
+  font-size: var(--type-size-small);
   line-height: var(--type-line-height-regular);
   margin: var(--spacing-small) 0;
   font-weight: var(--type-weight-bold);

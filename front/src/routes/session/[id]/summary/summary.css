@@ -20,7 +20,7 @@
 
 h3 {
   color: var(--color-primary);
-  font-size: var(--type-large);
+  font-size: var(--type-size-large);
   margin: var(--spacing-large);
   font-weight: var(--type-weight-bold);
 }
@@ -47,13 +47,13 @@ h3 {
   :global(h2) {
     margin: 0 0 var(--spacing-large) 0;
     color: var(--color-primary);
-    font-size: var(--type-large);
+    font-size: var(--type-size-large);
     line-height: var(--type-line-height-regular);
     font-weight: var(--type-weight-bold);
   }
 
   :global(h3) {
-    font-size: var(--type-large);
+    font-size: var(--type-size-large);
     color: var(--color-text-primary);
     margin: var(--spacing-medium) 0;
     text-align: left;

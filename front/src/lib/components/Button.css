@@ -8,7 +8,7 @@
   cursor: pointer;
   display: block;
   font-family: var(--type-primary);
-  font-size: var(--type-medium);
+  font-size: var(--type-size-medium);
   font-weight: var(--type-weight-bold);
   height: 45px;
   padding: 0 var(--spacing-medium);
@@ -30,7 +30,7 @@
   cursor: pointer;
   display: block;
   font-family: var(--type-primary);
-  font-size: var(--type-medium);
+  font-size: var(--type-size-medium);
   font-weight: var(--type-weight-bold);
   height: 45px;
   padding: 0 var(--spacing-medium);

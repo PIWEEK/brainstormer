@@ -18,7 +18,7 @@
 }
 
 .font-large .searchInput {
-  font-size: var(--type-large);
+  font-size: var(--type-size-large);
   font-weight: var(--type-weight-bold);
   padding-left: var(--spacing-medium);
 }
@@ -42,6 +42,6 @@
 
 @media (max-width: 700px) {
   .font-large .searchInput {
-    font-size: var(--type-medium);
+    font-size: var(--type-size-medium);
   }
 }

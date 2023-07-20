@@ -2,10 +2,13 @@
   "type": {
     "primary"   : { "value": "{type.font.family.lato}" },
     "secondary" : { "value": "{type.font.family.roboto}" }, 
-    "small"   : { "value": "{type.font.size.14}" },
-    "medium" : { "value": "{type.font.size.16}" },       
-    "large"   : { "value": "{type.font.size.22}" },
-    "extra-large" : { "value": "{type.font.size.40}" },
+    "size" : 
+    {
+      "small"   : { "value": "{type.font.size.14}" },
+      "medium" : { "value": "{type.font.size.16}" },       
+      "large"   : { "value": "{type.font.size.22}" },
+      "extra-large" : { "value": "{type.font.size.40}" }
+    },
     "weight" : {
       "light" : { "value": "300" }, 
       "regular" : { "value": "500" }, 
