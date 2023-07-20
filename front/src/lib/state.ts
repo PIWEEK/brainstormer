@@ -113,3 +113,22 @@ export function updateCard(state: State, listId: string, indexCard: number, upda
 
   updatefn(idea);
 }
+
+export function queryIdeas(state: State, predicate: (idea: Idea) => boolean): Idea[] {
+  const result = [] as Idea[];
+  const session = currentSession(state);
+
+  if (!session) {
+    return result;
+  }
+
+  for (const list of session.lists) {
+    for (const idea of list.ideas) {
+      if (predicate(idea)) {
+        result.push(idea);
+      }
+    }
+  }
+
+  return result;
+}
