@@ -4,15 +4,19 @@
  import { page } from '$app/stores'
  import { goto } from '$app/navigation';
  import { browser } from '$app/environment';
- 
+
  import type {State} from "$state";
  import { currentSession, updateCard } from "$state";
  import store from "$store";
- 
+
  import Header from "$components/Header.svelte";
  import Button from "$components/Button.svelte";
  import IdeaCard from "$components/IdeaCard.svelte";
  import Loader from "$components/Loader.svelte";
+
+ import StarIcon from "$lib/icons/StarIcon.svelte";
+ import HappyFaceIcon from "$lib/icons/HappyFaceIcon.svelte";
+ import SadFaceIcon from "$lib/icons/SadFaceIcon.svelte";
 
  import { InitSession, SelectIdeaCard, NextList, MoreList, RemoveList } from "$events";
 
@@ -31,7 +35,7 @@
  function handleSelectCard(listId: string, indexCard: number) {
    st.emit(new SelectIdeaCard(listId, indexCard));
  }
- 
+
  function handleNextClick(listId: string, indexCard: number, event: CustomEvent<string>) {
    st.emit(new NextList(listId, indexCard, event.detail));
  }
@@ -39,13 +43,13 @@
  function handleRemoveList(listId: string) {
    st.emit(new RemoveList(listId));
  }
- 
+
  function handleLikeCard(listId: string, indexCard: number, event: CustomEvent<boolean>) {
    st.emit(state => updateCard(state, listId, indexCard, idea => {
      idea.liked = event.detail;
    }));
  }
- 
+
  function handleDisikeCard(listId: string, indexCard: number, event: CustomEvent<boolean>) {
    st.emit(state => updateCard(state, listId, indexCard, idea => {
      idea.disliked = event.detail;
@@ -66,6 +70,33 @@
 <svelte:head>
   <title>{($session?.topic) ? ("Brainsurfer: " + $session?.topic) : "Brainsurfer"}</title>
 </svelte:head>
+
+<section class="topics selected-ideas">
+  <div class="list-header">
+    <div class="list-header-title">
+      <span class="icon"><StarIcon border="var(--color-text-secondary)" /></span>Selected ideas
+    </div>
+  </div>
+  <ul>
+  </ul>
+  <div class="list-header">
+    <div class="list-header-title">
+      <span class="icon"><HappyFaceIcon border="var(--color-text-secondary)" /></span>Liked ideas
+    </div>
+
+  </div>
+
+  <ul>
+  </ul>
+  <div class="list-header">
+    <div class="list-header-title">
+      <span class="icon"><SadFaceIcon border="var(--color-text-secondary)" /></span>Disliked ideas
+    </div>
+
+  </div>
+  <ul>
+  </ul>
+</section>
 
 {#each ($session?.lists || []) as list}
   <section class="topics" data-list-id={list.id}>
@@ -98,7 +129,6 @@
           </li>
         {/each}
       </ul>
-      
       <div class="topic-more">
         {#if list.state === "MoreLoading"}
           <div class="loader">
@@ -114,4 +144,3 @@
     {/if}
   </section>
 {/each}
-
