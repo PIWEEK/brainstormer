@@ -14,6 +14,8 @@ services:
     image: brainsurfer-back:1.0
     container_name: brainsurfer-back
     command: bash -c ".venv/bin/python main.py"
+    environment:
+      - BRAINSTORMER_OPENAI_KEY=${BRAINSTORMER_OPENAI_KEY}
     networks:
       - brainsurfer-network
 
