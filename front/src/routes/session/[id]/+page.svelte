@@ -5,8 +5,8 @@
  import { goto } from '$app/navigation';
  import { browser } from '$app/environment';
 
- import type {State} from "$state";
- import { currentSession, updateCard } from "$state";
+ import type { State, IdeaList, Idea } from "$state";
+ import { currentSession, updateCard, queryIdeas } from "$state";
  import store from "$store";
 
  import Header from "$components/Header.svelte";
@@ -22,7 +22,10 @@
 
  const st = store.get<State>();
 
- let session = st.select(currentSession);
+ const session = st.select(currentSession);
+ const saved = st.select(st => queryIdeas(st, (i: Idea) => !!i.saved));
+ const liked = st.select(st => queryIdeas(st, (i: Idea) => !!i.liked));
+ const disliked = st.select(st => queryIdeas(st, (i: Idea) => !!i.disliked));
 
  $: if (browser && !$session) {
    st.emit(new InitSession($page.params.id))
@@ -62,9 +65,35 @@
    }));
  }
 
- function handleSelectKeyword(listId: string, event: CustomEvent<string>) {
+ function handleSelectKeyword(event: CustomEvent<string>) {
    console.log(event.detail);
  }
+
+ function focusCard(idea: Idea) {
+ }
+
+ let prevList: IdeaList[] | undefined;
+ let curList: IdeaList[] | undefined;
+
+ $: {
+   curList = $session?.lists;
+   console.log(prevList?.length, curList?.length);
+
+   if (prevList && curList) {
+     if (prevList.length < curList.length) {
+       const last = curList[curList.length - 1];
+
+       setTimeout(() => {
+         console.log("TIMEOUT");
+         const node = document.querySelector(`[data-list-id='${last.id}']`);
+         console.log(node);
+         node?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+       }, 0);
+     }
+   }
+   prevList = curList;
+ }
+
 </script>
 
 <svelte:head>
@@ -78,16 +107,37 @@
     </div>
   </div>
   <ul>
+    {#each $saved as idea}
+      <li class="item">
+        <IdeaCard
+          small
+          idea={idea}
+          on:select={focusCard.bind(null, idea)}
+          on:selectKeyword={handleSelectKeyword}
+        />
+      </li>
+    {/each}
   </ul>
+
   <div class="list-header">
     <div class="list-header-title">
       <span class="icon"><HappyFaceIcon border="var(--color-text-secondary)" /></span>Liked ideas
     </div>
-
   </div>
 
   <ul>
+    {#each $liked as idea}
+      <li class="item">
+        <IdeaCard
+          small
+          idea={idea}
+          on:select={focusCard.bind(null, idea)}
+          on:selectKeyword={handleSelectKeyword}
+        />
+      </li>
+    {/each}
   </ul>
+
   <div class="list-header">
     <div class="list-header-title">
       <span class="icon"><SadFaceIcon border="var(--color-text-secondary)" /></span>Disliked ideas
@@ -95,6 +145,16 @@
 
   </div>
   <ul>
+    {#each $disliked as idea}
+      <li class="item">
+        <IdeaCard
+          small
+          idea={idea}
+          on:select={focusCard.bind(null, idea)}
+          on:selectKeyword={handleSelectKeyword}
+        />
+      </li>
+    {/each}
   </ul>
 </section>
 
@@ -124,7 +184,7 @@
               on:toggleLike={handleLikeCard.bind(null, list.id, indexCard)}
               on:toggleDislike={handleDisikeCard.bind(null, list.id, indexCard)}
               on:toggleSave={handleSaveCard.bind(null, list.id, indexCard)}
-              on:selectKeyword={handleSelectKeyword.bind(null, list.id)}
+              on:selectKeyword={handleSelectKeyword}
             />
           </li>
         {/each}
