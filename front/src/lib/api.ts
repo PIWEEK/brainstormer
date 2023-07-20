@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import type { Idea } from "$state";
+import { PUBLIC_FAKE_RESPONSES } from '$env/static/public';
 
 /* @type Idea[] */
 import searchFake from "./fakeresponses/search.json";
@@ -14,7 +15,8 @@ let WAIT_TIME = 100;
 let HOST = ""
 let metadata: any = { tokenCount: 0 };
 
-const VITE_FAKE_RESPONSES = import.meta.env.VITE_FAKE_RESPONSES;
+const FAKE_RESPONSES = PUBLIC_FAKE_RESPONSES === "true";
+console.log("FAKE_RESPONSES", FAKE_RESPONSES);
 
 if (browser && window.location.hostname === "localhost") {
   HOST = "http://localhost:5000";
@@ -41,7 +43,7 @@ async function post<T>(uri: string, data: Object): Promise<T> {
 }
 
 async function search(topic: string, previous: Idea[]=[]): Promise<Idea[]> {
-  if (VITE_FAKE_RESPONSES) {
+  if (FAKE_RESPONSES) {
     await sleep(WAIT_TIME);
     return searchFake;
   }
@@ -50,7 +52,7 @@ async function search(topic: string, previous: Idea[]=[]): Promise<Idea[]> {
 }
 
 async function searchMore(topic: string, current: Idea[], previous: Idea[]=[]): Promise<Idea[]> {
-  if (VITE_FAKE_RESPONSES) {
+  if (FAKE_RESPONSES) {
     await sleep(WAIT_TIME);
     return moreFake;
   }
@@ -59,7 +61,7 @@ async function searchMore(topic: string, current: Idea[], previous: Idea[]=[]): 
 }
 
 async function summary(topic: string, current: Idea[]): Promise<string> {
-  if (VITE_FAKE_RESPONSES) {
+  if (FAKE_RESPONSES) {
     await sleep(WAIT_TIME);
     return summaryFake["response"];
   }
