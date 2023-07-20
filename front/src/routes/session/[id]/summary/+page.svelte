@@ -29,6 +29,10 @@
 
 </script>
 
+<svelte:head>
+  <title>{($session?.topic) ? ("Brainsurfer: " + $session?.topic) : "Brainsurfer"}</title>
+</svelte:head>
+
 <section class="summary-wrapper">
   <div class="topics">
     <h3>Your ideation flow</h3>
