@@ -24,32 +24,29 @@ function sleep(time: number) {
   return new Promise(res => setTimeout(res, time));
 }
 
-async function search(topic: string, previous: Idea[]=[]): Promise<Idea[]> {
-  if (FAKE_REPONSES) {
-    await sleep(WAIT_TIME);
-    return searchFake;
-  }
-  
+async function post<T>(uri: string, data: Object): Promise<T> {
   const engine = (window as any).engine || "gpt-4";
-  const response = await fetch(`${HOST}/api/next`, {
+  const response = await fetch(`${HOST}/api/${uri}`, {
     method: "POST",
     mode: "cors",
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify({
-      metadata: metadata,
-      topic: topic,
-      previous: previous,
-      engine,
-    })
+    body: JSON.stringify({...data, metadata, engine})
   });
 
   const responseJson = await response.json();
   metadata = responseJson["metadata"];
-  console.log(metadata);
-  const result = responseJson["result"] as Idea[];
-  return result;
+  return responseJson["result"] as T;
+}
+
+async function search(topic: string, previous: Idea[]=[]): Promise<Idea[]> {
+  if (FAKE_REPONSES) {
+    await sleep(WAIT_TIME);
+    return searchFake;
+  }
+
+  return post<Idea[]>("next", { topic, previous });
 }
 
 async function searchMore(topic: string, current: Idea[], previous: Idea[]=[]): Promise<Idea[]> {
@@ -58,54 +55,16 @@ async function searchMore(topic: string, current: Idea[], previous: Idea[]=[]): 
     return moreFake;
   }
 
-  const engine = (window as any).engine || "gpt-4";
-  const response = await fetch(`${HOST}/api/more`, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      metadata: metadata,
-      topic: topic,
-      current: current,
-      previous: previous,
-      engine,
-    })
-  });
-
-  const responseJson = await response.json();
-  metadata = responseJson["metadata"];
-  console.log(metadata);
-  const result = responseJson["result"]
-  return result;
+  return post<Idea[]>("more", {topic, current, previous});
 }
 
-async function summary(topic: string, current: Idea[]) {
+async function summary(topic: string, current: Idea[]): Promise<string> {
   if (FAKE_REPONSES) {
     await sleep(WAIT_TIME);
     return summaryFake["response"];
   }
 
-  const engine = (window as any).engine || "gpt-4";
-  const response = await fetch(`${HOST}/api/summary`, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      metadata: metadata,
-      topic: topic,
-      current: current
-    })
-  });
-
-  const responseJson = await response.json();
-  metadata = responseJson["metadata"];
-  console.log(metadata);
-  const result = responseJson["result"]
-  return result;
+  return post<string>("summary", { topic, current });
 }
 
 export default {
