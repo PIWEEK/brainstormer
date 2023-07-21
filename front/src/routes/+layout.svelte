@@ -37,9 +37,9 @@
 
  onMount(() => {
    // Only on mobile
-   if (window.innerWidth <= 900) {
-     activateStickyScroll(mainElement);
-   }
+   //if (window.innerWidth <= 900) {
+   //  activateStickyScroll(mainElement);
+   //}
  });
 
 
@@ -54,6 +54,7 @@
 </svelte:head>
 
 <main bind:this={mainElement}
+      class={`theme-${theme}`}
       class:home={isHome}>
   <slot/>
 </main>
