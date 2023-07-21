@@ -4,13 +4,36 @@
   display: flex;
   gap: var(--spacing-small);
   position: absolute;
-  top: 0;
-  right: var(--spacing-small);
+  top: var(--spacing-medium);
+  right: var(--spacing-medium);
   font-variant: small-caps;
 
   span {
     color: var(--color-text-secondary);
   }
+
+  a {
+    width: 32px;
+  }
+  svg:hover {
+    border-color: red;
+    background-color: red;
+    stroke: blue;
+    fill: blue;
+    display: none;
+  }
+}
+
+svg.s-WzTHnRjpQJN- {
+  stroke: blue;
+}
+
+a:hover svg {
+  border-color: red;
+  background-color: red;
+  stroke: blue !important;
+  fill: blue;
+  display: none;
 }
 
 .start {
@@ -113,6 +136,10 @@ h2 {
 /*Media queries*/
 
 @media (max-width: 900px) {
+
+  .main-logo {
+    margin-top: var(--spacing-large);
+  }
 
   .start-img {
     display: none;

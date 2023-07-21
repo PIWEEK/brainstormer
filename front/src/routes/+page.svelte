@@ -7,6 +7,10 @@
  import store from "$store";
  import { CreateSession, InitSession } from "$events";
 
+ import LightIcon from "$lib/icons/LightIcon.svelte";
+ import DarkIcon from "$lib/icons/DarkIcon.svelte";
+ import GiftIcon from "$lib/icons/GiftIcon.svelte";
+
  const st = store.get<State>();
  const recent = st.select(st => st.recent ? [...st.recent].reverse() : []);
 
@@ -32,10 +36,9 @@
 
 <section class="start">
   <div class="themes">
-    <span>temas</span>
-    <a href="#" on:click={setTheme.bind(null, "light")}>light</a>
-    <a href="#" on:click={setTheme.bind(null, "dark")}>dark</a>
-    <a href="#" on:click={setTheme.bind(null, "barbie")}>secret</a>
+    <a href="#" on:click={setTheme.bind(null, "light")}><LightIcon border="var(--color-text-secondary)" /></a>
+    <a href="#" on:click={setTheme.bind(null, "dark")}><DarkIcon border="var(--color-text-secondary)" /></a>
+    <a href="#" on:click={setTheme.bind(null, "barbie")}><GiftIcon border="var(--color-text-secondary)" /></a>
   </div>
   <div class="start-img"></div>
   <div class="start-form">
