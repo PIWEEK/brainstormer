@@ -15,7 +15,7 @@ let WAIT_TIME = 100;
 let HOST = ""
 let metadata: any = { tokenCount: 0 };
 
-const FAKE_RESPONSES = false; //PUBLIC_FAKE_RESPONSES === "true";
+const FAKE_RESPONSES = PUBLIC_FAKE_RESPONSES === "true";
 console.log("FAKE_RESPONSES", FAKE_RESPONSES);
 
 if (browser && window.location.hostname === "localhost") {
