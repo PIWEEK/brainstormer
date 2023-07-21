@@ -37,9 +37,9 @@
 
  onMount(() => {
    // Only on mobile
-   if (window.innerWidth <= 900) {
-     activateStickyScroll(mainElement);
-   }
+   //if (window.innerWidth <= 900) {
+   //  activateStickyScroll(mainElement);
+   //}
  });
 
 

@@ -80,7 +80,12 @@ export class LoadIdeas extends StoreEvent<State> {
     if (targetListIndex !== null) {
       const current = session.lists[targetListIndex];
       current.state = "Loaded";
-      current.ideas = current.ideas.concat(this.ideas);
+
+      const newIdeas = this.ideas.map((i: Idea, idx: number) => {
+        return {...i, listId: this.listId, index: idx};
+      })
+
+      current.ideas = current.ideas.concat(newIdeas);
     }
   }
 }
@@ -107,7 +112,7 @@ export class CreateSession extends StoreEvent<State> {
       }]
     }
   }
-  
+
   watch(state: State, events: Bus<State>): Bus<State> {
     goto("/session/" + this.sessionId);
 
@@ -133,7 +138,7 @@ export class SelectIdeaCard extends StoreEvent<State> {
     const id = state.currentSession;
 
     if (!id) return;
-    
+
     const selid = `${this.listId},${this.indexCard}`;
     const session = state.sessions[id];
 
@@ -152,7 +157,7 @@ export class SelectIdeaCard extends StoreEvent<State> {
         session.selected?.delete(e);
       }
     }
-    
+
     session.selected?.add(selid);
   }
 }
@@ -265,7 +270,7 @@ export class MoreList extends StoreEvent<State> {
       }
     }
   }
-  
+
   watch(state: State, events: Bus<State>): Bus<State> {
     const sessionId = state.currentSession;
     const session = sessionId ? state.sessions[sessionId] : undefined;

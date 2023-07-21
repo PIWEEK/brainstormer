@@ -8,6 +8,7 @@ export interface Idea {
   input?: string | null;
 
   listId?: string;
+  index?: number;
   liked?: boolean;
   disliked?: boolean;
   saved?: boolean;

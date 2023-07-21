@@ -61,14 +61,15 @@ ul {
 }
 
 .topics.selected-ideas {
-  .list-header:not(:first-child) {
-    border-top: var(--spacing-small) solid var(--color-background-primary);
-    border-radius: 0;
+  .selected-section {
+    height: calc(33vh - 50px);
+
+    &:not(:first-child) .list-header{
+      border-top: var(--spacing-small) solid var(--color-background-primary);
+      border-radius: 0;
+    }
   }
 
-  ul {
-    height: calc(33vh - 105px);
-  }
 }
 
 /*Media queries*/

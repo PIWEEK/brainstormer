@@ -89,8 +89,21 @@
  }
 
  function focusCard(idea: Idea) {
- }
+   if (idea.listId && idea.index !== undefined) {
+     focusList(idea.listId);
+     const listNode = document.querySelector(`[data-list-id='${idea.listId}']`);
 
+     if (!listNode) {
+       return;
+     }
+
+     const ideaNode = listNode.querySelectorAll(".idea-card")[idea.index];
+
+     setTimeout(() => {
+       ideaNode.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+     }, 0);
+   }
+ }
 
  let prevList: IdeaList[] | undefined;
  let curList: IdeaList[] | undefined;
@@ -114,61 +127,67 @@
 </svelte:head>
 
 <section class="topics selected-ideas">
-  <div class="list-header">
-    <div class="list-header-title">
-      <span class="icon"><StarIcon border="var(--color-text-secondary)" /></span>Selected ideas
+  <div class="selected-section">
+    <div class="list-header">
+      <div class="list-header-title">
+        <span class="icon"><StarIcon border="var(--color-text-secondary)" /></span>Selected ideas
+      </div>
     </div>
-  </div>
-  <ul>
-    {#each $saved as idea}
-      <li class="item">
-        <IdeaCard
-          small
-          idea={idea}
-          on:select={focusCard.bind(null, idea)}
-          on:selectKeyword={handleSelectKeyword}
-        />
-      </li>
-    {/each}
-  </ul>
-
-  <div class="list-header">
-    <div class="list-header-title">
-      <span class="icon"><HappyFaceIcon border="var(--color-text-secondary)" /></span>Liked ideas
-    </div>
+    <ul>
+      {#each $saved as idea}
+        <li class="item">
+          <IdeaCard
+            small
+            idea={idea}
+                 on:select={focusCard.bind(null, idea)}
+            on:selectKeyword={handleSelectKeyword}
+          />
+        </li>
+      {/each}
+    </ul>
   </div>
 
-  <ul>
-    {#each $liked as idea}
-      <li class="item">
-        <IdeaCard
-          small
-          idea={idea}
-          on:select={focusCard.bind(null, idea)}
-          on:selectKeyword={handleSelectKeyword}
-        />
-      </li>
-    {/each}
-  </ul>
-
-  <div class="list-header">
-    <div class="list-header-title">
-      <span class="icon"><SadFaceIcon border="var(--color-text-secondary)" /></span>Disliked ideas
+  <div class="selected-section">
+    <div class="list-header">
+      <div class="list-header-title">
+        <span class="icon"><HappyFaceIcon border="var(--color-text-secondary)" /></span>Liked ideas
+      </div>
     </div>
 
+    <ul>
+      {#each $liked as idea}
+        <li class="item">
+          <IdeaCard
+            small
+            idea={idea}
+                 on:select={focusCard.bind(null, idea)}
+            on:selectKeyword={handleSelectKeyword}
+          />
+        </li>
+      {/each}
+    </ul>
   </div>
-  <ul>
-    {#each $disliked as idea}
-      <li class="item">
-        <IdeaCard
-          small
-          idea={idea}
-          on:select={focusCard.bind(null, idea)}
-          on:selectKeyword={handleSelectKeyword}
-        />
-      </li>
-    {/each}
-  </ul>
+
+  <div class="selected-section">
+    <div class="list-header">
+      <div class="list-header-title">
+        <span class="icon"><SadFaceIcon border="var(--color-text-secondary)" /></span>Disliked ideas
+      </div>
+
+    </div>
+    <ul>
+      {#each $disliked as idea}
+        <li class="item">
+          <IdeaCard
+            small
+            idea={idea}
+                 on:select={focusCard.bind(null, idea)}
+            on:selectKeyword={handleSelectKeyword}
+          />
+        </li>
+      {/each}
+    </ul>
+  </div>
 </section>
 
 {#each ($session?.lists || []) as list}
