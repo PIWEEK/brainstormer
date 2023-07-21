@@ -42,15 +42,7 @@ async function post<T>(uri: string, data: Object): Promise<T> {
   return responseJson["result"] as T;
 }
 
-async function search(topic: string): Promise<Idea[]> {
-  if (FAKE_RESPONSES) {
-    await sleep(WAIT_TIME);
-    return searchFake;
-  }
-  return post<Idea[]>("next", { topic });
-}
-
-async function next(topic: string, previous: Idea[], saved: Idea[], liked: Idea[], disliked: Idea[]): Promise<Idea[]> {
+async function search(topic: string, previous: Idea[], saved: Idea[], liked: Idea[], disliked: Idea[]): Promise<Idea[]> {
   if (FAKE_RESPONSES) {
     await sleep(WAIT_TIME);
     return searchFake;
@@ -86,7 +78,6 @@ async function summary(topic: string, current: Idea[]): Promise<string> {
 
 export default {
   search,
-  next,
   more,
   summary,
   keyword,

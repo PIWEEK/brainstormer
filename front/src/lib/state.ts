@@ -7,6 +7,7 @@ export interface Idea {
   keywords: string;
   input?: string | null;
 
+  listId?: string;
   liked?: boolean;
   disliked?: boolean;
   saved?: boolean;
@@ -24,6 +25,11 @@ export interface Session {
   topic: string;
   selected?: Set<string>;
   lists: IdeaList[];
+
+  saved?: Idea[];
+  liked?: Idea[];
+  disliked?: Idea[];
+  
   summary?: {
     state: 'Loading' | 'Loaded',
     data?: string

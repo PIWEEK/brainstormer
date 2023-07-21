@@ -6,6 +6,7 @@
  import type { Idea } from "$state";
  import Search from "$components/Search.svelte";
  import Toggle from "$components/Toggle.svelte";
+ import Button from "$components/Button.svelte";
 
  export let small: boolean = false;
  export let idea: Idea;
@@ -44,7 +45,11 @@
      class:selected={selected}
      on:click={handleSelect}>
   <p class="title">{idea.title}</p>
-  {#if !small}
+  {#if small}
+    <div class="close-button">
+      <Button type="icon-secondary" icon="remove"/>
+    </div>
+  {:else}
     <p class="description">{idea.description}</p>
 
     {#if showActions}

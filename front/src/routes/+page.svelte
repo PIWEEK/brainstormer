@@ -19,6 +19,10 @@
  function openSession(id: string) {
    st.emit(new InitSession(id));
  }
+
+ function setTheme(theme: string) {
+   (window as any).setTheme(theme);
+ }
  
 </script>
 
@@ -27,6 +31,12 @@
 </svelte:head>
 
 <section class="start">
+  <div class="themes">
+    <span>temas</span>
+    <a href="#" on:click={setTheme.bind(null, "light")}>light</a>
+    <a href="#" on:click={setTheme.bind(null, "dark")}>dark</a>
+    <a href="#" on:click={setTheme.bind(null, "barbie")}>secret</a>
+  </div>
   <div class="start-img"></div>
   <div class="start-form">
     <h1 class="main-logo">

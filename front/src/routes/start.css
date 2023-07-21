@@ -1,5 +1,18 @@
 /* START
 ----------------------------------*/
+.themes {
+  display: flex;
+  gap: var(--spacing-small);
+  position: absolute;
+  top: 0;
+  right: var(--spacing-small);
+  font-variant: small-caps;
+
+  span {
+    color: var(--color-text-secondary);
+  }
+}
+
 .start {
   box-sizing: border-box;
   display: flex;

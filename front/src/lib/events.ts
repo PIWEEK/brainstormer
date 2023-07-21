@@ -111,8 +111,10 @@ export class CreateSession extends StoreEvent<State> {
   watch(state: State, events: Bus<State>): Bus<State> {
     goto("/session/" + this.sessionId);
 
+    const { saved, liked, disliked } = context(state);
+
     return concat(
-      from(api.search(this.search)).pipe(
+      from(api.search(this.search, [], saved, liked, disliked)).pipe(
         rx.map(data => new LoadIdeas(this.sessionId, this.listId, data))
       )
     );
@@ -195,7 +197,7 @@ export class NextList extends StoreEvent<State> {
 
     if (id && session && topic){
       const { saved, liked, disliked } = context(state);
-      return from(api.next(topic, selectedIdeas(state), saved, liked, disliked)).pipe(
+      return from(api.search(topic, selectedIdeas(state), saved, liked, disliked)).pipe(
         rx.map(data => new LoadIdeas(id, this.newListId, data))
       );
     } else {
