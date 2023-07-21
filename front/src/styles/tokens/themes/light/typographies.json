@@ -8,7 +8,7 @@
           {
             "small"   : { "value": "{type.font.size.14}" },
             "medium" : { "value": "{type.font.size.16}" },       
-            "large"   : { "value": "{type.font.size.22}" },
+            "large"   : { "value": "{type.font.size.24}" },
             "extra-large" : { "value": "{type.font.size.40}" }
           },
           "line-height" : {

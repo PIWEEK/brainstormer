@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 20 Jul 2023 11:52:14 GMT
+ * Generated on Fri, 21 Jul 2023 09:46:02 GMT
  */
 
 :root {
@@ -21,7 +21,7 @@
   --alias-type-theme-secondary: 'Roboto', sans-serif;
   --alias-type-theme-size-small: 14px;
   --alias-type-theme-size-medium: 16px;
-  --alias-type-theme-size-large: 22px;
+  --alias-type-theme-size-large: 24px;
   --alias-type-theme-size-extra-large: 40px;
   --alias-type-theme-line-height-regular: 1.2;
   --alias-type-theme-line-height-large: 1.5;
@@ -66,7 +66,7 @@
   --type-secondary: 'Roboto', sans-serif;
   --type-size-small: 14px;
   --type-size-medium: 16px;
-  --type-size-large: 22px;
+  --type-size-large: 24px;
   --type-size-extra-large: 40px;
   --type-weight-light: 300;
   --type-weight-regular: 500;
@@ -78,7 +78,7 @@
   --type-font-family-barbie: 'Barbie', sans-serif;
   --type-font-size-14: 14px;
   --type-font-size-16: 16px;
-  --type-font-size-22: 22px;
+  --type-font-size-24: 24px;
   --type-font-size-32: 32px;
   --type-font-size-40: 40px;
   --type-font-line-height-1: 1;

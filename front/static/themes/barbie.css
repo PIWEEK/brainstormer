@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 20 Jul 2023 11:52:14 GMT
+ * Generated on Fri, 21 Jul 2023 09:46:02 GMT
  */
 
 :root {
@@ -8,7 +8,7 @@
   --alias-color-theme-secondary: #55a8ff;
   --alias-color-theme-background-primary: #fcdce5;
   --alias-color-theme-background-secondary: #ffffff;
-  --alias-color-theme-text-primary: #000000;
+  --alias-color-theme-text-primary: #f200a1;
   --alias-color-theme-text-secondary: #55a8ff;
   --alias-color-theme-text-invert: #ffffff;
   --alias-color-theme-scrollbar-border: #ffffff;
@@ -20,8 +20,8 @@
   --alias-type-theme-primary: 'Barbie', sans-serif;
   --alias-type-theme-secondary: 'Barbie', sans-serif;
   --alias-type-theme-size-small: 28px;
-  --alias-type-theme-size-medium: 32px;
-  --alias-type-theme-size-large: 40px;
+  --alias-type-theme-size-medium: 36px;
+  --alias-type-theme-size-large: 44px;
   --alias-type-theme-size-extra-large: 100px;
   --alias-type-theme-line-height-regular: 0.8;
   --alias-type-theme-line-height-large: 1;
@@ -43,7 +43,7 @@
   --color-secondary: #55a8ff;
   --color-background-primary: #fcdce5;
   --color-background-secondary: #ffffff;
-  --color-text-primary: #000000;
+  --color-text-primary: #f200a1;
   --color-text-secondary: #55a8ff;
   --color-text-invert: #ffffff;
   --color-scrollbar-border: #ffffff;
@@ -65,8 +65,8 @@
   --type-primary: 'Barbie', sans-serif;
   --type-secondary: 'Barbie', sans-serif;
   --type-size-small: 28px;
-  --type-size-medium: 32px;
-  --type-size-large: 40px;
+  --type-size-medium: 36px;
+  --type-size-large: 44px;
   --type-size-extra-large: 100px;
   --type-weight-light: 300;
   --type-weight-regular: 500;
@@ -78,7 +78,7 @@
   --type-font-family-barbie: 'Barbie', sans-serif;
   --type-font-size-14: 14px;
   --type-font-size-16: 16px;
-  --type-font-size-22: 22px;
+  --type-font-size-24: 24px;
   --type-font-size-32: 32px;
   --type-font-size-40: 40px;
   --type-font-line-height-1: 1;

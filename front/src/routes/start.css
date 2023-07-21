@@ -73,7 +73,7 @@ a:hover svg {
   
   span {
     font-weight: var(--type-weight-bold);
-    font-size: 24px;
+    font-size: var(--type-size-large);
   }
 }
 

@@ -9,7 +9,7 @@
             "secondary" : { "value" : "{color.white}"}
           },
           "text" : {
-            "primary"   : { "value" : "{color.black}"},
+            "primary"   : { "value" : "#f200a1"},
             "secondary" : { "value" : "#55a8ff"},
             "invert"    : { "value" : "{color.white}"}
           },

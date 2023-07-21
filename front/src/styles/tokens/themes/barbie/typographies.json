@@ -7,8 +7,8 @@
           "size" : 
           {
             "small"   : { "value": "28px" },
-            "medium" : { "value": "32px" },       
-            "large"   : { "value": "40px" },
+            "medium" : { "value": "36px" },       
+            "large"   : { "value": "44px" },
             "extra-large" : { "value": "100px" }
           },
           "line-height" : {
