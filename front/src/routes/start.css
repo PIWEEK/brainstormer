@@ -50,6 +50,14 @@ a:hover svg {
   width: 100%;
 }
 
+:global(.theme-barbie) .start-img {
+  background-image: url($lib/images/start3.png);
+}
+
+:global(.theme-dark) .start-img {
+  background-image: url($lib/images/start-img2.png);
+}
+
 .start-form {
   background-color: var(--color-background-primary);
   display: flex;

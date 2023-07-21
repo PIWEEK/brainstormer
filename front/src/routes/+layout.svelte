@@ -54,6 +54,7 @@
 </svelte:head>
 
 <main bind:this={mainElement}
+      class={`theme-${theme}`}
       class:home={isHome}>
   <slot/>
 </main>
